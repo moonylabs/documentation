@@ -1,58 +1,22 @@
 import { useState, useEffect } from 'react';
 
 export const DisclaimerModal = () => {
-  const [isVisible, setIsVisible] = useState(true);
-  const [isDark, setIsDark] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Show on every visit (no localStorage check)
-    setIsVisible(true);
-    
-    // Check dark mode
-    const checkDark = () => {
-      if (typeof window !== 'undefined') {
-        const dark = document.documentElement.classList.contains('dark') || 
-                     window.matchMedia('(prefers-color-scheme: dark)').matches;
-        setIsDark(dark);
-      }
-    };
-
-    checkDark();
-
-    const observer = new MutationObserver(checkDark);
-    if (typeof document !== 'undefined') {
-      observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['class']
-      });
+    // Check if user has already dismissed the disclaimer
+    const hasSeenDisclaimer = localStorage.getItem('moony-disclaimer-dismissed');
+    if (!hasSeenDisclaimer) {
+      setIsVisible(true);
     }
-
-    const mediaQuery = typeof window !== 'undefined' ? window.matchMedia('(prefers-color-scheme: dark)') : null;
-    if (mediaQuery) {
-      mediaQuery.addEventListener('change', checkDark);
-    }
-
-    return () => {
-      observer.disconnect();
-      if (mediaQuery) {
-        mediaQuery.removeEventListener('change', checkDark);
-      }
-    };
   }, []);
 
   const handleDismiss = () => {
+    localStorage.setItem('moony-disclaimer-dismissed', 'true');
     setIsVisible(false);
   };
 
   if (!isVisible) return null;
-
-  const bg = isDark ? '#1e293b' : 'white';
-  const text = isDark ? '#e2e8f0' : '#1e293b';
-  const textSec = isDark ? '#cbd5e1' : '#475569';
-  const overlay = isDark ? 'rgba(0, 0, 0, 0.7)' : 'rgba(0, 0, 0, 0.5)';
-  const shadow = isDark 
-    ? '0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2)'
-    : '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
 
   return (
     <div
@@ -62,8 +26,8 @@ export const DisclaimerModal = () => {
         left: 0,
         right: 0,
         bottom: 0,
-        zIndex: 99999,
-        backgroundColor: overlay,
+        zIndex: 9999,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -72,75 +36,64 @@ export const DisclaimerModal = () => {
     >
       <div
         style={{
-          backgroundColor: bg,
+          backgroundColor: 'white',
           borderRadius: '1rem',
           padding: '2rem',
           maxWidth: '600px',
           width: '100%',
           maxHeight: '90vh',
           overflowY: 'auto',
-          boxShadow: shadow
+          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
         }}
       >
-        <h2 style={{ marginTop: 0, marginBottom: '1.5rem', color: text, fontSize: '1.5rem', fontWeight: 600, textAlign: 'justify' }}>
+        <h2 style={{ marginTop: 0, marginBottom: '1.5rem', color: '#1e293b', fontSize: '1.5rem', fontWeight: 600 }}>
           Before Proceeding, Please Review
         </h2>
         
         <div style={{ marginBottom: '1.5rem' }}>
-          <h3 style={{ marginTop: 0, marginBottom: '0.75rem', color: '#502792', fontSize: '1.125rem', fontWeight: 600, textAlign: 'justify' }}>
+          <h3 style={{ marginTop: 0, marginBottom: '0.75rem', color: '#502792', fontSize: '1.125rem', fontWeight: 600 }}>
             Informational Use Only
           </h3>
-          <p style={{ marginBottom: '1rem', color: textSec, lineHeight: '1.6', textAlign: 'justify' }}>
+          <p style={{ marginBottom: '1rem', color: '#475569', lineHeight: '1.6', textAlign: 'justify' }}>
             This documentation is provided solely for informational and educational purposes and does not constitute financial, legal, tax, or investment advice. Nothing herein should be interpreted as an offer, solicitation, recommendation, or endorsement to acquire, hold, use, or dispose of any digital asset.
           </p>
         </div>
 
         <div style={{ marginBottom: '1.5rem' }}>
-          <h3 style={{ marginTop: 0, marginBottom: '0.75rem', color: '#502792', fontSize: '1.125rem', fontWeight: 600, textAlign: 'justify' }}>
+          <h3 style={{ marginTop: 0, marginBottom: '0.75rem', color: '#502792', fontSize: '1.125rem', fontWeight: 600 }}>
             Protocol Characteristics
           </h3>
-          <p style={{ marginBottom: '1rem', color: textSec, lineHeight: '1.6', textAlign: 'justify' }}>
+          <p style={{ marginBottom: '1rem', color: '#475569', lineHeight: '1.6', textAlign: 'justify' }}>
             Moony is a decentralized protocol governed by an immutable smart contract deployed on the Solana blockchain. Once deployed onchain, the protocol operates autonomously according to its code and is not controlled or managed by Moony Labs or any other party. Its behavior and outcomes depend on technical, network, and external conditions inherent to decentralized systems.
           </p>
         </div>
 
         <div style={{ marginBottom: '1.5rem' }}>
-          <h3 style={{ marginTop: 0, marginBottom: '0.75rem', color: '#502792', fontSize: '1.125rem', fontWeight: 600, textAlign: 'justify' }}>
+          <h3 style={{ marginTop: 0, marginBottom: '0.75rem', color: '#502792', fontSize: '1.125rem', fontWeight: 600 }}>
             Risks and No Warranties
           </h3>
-          <p style={{ marginBottom: '1rem', color: textSec, lineHeight: '1.6', textAlign: 'justify' }}>
+          <p style={{ marginBottom: '1rem', color: '#475569', lineHeight: '1.6', textAlign: 'justify' }}>
             Interaction with blockchain technology involves inherent risks, including potential loss of value, smart contract vulnerabilities, network failures, and irreversible transactions.
           </p>
-          <p style={{ marginBottom: '1rem', color: textSec, lineHeight: '1.6', textAlign: 'justify' }}>
+          <p style={{ marginBottom: '1rem', color: '#475569', lineHeight: '1.6', textAlign: 'justify' }}>
             The protocol and this documentation are provided "as is," without warranties of any kind. To the maximum extent permitted by law, Moony Labs LLC disclaims all liability arising from use of the protocol or reliance on this documentation.
           </p>
-          <p style={{ marginBottom: 0, color: textSec, lineHeight: '1.6', textAlign: 'justify', fontWeight: 500 }}>
+          <p style={{ marginBottom: 0, color: '#475569', lineHeight: '1.6', textAlign: 'justify', fontWeight: 500 }}>
             By continuing, you acknowledge and accept these risks.
           </p>
         </div>
 
-        <div style={{ marginTop: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
           <a
             href="/disclaimer"
             style={{
               color: '#502792',
-              textDecoration: 'none',
-              fontSize: '0.9375rem',
-              fontWeight: 500,
-              padding: '0.5rem 0',
-              transition: 'color 0.2s ease, text-decoration 0.2s ease',
-              alignSelf: 'flex-start'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.color = '#3d1f6f';
-              e.target.style.textDecoration = 'underline';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.color = '#502792';
-              e.target.style.textDecoration = 'none';
+              textDecoration: 'underline',
+              fontSize: '0.875rem',
+              fontWeight: 500
             }}
           >
-            View Full Disclaimer
+            View Full Disclaimer →
           </a>
           <button
             onClick={handleDismiss}
@@ -153,8 +106,8 @@ export const DisclaimerModal = () => {
               fontSize: '1rem',
               fontWeight: 600,
               cursor: 'pointer',
-              transition: 'background-color 0.2s ease',
-              alignSelf: 'flex-start'
+              transition: 'background-color 0.2s',
+              flexShrink: 0
             }}
             onMouseEnter={(e) => e.target.style.backgroundColor = '#3d1f6f'}
             onMouseLeave={(e) => e.target.style.backgroundColor = '#502792'}
