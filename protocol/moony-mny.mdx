@@ -12,7 +12,7 @@ icon: coins
 Moony (MNY) is the native digital asset of the Moony protocol, implemented as a standard SPL token on the Solana blockchain to enable permissionless peer-to-peer payments without intermediaries.
 </p>
 
-<div id="mint-address-card" style={{
+<div id="mint-address-card" className="address-card" style={{
   border: '1px solid #e5e7eb',
   borderRadius: '0.75rem',
   padding: '1.25rem',
@@ -21,7 +21,7 @@ Moony (MNY) is the native digital asset of the Moony protocol, implemented as a 
   boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
 }}>
   <div style={{ marginBottom: '0.75rem' }}>
-    <h4 style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: '#1e293b' }}>
+    <h4 className="address-label" style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: '#1e293b' }}>
       Token Mint Address
     </h4>
   </div>
@@ -31,7 +31,7 @@ Moony (MNY) is the native digital asset of the Moony protocol, implemented as a 
     gap: '0.75rem',
     flexWrap: 'wrap'
   }}>
-    <code style={{
+    <code className="address-code" style={{
       flex: 1,
       minWidth: '200px',
       padding: '0.5rem 0.75rem',
@@ -97,7 +97,7 @@ Moony (MNY) is the native digital asset of the Moony protocol, implemented as a 
   </div>
 </div>
 
-<div id="authority-address-card" style={{
+<div id="authority-address-card" className="address-card" style={{
   border: '1px solid #e5e7eb',
   borderRadius: '0.75rem',
   padding: '1.25rem',
@@ -106,7 +106,7 @@ Moony (MNY) is the native digital asset of the Moony protocol, implemented as a 
   boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
 }}>
   <div style={{ marginBottom: '0.75rem' }}>
-    <h4 style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: '#1e293b' }}>
+    <h4 className="address-label" style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: '#1e293b' }}>
       Authority Address
     </h4>
   </div>
@@ -116,7 +116,7 @@ Moony (MNY) is the native digital asset of the Moony protocol, implemented as a 
     gap: '0.75rem',
     flexWrap: 'wrap'
   }}>
-    <code style={{
+    <code className="address-code" style={{
       flex: 1,
       minWidth: '200px',
       padding: '0.5rem 0.75rem',
@@ -185,6 +185,56 @@ Moony (MNY) is the native digital asset of the Moony protocol, implemented as a 
 <script dangerouslySetInnerHTML={{__html: `
 (function() {
   if (typeof window === 'undefined') return;
+  
+  function updateDarkMode() {
+    const isDark = document.documentElement.classList.contains('dark') || 
+                   window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    const cards = document.querySelectorAll('.address-card');
+    const labels = document.querySelectorAll('.address-label');
+    const codes = document.querySelectorAll('.address-code');
+    
+    cards.forEach(card => {
+      if (isDark) {
+        card.style.backgroundColor = '#1e293b';
+        card.style.borderColor = '#334155';
+        card.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.3)';
+      } else {
+        card.style.backgroundColor = '#ffffff';
+        card.style.borderColor = '#e5e7eb';
+        card.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
+      }
+    });
+    
+    labels.forEach(label => {
+      label.style.color = isDark ? '#e2e8f0' : '#1e293b';
+    });
+    
+    codes.forEach(code => {
+      if (isDark) {
+        code.style.backgroundColor = '#0f172a';
+        code.style.borderColor = '#1e293b';
+        code.style.color = '#cbd5e1';
+      } else {
+        code.style.backgroundColor = '#f8fafc';
+        code.style.borderColor = '#e2e8f0';
+        code.style.color = '#475569';
+      }
+    });
+  }
+  
+  // Initial update
+  updateDarkMode();
+  
+  // Watch for dark mode changes
+  const observer = new MutationObserver(updateDarkMode);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class']
+  });
+  
+  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  mediaQuery.addEventListener('change', updateDarkMode);
   
   function setupCopyButton(buttonId, textId, address) {
     const btn = document.getElementById(buttonId);

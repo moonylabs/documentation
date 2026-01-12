@@ -88,3 +88,26 @@ nav a:hover,
 body:has([style*="z-index: 99999"]) footer {
   display: none !important;
 }
+
+/* Address card dark mode styling */
+.dark .address-card,
+.dark #mint-address-card,
+.dark #authority-address-card {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+.dark .address-label,
+.dark #mint-address-card h4,
+.dark #authority-address-card h4 {
+  color: #e2e8f0 !important;
+}
+
+.dark .address-code,
+.dark #mint-address-card code,
+.dark #authority-address-card code {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+  color: #cbd5e1 !important;
+}
