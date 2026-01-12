@@ -1,51 +1,42 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export const DisclaimerModal = () => {
-  const [isVisible, setIsVisible] = useState(true);
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [mounted, setMounted] = useState(false);
+export default function DisclaimerModal() {
+  const [show, setShow] = useState(true);
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    
-    // Check for dark mode
-    const checkDarkMode = () => {
-      if (typeof window === 'undefined') return;
-      const isDark = document.documentElement.classList.contains('dark') || 
-                    window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setIsDarkMode(isDark);
+    const checkDark = () => {
+      if (typeof window !== 'undefined') {
+        const dark = document.documentElement.classList.contains('dark') || 
+                     window.matchMedia('(prefers-color-scheme: dark)').matches;
+        setIsDark(dark);
+      }
     };
 
-    checkDarkMode();
-    
-    // Watch for theme changes
-    const observer = new MutationObserver(checkDarkMode);
+    checkDark();
+
+    const observer = new MutationObserver(checkDark);
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['class']
     });
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    mediaQuery.addEventListener('change', checkDarkMode);
+    mediaQuery.addEventListener('change', checkDark);
 
     return () => {
       observer.disconnect();
-      mediaQuery.removeEventListener('change', checkDarkMode);
+      mediaQuery.removeEventListener('change', checkDark);
     };
   }, []);
 
-  const handleDismiss = () => {
-    setIsVisible(false);
-  };
+  if (!show) return null;
 
-  // Only render after mounting to avoid hydration issues
-  if (!mounted || !isVisible) return null;
-
-  const modalBg = isDarkMode ? '#1e293b' : 'white';
-  const textColor = isDarkMode ? '#e2e8f0' : '#1e293b';
-  const textSecondary = isDarkMode ? '#cbd5e1' : '#475569';
-  const overlayBg = isDarkMode ? 'rgba(0, 0, 0, 0.7)' : 'rgba(0, 0, 0, 0.5)';
-  const shadow = isDarkMode 
+  const bg = isDark ? '#1e293b' : 'white';
+  const text = isDark ? '#e2e8f0' : '#1e293b';
+  const textSec = isDark ? '#cbd5e1' : '#475569';
+  const overlay = isDark ? 'rgba(0, 0, 0, 0.7)' : 'rgba(0, 0, 0, 0.5)';
+  const shadow = isDark 
     ? '0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2)'
     : '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
 
@@ -57,8 +48,8 @@ export const DisclaimerModal = () => {
         left: 0,
         right: 0,
         bottom: 0,
-        zIndex: 9999,
-        backgroundColor: overlayBg,
+        zIndex: 99999,
+        backgroundColor: overlay,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -67,7 +58,7 @@ export const DisclaimerModal = () => {
     >
       <div
         style={{
-          backgroundColor: modalBg,
+          backgroundColor: bg,
           borderRadius: '1rem',
           padding: '2rem',
           maxWidth: '600px',
@@ -77,7 +68,7 @@ export const DisclaimerModal = () => {
           boxShadow: shadow
         }}
       >
-        <h2 style={{ marginTop: 0, marginBottom: '1.5rem', color: textColor, fontSize: '1.5rem', fontWeight: 600, textAlign: 'justify' }}>
+        <h2 style={{ marginTop: 0, marginBottom: '1.5rem', color: text, fontSize: '1.5rem', fontWeight: 600, textAlign: 'justify' }}>
           Before Proceeding, Please Review
         </h2>
         
@@ -85,7 +76,7 @@ export const DisclaimerModal = () => {
           <h3 style={{ marginTop: 0, marginBottom: '0.75rem', color: '#502792', fontSize: '1.125rem', fontWeight: 600, textAlign: 'justify' }}>
             Informational Use Only
           </h3>
-          <p style={{ marginBottom: '1rem', color: textSecondary, lineHeight: '1.6', textAlign: 'justify' }}>
+          <p style={{ marginBottom: '1rem', color: textSec, lineHeight: '1.6', textAlign: 'justify' }}>
             This documentation is provided solely for informational and educational purposes and does not constitute financial, legal, tax, or investment advice. Nothing herein should be interpreted as an offer, solicitation, recommendation, or endorsement to acquire, hold, use, or dispose of any digital asset.
           </p>
         </div>
@@ -94,7 +85,7 @@ export const DisclaimerModal = () => {
           <h3 style={{ marginTop: 0, marginBottom: '0.75rem', color: '#502792', fontSize: '1.125rem', fontWeight: 600, textAlign: 'justify' }}>
             Protocol Characteristics
           </h3>
-          <p style={{ marginBottom: '1rem', color: textSecondary, lineHeight: '1.6', textAlign: 'justify' }}>
+          <p style={{ marginBottom: '1rem', color: textSec, lineHeight: '1.6', textAlign: 'justify' }}>
             Moony is a decentralized protocol governed by an immutable smart contract deployed on the Solana blockchain. Once deployed onchain, the protocol operates autonomously according to its code and is not controlled or managed by Moony Labs or any other party. Its behavior and outcomes depend on technical, network, and external conditions inherent to decentralized systems.
           </p>
         </div>
@@ -103,13 +94,13 @@ export const DisclaimerModal = () => {
           <h3 style={{ marginTop: 0, marginBottom: '0.75rem', color: '#502792', fontSize: '1.125rem', fontWeight: 600, textAlign: 'justify' }}>
             Risks and No Warranties
           </h3>
-          <p style={{ marginBottom: '1rem', color: textSecondary, lineHeight: '1.6', textAlign: 'justify' }}>
+          <p style={{ marginBottom: '1rem', color: textSec, lineHeight: '1.6', textAlign: 'justify' }}>
             Interaction with blockchain technology involves inherent risks, including potential loss of value, smart contract vulnerabilities, network failures, and irreversible transactions.
           </p>
-          <p style={{ marginBottom: '1rem', color: textSecondary, lineHeight: '1.6', textAlign: 'justify' }}>
+          <p style={{ marginBottom: '1rem', color: textSec, lineHeight: '1.6', textAlign: 'justify' }}>
             The protocol and this documentation are provided "as is," without warranties of any kind. To the maximum extent permitted by law, Moony Labs LLC disclaims all liability arising from use of the protocol or reliance on this documentation.
           </p>
-          <p style={{ marginBottom: 0, color: textSecondary, lineHeight: '1.6', textAlign: 'justify', fontWeight: 500 }}>
+          <p style={{ marginBottom: 0, color: textSec, lineHeight: '1.6', textAlign: 'justify', fontWeight: 500 }}>
             By continuing, you acknowledge and accept these risks.
           </p>
         </div>
@@ -138,7 +129,7 @@ export const DisclaimerModal = () => {
             View Full Disclaimer
           </a>
           <button
-            onClick={handleDismiss}
+            onClick={() => setShow(false)}
             style={{
               backgroundColor: '#502792',
               color: 'white',
@@ -160,4 +151,4 @@ export const DisclaimerModal = () => {
       </div>
     </div>
   );
-};
+}
