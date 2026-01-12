@@ -75,16 +75,18 @@
   },
   "footer": {
     "copyright": "© 2026 Moony Labs, LLC.",
-    "links": [
-      {
-        "label": "Disclaimer",
-        "href": "/disclaimer"
-      },
-      {
-        "label": "Licensing",
-        "href": "/licensing"
-      }
-    ],
+    "links": {
+      "items": [
+        {
+          "label": "Disclaimer",
+          "href": "/disclaimer"
+        },
+        {
+          "label": "Licensing",
+          "href": "/licensing"
+        }
+      ]
+    },
     "socials": {
       "x": "https://x.com/moonylabs",
       "github": "https://github.com/moonylabs"
