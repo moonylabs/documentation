@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 export default function DisclaimerModal() {
   const [show, setShow] = useState(true);
   const [isDark, setIsDark] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    
     const checkDark = () => {
       if (typeof window !== 'undefined') {
         const dark = document.documentElement.classList.contains('dark') || 
@@ -38,7 +42,15 @@ export default function DisclaimerModal() {
     ? '0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2)'
     : '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
 
-  return (
+  if (!mounted) {
+    return <></>;
+  }
+
+  if (!show) {
+    return <></>;
+  }
+
+  const modalContent = (
     <div
       style={{
         position: 'fixed',
@@ -48,7 +60,7 @@ export default function DisclaimerModal() {
         bottom: 0,
         zIndex: 99999,
         backgroundColor: overlay,
-        display: show ? 'flex' : 'none',
+        display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         padding: '1rem'
@@ -151,4 +163,6 @@ export default function DisclaimerModal() {
       </div>
     </div>
   );
+
+  return typeof window !== 'undefined' ? createPortal(modalContent, document.body) : <></>;
 }
