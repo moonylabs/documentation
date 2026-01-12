@@ -1,0 +1,40 @@
+/* Custom hover styles for navigation menu items */
+/* Use the light color (#E7D9FD) for hover in both light and dark modes */
+
+/* Navigation sidebar items hover */
+[data-testid="nav-item"]:hover,
+[data-testid="nav-item"]:hover a,
+nav a:hover,
+aside a:hover,
+.sidebar a:hover,
+[class*="nav-item"]:hover,
+[class*="nav-item"]:hover a {
+  color: #E7D9FD !important;
+  transition: color 0.2s ease;
+}
+
+/* More specific selectors for Mintlify navigation */
+[class*="Navigation"] a:hover,
+[class*="NavigationItem"]:hover,
+[class*="NavigationItem"]:hover a,
+[class*="NavigationItem"]:hover span,
+[class*="NavigationItem"]:hover svg {
+  color: #E7D9FD !important;
+  transition: color 0.2s ease;
+}
+
+/* Target any navigation link in the sidebar */
+aside nav a:hover,
+aside [class*="nav"] a:hover,
+aside [class*="Nav"] a:hover {
+  color: #E7D9FD !important;
+  transition: color 0.2s ease;
+}
+
+/* Generic approach - target all links in navigation areas */
+nav a:hover,
+[role="navigation"] a:hover,
+[aria-label*="navigation" i] a:hover {
+  color: #E7D9FD !important;
+  transition: color 0.2s ease;
+}
