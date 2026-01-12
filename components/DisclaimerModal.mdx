@@ -1,18 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export const DisclaimerModal = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    // Check if user has already dismissed the disclaimer
-    const hasSeenDisclaimer = localStorage.getItem('moony-disclaimer-dismissed');
-    if (!hasSeenDisclaimer) {
-      setIsVisible(true);
-    }
-  }, []);
+  const [isVisible, setIsVisible] = useState(true);
 
   const handleDismiss = () => {
-    localStorage.setItem('moony-disclaimer-dismissed', 'true');
     setIsVisible(false);
   };
 
