@@ -560,3 +560,25 @@ The Moony Reserve is the trustless mechanism through which all MNY enters circul
     </a>
   </div>
 </div>
+
+## How It Works
+
+<div style={{ backgroundColor: '#E7D9FD', borderRadius: '1rem', padding: '0', overflow: 'hidden', marginBottom: '1.5rem' }}>
+  <img src="/images/pattern2.png" alt="Moony Pattern" style={{ borderRadius: '1rem', width: '100%' }} />
+</div>
+
+<div style={{ textAlign: 'justify' }}>
+
+<p style={{ marginBottom: '1.5rem' }}>
+When a user sends USDF, a dollar-denominated stablecoin, to the Moony Reserve, the protocol determines pricing using a deterministic bonding curve. Based on this pricing determination, the contract releases a corresponding amount from the pre-minted supply of Moony (MNY) and transfers it directly to the user's wallet. The USDF is retained onchain as protocol liquidity, ensuring that each unit of Moony in circulation is backed by verifiable capital.
+</p>
+
+<p style={{ marginBottom: '1.5rem' }}>
+To redeem Moony, users send MNY back to the Moony Reserve. The protocol returns USDF at the current redemption rate, again determined by the bonding curve. Pricing updates automatically with each transaction and is applied consistently according to the contract's immutable rules.
+</p>
+
+<p style={{ marginBottom: '1.5rem' }}>
+This two-way mechanism allows participants to enter and exit freely, without intermediaries, permissions, or discretionary control. Circulation and redemption occur directly through the contract's internal logic, producing predictable and transparent outcomes for all participants.
+</p>
+
+</div>
