@@ -309,7 +309,7 @@ Moony (MNY) is the native digital asset of the Moony protocol, implemented as a 
     }
   }
   
-  function showSuccessState(btn, textSpan, svg, codeElement) {
+  function showSuccessState(btn, textSpan, codeElement) {
     // Store original state
     const originalText = textSpan.textContent;
     const originalBg = btn.style.backgroundColor;
@@ -417,7 +417,7 @@ Moony (MNY) is the native digital asset of the Moony protocol, implemented as a 
       if (navigator.clipboard && navigator.clipboard.writeText) {
         try {
           await navigator.clipboard.writeText(address);
-          showSuccessState(btn, textSpan, svg, codeElement);
+          showSuccessState(btn, textSpan, codeElement);
           return;
         } catch (err) {
           console.warn('Clipboard API failed, trying fallback:', err);
@@ -428,7 +428,7 @@ Moony (MNY) is the native digital asset of the Moony protocol, implemented as a 
       // Fallback to older method
       const success = fallbackCopyToClipboard(address);
       if (success) {
-        showSuccessState(btn, textSpan, svg, codeElement);
+        showSuccessState(btn, textSpan, codeElement);
       } else {
         console.error('All copy methods failed');
         showErrorState(btn, textSpan);
