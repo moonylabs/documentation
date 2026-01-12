@@ -3,9 +3,9 @@
   "theme": "maple",
   "name": "Maple Starter Kit",
   "colors": {
-    "primary": "#117866",
-    "light": "#4ADE80",
-    "dark": "#166534"
+    "primary": "#9A3412",
+    "light": "#EA580C",
+    "dark": "#9A3412"
   },
   "favicon": "/favicon.svg",
   "logo": {
