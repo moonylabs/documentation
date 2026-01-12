@@ -22,9 +22,17 @@ nav[class*="nav"] a:hover {
 aside a:hover svg,
 aside nav a:hover svg,
 [class*="NavItem"]:hover svg,
-[class*="nav-item"]:hover svg {
+[class*="nav-item"]:hover svg,
+aside a:hover svg *,
+aside nav a:hover svg *,
+[class*="NavItem"]:hover svg *,
+[class*="nav-item"]:hover svg *,
+nav a:hover svg,
+nav a:hover svg * {
   color: #502792 !important;
-  transition: color 0.2s ease;
+  fill: #502792 !important;
+  stroke: #502792 !important;
+  transition: color 0.2s ease, fill 0.2s ease, stroke 0.2s ease;
 }
 
 /* More generic fallback for any navigation links - Light mode */
@@ -54,9 +62,17 @@ nav a:hover,
 .dark aside a:hover svg,
 .dark aside nav a:hover svg,
 .dark [class*="NavItem"]:hover svg,
-.dark [class*="nav-item"]:hover svg {
+.dark [class*="nav-item"]:hover svg,
+.dark aside a:hover svg *,
+.dark aside nav a:hover svg *,
+.dark [class*="NavItem"]:hover svg *,
+.dark [class*="nav-item"]:hover svg *,
+.dark nav a:hover svg,
+.dark nav a:hover svg * {
   color: #E7D9FD !important;
-  transition: color 0.2s ease;
+  fill: #E7D9FD !important;
+  stroke: #E7D9FD !important;
+  transition: color 0.2s ease, fill 0.2s ease, stroke 0.2s ease;
 }
 
 .dark nav a:hover,
