@@ -65,3 +65,13 @@ nav a:hover,
   color: #E7D9FD !important;
   transition: color 0.2s ease;
 }
+
+/* Hide footer when disclaimer modal is visible */
+body:has([style*="z-index: 999999"]) footer,
+body:has([style*="z-index: 999999"]) [class*="footer"],
+body:has([style*="z-index: 999999"]) [class*="Footer"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
