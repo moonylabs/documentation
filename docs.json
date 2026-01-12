@@ -99,5 +99,8 @@
       "x": "https://x.com/moonylabs",
       "github": "https://github.com/moonylabs"
     }
-  }
+  },
+  "head": [
+    ["script", { src: "/page-icons.js" }]
+  ]
 }
