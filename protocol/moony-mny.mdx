@@ -4,8 +4,6 @@ description: 'The native digital asset of the Moony protocol'
 icon: coins
 ---
 
-import AddressDisplay from '/components/AddressDisplay.mdx';
-
 <div style={{ backgroundColor: '#E7D9FD', borderRadius: '1rem', padding: '0', overflow: 'hidden', marginBottom: '1.5rem' }}>
   <img src="/images/pattern2.png" alt="Moony Pattern" style={{ borderRadius: '1rem', width: '100%' }} />
 </div>
@@ -14,12 +12,231 @@ import AddressDisplay from '/components/AddressDisplay.mdx';
 Moony (MNY) is the native digital asset of the Moony protocol, implemented as a standard SPL token on the Solana blockchain to enable permissionless peer-to-peer payments without intermediaries.
 </p>
 
-<AddressDisplay 
-  label="Token Mint Address"
-  address="52MNGpgvydSwCtC2H4qeiZXZ1TxEuRVCRGa8LAfk2kSj"
-/>
+<div id="mint-address-card" style={{
+  border: '1px solid #e5e7eb',
+  borderRadius: '0.75rem',
+  padding: '1.25rem',
+  marginBottom: '1rem',
+  backgroundColor: '#ffffff',
+  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+}}>
+  <div style={{ marginBottom: '0.75rem' }}>
+    <h4 style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: '#1e293b' }}>
+      Token Mint Address
+    </h4>
+  </div>
+  <div style={{
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.75rem',
+    flexWrap: 'wrap'
+  }}>
+    <code style={{
+      flex: 1,
+      minWidth: '200px',
+      padding: '0.5rem 0.75rem',
+      backgroundColor: '#f8fafc',
+      borderRadius: '0.5rem',
+      fontSize: '0.875rem',
+      fontFamily: 'monospace',
+      color: '#475569',
+      wordBreak: 'break-all',
+      border: '1px solid #e2e8f0'
+    }}>
+      52MNGpgvydSwCtC2H4qeiZXZ1TxEuRVCRGa8LAfk2kSj
+    </code>
+    <button
+      id="copy-mint-btn"
+      data-address="52MNGpgvydSwCtC2H4qeiZXZ1TxEuRVCRGa8LAfk2kSj"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.5rem',
+        padding: '0.5rem 1rem',
+        backgroundColor: '#502792',
+        color: 'white',
+        border: 'none',
+        borderRadius: '0.5rem',
+        fontSize: '0.875rem',
+        fontWeight: 500,
+        cursor: 'pointer',
+        transition: 'background-color 0.2s ease',
+        whiteSpace: 'nowrap'
+      }}
+    >
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+      </svg>
+      <span id="copy-mint-text">Copy</span>
+    </button>
+    <a
+      href="https://explorer.solana.com/address/52MNGpgvydSwCtC2H4qeiZXZ1TxEuRVCRGa8LAfk2kSj"
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.5rem',
+        padding: '0.5rem 1rem',
+        color: '#502792',
+        textDecoration: 'none',
+        fontSize: '0.875rem',
+        fontWeight: 500,
+        border: '1px solid #502792',
+        borderRadius: '0.5rem',
+        transition: 'all 0.2s ease',
+        backgroundColor: 'transparent'
+      }}
+    >
+      <span>Verify on Solana Explorer</span>
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M10.5 1.5L1.5 10.5M10.5 1.5H6M10.5 1.5V6"/>
+      </svg>
+    </a>
+  </div>
+</div>
 
-<AddressDisplay 
-  label="Authority Address"
-  address="jfy1btcfsjSn2WCqLVaxiEjp4zgmemGyRsdCPbPwnZV"
-/>
+<div id="authority-address-card" style={{
+  border: '1px solid #e5e7eb',
+  borderRadius: '0.75rem',
+  padding: '1.25rem',
+  marginBottom: '1rem',
+  backgroundColor: '#ffffff',
+  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+}}>
+  <div style={{ marginBottom: '0.75rem' }}>
+    <h4 style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: '#1e293b' }}>
+      Authority Address
+    </h4>
+  </div>
+  <div style={{
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.75rem',
+    flexWrap: 'wrap'
+  }}>
+    <code style={{
+      flex: 1,
+      minWidth: '200px',
+      padding: '0.5rem 0.75rem',
+      backgroundColor: '#f8fafc',
+      borderRadius: '0.5rem',
+      fontSize: '0.875rem',
+      fontFamily: 'monospace',
+      color: '#475569',
+      wordBreak: 'break-all',
+      border: '1px solid #e2e8f0'
+    }}>
+      jfy1btcfsjSn2WCqLVaxiEjp4zgmemGyRsdCPbPwnZV
+    </code>
+    <button
+      id="copy-authority-btn"
+      data-address="jfy1btcfsjSn2WCqLVaxiEjp4zgmemGyRsdCPbPwnZV"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.5rem',
+        padding: '0.5rem 1rem',
+        backgroundColor: '#502792',
+        color: 'white',
+        border: 'none',
+        borderRadius: '0.5rem',
+        fontSize: '0.875rem',
+        fontWeight: 500,
+        cursor: 'pointer',
+        transition: 'background-color 0.2s ease',
+        whiteSpace: 'nowrap'
+      }}
+    >
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+      </svg>
+      <span id="copy-authority-text">Copy</span>
+    </button>
+    <a
+      href="https://explorer.solana.com/address/jfy1btcfsjSn2WCqLVaxiEjp4zgmemGyRsdCPbPwnZV"
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.5rem',
+        padding: '0.5rem 1rem',
+        color: '#502792',
+        textDecoration: 'none',
+        fontSize: '0.875rem',
+        fontWeight: 500,
+        border: '1px solid #502792',
+        borderRadius: '0.5rem',
+        transition: 'all 0.2s ease',
+        backgroundColor: 'transparent'
+      }}
+    >
+      <span>Verify on Solana Explorer</span>
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M10.5 1.5L1.5 10.5M10.5 1.5H6M10.5 1.5V6"/>
+      </svg>
+    </a>
+  </div>
+</div>
+
+<script dangerouslySetInnerHTML={{__html: `
+(function() {
+  if (typeof window === 'undefined') return;
+  
+  function setupCopyButton(buttonId, textId, address) {
+    const btn = document.getElementById(buttonId);
+    const textSpan = document.getElementById(textId);
+    if (!btn || !textSpan) return;
+    
+    btn.addEventListener('click', async function() {
+      try {
+        await navigator.clipboard.writeText(address);
+        const originalText = textSpan.textContent;
+        const originalBg = btn.style.backgroundColor;
+        const originalSvg = btn.querySelector('svg').innerHTML;
+        
+        textSpan.textContent = 'Copied!';
+        btn.style.backgroundColor = '#10b981';
+        btn.querySelector('svg').innerHTML = '<path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round"/>';
+        
+        setTimeout(() => {
+          textSpan.textContent = originalText;
+          btn.style.backgroundColor = originalBg;
+          btn.querySelector('svg').innerHTML = originalSvg;
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy:', err);
+      }
+    });
+  }
+  
+  function setupHoverEffects() {
+    const links = document.querySelectorAll('a[href*="explorer.solana.com"]');
+    links.forEach(link => {
+      link.addEventListener('mouseenter', function() {
+        this.style.backgroundColor = '#502792';
+        this.style.color = 'white';
+      });
+      link.addEventListener('mouseleave', function() {
+        this.style.backgroundColor = 'transparent';
+        this.style.color = '#502792';
+      });
+    });
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      setupCopyButton('copy-mint-btn', 'copy-mint-text', '52MNGpgvydSwCtC2H4qeiZXZ1TxEuRVCRGa8LAfk2kSj');
+      setupCopyButton('copy-authority-btn', 'copy-authority-text', 'jfy1btcfsjSn2WCqLVaxiEjp4zgmemGyRsdCPbPwnZV');
+      setupHoverEffects();
+    });
+  } else {
+    setupCopyButton('copy-mint-btn', 'copy-mint-text', '52MNGpgvydSwCtC2H4qeiZXZ1TxEuRVCRGa8LAfk2kSj');
+    setupCopyButton('copy-authority-btn', 'copy-authority-text', 'jfy1btcfsjSn2WCqLVaxiEjp4zgmemGyRsdCPbPwnZV');
+    setupHoverEffects();
+  }
+})();
+`}} />
