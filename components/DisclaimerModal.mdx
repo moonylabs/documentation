@@ -1,13 +1,48 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export const DisclaimerModal = () => {
   const [isVisible, setIsVisible] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Check for dark mode
+    const checkDarkMode = () => {
+      const isDark = document.documentElement.classList.contains('dark') || 
+                    window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setIsDarkMode(isDark);
+    };
+
+    checkDarkMode();
+    
+    // Watch for theme changes
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQuery.addEventListener('change', checkDarkMode);
+
+    return () => {
+      observer.disconnect();
+      mediaQuery.removeEventListener('change', checkDarkMode);
+    };
+  }, []);
 
   const handleDismiss = () => {
     setIsVisible(false);
   };
 
   if (!isVisible) return null;
+
+  const modalBg = isDarkMode ? '#1e293b' : 'white';
+  const textColor = isDarkMode ? '#e2e8f0' : '#1e293b';
+  const textSecondary = isDarkMode ? '#cbd5e1' : '#475569';
+  const overlayBg = isDarkMode ? 'rgba(0, 0, 0, 0.7)' : 'rgba(0, 0, 0, 0.5)';
+  const shadow = isDarkMode 
+    ? '0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2)'
+    : '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
 
   return (
     <div
@@ -18,7 +53,7 @@ export const DisclaimerModal = () => {
         right: 0,
         bottom: 0,
         zIndex: 9999,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundColor: overlayBg,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -27,49 +62,49 @@ export const DisclaimerModal = () => {
     >
       <div
         style={{
-          backgroundColor: 'white',
+          backgroundColor: modalBg,
           borderRadius: '1rem',
           padding: '2rem',
           maxWidth: '600px',
           width: '100%',
           maxHeight: '90vh',
           overflowY: 'auto',
-          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
+          boxShadow: shadow
         }}
       >
-        <h2 style={{ marginTop: 0, marginBottom: '1.5rem', color: '#1e293b', fontSize: '1.5rem', fontWeight: 600 }}>
+        <h2 style={{ marginTop: 0, marginBottom: '1.5rem', color: textColor, fontSize: '1.5rem', fontWeight: 600, textAlign: 'justify' }}>
           Before Proceeding, Please Review
         </h2>
         
         <div style={{ marginBottom: '1.5rem' }}>
-          <h3 style={{ marginTop: 0, marginBottom: '0.75rem', color: '#502792', fontSize: '1.125rem', fontWeight: 600 }}>
+          <h3 style={{ marginTop: 0, marginBottom: '0.75rem', color: '#502792', fontSize: '1.125rem', fontWeight: 600, textAlign: 'justify' }}>
             Informational Use Only
           </h3>
-          <p style={{ marginBottom: '1rem', color: '#475569', lineHeight: '1.6', textAlign: 'justify' }}>
+          <p style={{ marginBottom: '1rem', color: textSecondary, lineHeight: '1.6', textAlign: 'justify' }}>
             This documentation is provided solely for informational and educational purposes and does not constitute financial, legal, tax, or investment advice. Nothing herein should be interpreted as an offer, solicitation, recommendation, or endorsement to acquire, hold, use, or dispose of any digital asset.
           </p>
         </div>
 
         <div style={{ marginBottom: '1.5rem' }}>
-          <h3 style={{ marginTop: 0, marginBottom: '0.75rem', color: '#502792', fontSize: '1.125rem', fontWeight: 600 }}>
+          <h3 style={{ marginTop: 0, marginBottom: '0.75rem', color: '#502792', fontSize: '1.125rem', fontWeight: 600, textAlign: 'justify' }}>
             Protocol Characteristics
           </h3>
-          <p style={{ marginBottom: '1rem', color: '#475569', lineHeight: '1.6', textAlign: 'justify' }}>
+          <p style={{ marginBottom: '1rem', color: textSecondary, lineHeight: '1.6', textAlign: 'justify' }}>
             Moony is a decentralized protocol governed by an immutable smart contract deployed on the Solana blockchain. Once deployed onchain, the protocol operates autonomously according to its code and is not controlled or managed by Moony Labs or any other party. Its behavior and outcomes depend on technical, network, and external conditions inherent to decentralized systems.
           </p>
         </div>
 
         <div style={{ marginBottom: '1.5rem' }}>
-          <h3 style={{ marginTop: 0, marginBottom: '0.75rem', color: '#502792', fontSize: '1.125rem', fontWeight: 600 }}>
+          <h3 style={{ marginTop: 0, marginBottom: '0.75rem', color: '#502792', fontSize: '1.125rem', fontWeight: 600, textAlign: 'justify' }}>
             Risks and No Warranties
           </h3>
-          <p style={{ marginBottom: '1rem', color: '#475569', lineHeight: '1.6', textAlign: 'justify' }}>
+          <p style={{ marginBottom: '1rem', color: textSecondary, lineHeight: '1.6', textAlign: 'justify' }}>
             Interaction with blockchain technology involves inherent risks, including potential loss of value, smart contract vulnerabilities, network failures, and irreversible transactions.
           </p>
-          <p style={{ marginBottom: '1rem', color: '#475569', lineHeight: '1.6', textAlign: 'justify' }}>
+          <p style={{ marginBottom: '1rem', color: textSecondary, lineHeight: '1.6', textAlign: 'justify' }}>
             The protocol and this documentation are provided "as is," without warranties of any kind. To the maximum extent permitted by law, Moony Labs LLC disclaims all liability arising from use of the protocol or reliance on this documentation.
           </p>
-          <p style={{ marginBottom: 0, color: '#475569', lineHeight: '1.6', textAlign: 'justify', fontWeight: 500 }}>
+          <p style={{ marginBottom: 0, color: textSecondary, lineHeight: '1.6', textAlign: 'justify', fontWeight: 500 }}>
             By continuing, you acknowledge and accept these risks.
           </p>
         </div>
@@ -83,7 +118,7 @@ export const DisclaimerModal = () => {
               fontSize: '0.9375rem',
               fontWeight: 500,
               padding: '0.5rem 0',
-              transition: 'color 0.2s ease',
+              transition: 'color 0.2s ease, text-decoration 0.2s ease',
               alignSelf: 'flex-start'
             }}
             onMouseEnter={(e) => {
