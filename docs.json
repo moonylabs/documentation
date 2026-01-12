@@ -60,12 +60,6 @@
           "href": "https://mintlify.com/blog",
           "icon": "newspaper"
         }
-      ],
-      "languages": [
-        {
-          "language": "en",
-          "default": true
-        }
       ]
     }
   },
