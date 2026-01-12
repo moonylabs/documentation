@@ -1,0 +1,13 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Moony Labs",
+  "theme": "aspen",
+  "navigation": [
+    {
+      "group": "Get Started",
+      "pages": [
+        "introduction"
+      ]
+    }
+  ]
+}
