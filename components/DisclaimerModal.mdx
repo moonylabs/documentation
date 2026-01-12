@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { createPortal } from 'react-dom';
 
 export default function DisclaimerModal() {
   const [show, setShow] = useState(true);
@@ -20,17 +19,23 @@ export default function DisclaimerModal() {
     checkDark();
 
     const observer = new MutationObserver(checkDark);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class']
-    });
+    if (typeof document !== 'undefined') {
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class']
+      });
+    }
 
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    mediaQuery.addEventListener('change', checkDark);
+    const mediaQuery = typeof window !== 'undefined' ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+    if (mediaQuery) {
+      mediaQuery.addEventListener('change', checkDark);
+    }
 
     return () => {
       observer.disconnect();
-      mediaQuery.removeEventListener('change', checkDark);
+      if (mediaQuery) {
+        mediaQuery.removeEventListener('change', checkDark);
+      }
     };
   }, []);
 
@@ -43,14 +48,10 @@ export default function DisclaimerModal() {
     : '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
 
   if (!mounted) {
-    return <></>;
+    return <div style={{ display: 'none' }} />;
   }
 
-  if (!show) {
-    return <></>;
-  }
-
-  const modalContent = (
+  return (
     <div
       style={{
         position: 'fixed',
@@ -60,10 +61,11 @@ export default function DisclaimerModal() {
         bottom: 0,
         zIndex: 99999,
         backgroundColor: overlay,
-        display: 'flex',
+        display: show ? 'flex' : 'none',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '1rem'
+        padding: '1rem',
+        pointerEvents: show ? 'auto' : 'none'
       }}
     >
       <div
@@ -163,6 +165,4 @@ export default function DisclaimerModal() {
       </div>
     </div>
   );
-
-  return typeof window !== 'undefined' ? createPortal(modalContent, document.body) : <></>;
 }
