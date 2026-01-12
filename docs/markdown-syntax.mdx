@@ -1,32 +1,51 @@
 ---
 title: Markdown Syntax
-description: Learn about Mintlify's Markdown syntax
+description: Text, title, and styling in standard markdown
 ---
 
-## Markdown Syntax
+## Titles
 
-Mintlify supports standard Markdown syntax with additional components.
+Best used for section headers.
 
-### Headings
-
-Use headings to structure your content:
-
-```markdown
-## Heading 2
-### Heading 3
-#### Heading 4
+```md
+## Titles
 ```
 
-### Lists
+### Subtitles
 
-Create ordered and unordered lists:
+Best used for subsection headers.
 
-```markdown
-- Item 1
-- Item 2
-- Item 3
-
-1. First item
-2. Second item
-3. Third item
+```md
+### Subtitles
 ```
+
+<Tip>
+Each **title** and **subtitle** creates an anchor and also shows up on the table of contents on the right.
+</Tip>
+
+## Text Formatting
+
+We support most markdown formatting. Simply add `**`, `_`, or `~` around text to format it.
+
+| Style         | How to write it   | Result          |
+| ------------- | ----------------- | --------------- |
+| Bold          | `**bold**`        | **bold**        |
+| Italic        | `_italic_`        | _italic_        |
+| Strikethrough | `~strikethrough~` | ~strikethrough~ |
+
+You can combine these. For example, write `**_bold and italic_**` to get **_bold and italic_** text.
+
+You need to use HTML to write superscript and subscript text. That is, add `<sup>` or `<sub>` around your text.
+
+| Text Size   | How to write it          | Result                 |
+| ----------- | ------------------------ | ---------------------- |
+| Superscript | `<sup>superscript</sup>` | <sup>superscript</sup> |
+| Subscript   | `<sub>subscript</sub>`   | <sub>subscript</sub>   |
+
+## Linking to Pages
+
+You can add a link by wrapping text in `[]()`. You would write `[link to google](https://google.com)` to link to google.
+
+Links to pages in your docs need to be root-relative. Basically, you should include the entire folder path. For example, `[link to text](/writing-content/text)` links to the page "Text" in our components section.
+
+Relative links like `[link to text](../text)` will open slower because we cannot optimize them as easily.

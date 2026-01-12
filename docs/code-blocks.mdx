@@ -1,30 +1,34 @@
 ---
 title: Code Blocks
-description: Learn how to use code blocks in Mintlify
+description: Display inline code and code blocks
 ---
+
+## Inline Code
+
+To denote a `word` or `phrase` as code, enclose it in backticks (`).
+
+```
+To denote a `word` or `phrase` as code, enclose it in backticks (`).
+```
 
 ## Code Blocks
 
-Display code with syntax highlighting.
+Use fenced code blocks by enclosing code in three backticks and follow the leading ticks with the programming language of your snippet to get syntax highlighting. Optionally, you can also write the name of your code after the programming language.
 
-### Single Code Block
-
-```javascript config.js
-const apiConfig = {
-  baseURL: 'https://api.example.com',
-  timeout: 5000
-};
+```java HelloWorld.java
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
 ```
 
-### Code Groups
-
-<CodeGroup>
-```javascript Node.js
-const response = await fetch('/api/endpoint');
+````md
+```java HelloWorld.java
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
 ```
-
-```python Python
-import requests
-response = requests.get('/api/endpoint')
-```
-</CodeGroup>
+````

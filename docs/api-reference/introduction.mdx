@@ -1,20 +1,33 @@
 ---
 title: Introduction
-description: API Documentation Overview
+description: Example section for showcasing API endpoints
 ---
 
-## API Introduction
+<Note>
+  If you're not looking to build API reference documentation, you can delete
+  this section by removing the api-reference folder.
+</Note>
 
-Welcome to our API documentation. Learn how to integrate with our services.
+## Welcome
 
-### Authentication
+There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
 
-All API requests require authentication:
+<Card
+  title="Plant Store Endpoints"
+  icon="leaf"
+  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
+>
+  View the OpenAPI specification file
+</Card>
 
-```bash
-Authorization: Bearer YOUR_API_KEY
+## Authentication
+
+All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+
+```json
+"security": [
+  {
+    "bearerAuth": []
+  }
+]
 ```
-
-<Warning>
-Keep your API keys secure. Never commit them to version control.
-</Warning>

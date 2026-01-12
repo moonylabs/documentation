@@ -1,24 +1,38 @@
 ---
 title: Images and Embeds
-description: Add images and embed content in your documentation
+description: Add image, video, and other HTML elements
 ---
 
-## Images and Embeds
+## Images
 
-Learn how to add visual content to your documentation.
+### Using Markdown
 
-### Images
+The markdown syntax lets you add images using the following code:
 
-Add images using standard Markdown syntax:
-
-```markdown
-![Alt text](/path/to/image.png)
+```md
+![title](/path/image.jpg)
 ```
 
-### Embeds
+Note that the image file size must be less than 5MB. Otherwise, we recommend hosting on a service like [Cloudinary](https://cloudinary.com/) or [S3](https://aws.amazon.com/s3/). You can then use that URL and embed.
 
-Embed external content using Mintlify components.
+### Using Embeds
 
-<Frame>
-<iframe src="https://example.com" width="100%" height="400"></iframe>
-</Frame>
+To get more customizability with images, you can also use embeds to add images:
+
+```html
+<img height="200" src="/path/image.jpg" />
+```
+
+## Embeds and HTML Elements
+
+<Tip>
+Mintlify supports HTML tags in Markdown. This is helpful if you prefer HTML tags to Markdown syntax, and lets you create documentation with infinite flexibility.
+</Tip>
+
+### iFrames
+
+Loads another HTML page within the document. Most commonly used for embedding videos.
+
+```html
+<iframe src="https://www.youtube.com/embed/4KzFe50RQkQ"> </iframe>
+```
