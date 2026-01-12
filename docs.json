@@ -23,28 +23,28 @@
         ]
       },
       {
-        "group": "Essentials",
+        "group": "Moony Protocol",
         "pages": [
-          "essentials/markdown",
-          "essentials/code",
-          "essentials/images",
-          "essentials/settings",
-          "essentials/navigation",
-          "essentials/reusable-snippets"
+          "protocol/moony-mny",
+          "protocol/moony-reserve",
+          "protocol/proof-of-capital",
+          "protocol/pricing-curve"
         ]
       },
       {
-        "group": "API Documentation",
+        "group": "Moony Economy",
         "pages": [
-          "api-reference/introduction"
+          "economy/p2p-payments",
+          "economy/micropayments",
+          "economy/capital-markets"
         ]
       },
       {
-        "group": "Endpoint Examples",
+        "group": "Moony Network",
         "pages": [
-          "api-reference/endpoint/get",
-          "api-reference/endpoint/create",
-          "api-reference/endpoint/delete"
+          "network/stakeholders",
+          "network/participation",
+          "network/resources"
         ]
       }
     ],
