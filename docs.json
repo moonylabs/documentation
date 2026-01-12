@@ -78,11 +78,21 @@
     "links": [
       {
         "label": "Disclaimer",
-        "href": "/disclaimer"
+        "items": [
+          {
+            "label": "Disclaimer",
+            "href": "/disclaimer"
+          }
+        ]
       },
       {
         "label": "Licensing",
-        "href": "/licensing"
+        "items": [
+          {
+            "label": "Licensing",
+            "href": "/licensing"
+          }
+        ]
       }
     ],
     "socials": {
