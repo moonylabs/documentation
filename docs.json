@@ -25,6 +25,7 @@
       {
         "group": "Moony Protocol",
         "pages": [
+          "protocol",
           "protocol/moony-mny",
           "protocol/moony-reserve",
           "protocol/proof-of-capital",
@@ -34,6 +35,7 @@
       {
         "group": "Moony Economy",
         "pages": [
+          "economy",
           "economy/p2p-payments",
           "economy/micropayments",
           "economy/capital-markets"
@@ -42,6 +44,7 @@
       {
         "group": "Moony Network",
         "pages": [
+          "network",
           "network/stakeholders",
           "network/participation",
           "network/resources"
