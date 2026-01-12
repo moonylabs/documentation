@@ -92,7 +92,10 @@ body:has([style*="z-index: 99999"]) footer {
 /* Address card dark mode styling - match navigation bar */
 .dark .address-card,
 .dark #mint-address-card,
-.dark #authority-address-card {
+.dark #authority-address-card,
+.dark #reserve-address-card,
+.dark #usdf-vault-card,
+.dark #moony-vault-card {
   background-color: #18181b !important;
   border-color: #27272a !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
@@ -100,13 +103,19 @@ body:has([style*="z-index: 99999"]) footer {
 
 .dark .address-label,
 .dark #mint-address-card h4,
-.dark #authority-address-card h4 {
+.dark #authority-address-card h4,
+.dark #reserve-address-card h4,
+.dark #usdf-vault-card h4,
+.dark #moony-vault-card h4 {
   color: #fafafa !important;
 }
 
 .dark .address-code,
 .dark #mint-address-card code,
-.dark #authority-address-card code {
+.dark #authority-address-card code,
+.dark #reserve-address-card code,
+.dark #usdf-vault-card code,
+.dark #moony-vault-card code {
   background-color: #27272a !important;
   border-color: #3f3f46 !important;
   color: #d4d4d8 !important;
@@ -115,6 +124,9 @@ body:has([style*="z-index: 99999"]) footer {
 /* Address card buttons and links - dark mode brand color */
 .dark #mint-address-card button,
 .dark #authority-address-card button,
+.dark #reserve-address-card button,
+.dark #usdf-vault-card button,
+.dark #moony-vault-card button,
 .dark .address-card button {
   background-color: #E7D9FD !important;
   color: #502792 !important;
@@ -122,12 +134,18 @@ body:has([style*="z-index: 99999"]) footer {
 
 .dark #mint-address-card button:hover,
 .dark #authority-address-card button:hover,
+.dark #reserve-address-card button:hover,
+.dark #usdf-vault-card button:hover,
+.dark #moony-vault-card button:hover,
 .dark .address-card button:hover {
   background-color: #d4b8fa !important;
 }
 
 .dark #mint-address-card a[href*="explorer.solana.com"],
 .dark #authority-address-card a[href*="explorer.solana.com"],
+.dark #reserve-address-card a[href*="explorer.solana.com"],
+.dark #usdf-vault-card a[href*="explorer.solana.com"],
+.dark #moony-vault-card a[href*="explorer.solana.com"],
 .dark .address-card a[href*="explorer.solana.com"] {
   color: #E7D9FD !important;
   border-color: #E7D9FD !important;
@@ -135,6 +153,9 @@ body:has([style*="z-index: 99999"]) footer {
 
 .dark #mint-address-card a[href*="explorer.solana.com"]:hover,
 .dark #authority-address-card a[href*="explorer.solana.com"]:hover,
+.dark #reserve-address-card a[href*="explorer.solana.com"]:hover,
+.dark #usdf-vault-card a[href*="explorer.solana.com"]:hover,
+.dark #moony-vault-card a[href*="explorer.solana.com"]:hover,
 .dark .address-card a[href*="explorer.solana.com"]:hover {
   background-color: #E7D9FD !important;
   color: #502792 !important;
