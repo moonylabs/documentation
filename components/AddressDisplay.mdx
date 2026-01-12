@@ -1,7 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function AddressDisplay({ label, address }) {
   const [copied, setCopied] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const checkDark = () => {
+      if (typeof window !== 'undefined') {
+        const dark = document.documentElement.classList.contains('dark') || 
+                     window.matchMedia('(prefers-color-scheme: dark)').matches;
+        setIsDark(dark);
+      }
+    };
+
+    checkDark();
+
+    const observer = new MutationObserver(checkDark);
+    if (typeof document !== 'undefined') {
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class']
+      });
+    }
+
+    const mediaQuery = typeof window !== 'undefined' ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+    if (mediaQuery) {
+      mediaQuery.addEventListener('change', checkDark);
+    }
+
+    return () => {
+      observer.disconnect();
+      if (mediaQuery) {
+        mediaQuery.removeEventListener('change', checkDark);
+      }
+    };
+  }, []);
 
   const copyToClipboard = async () => {
     try {
@@ -15,17 +48,24 @@ export default function AddressDisplay({ label, address }) {
 
   const explorerUrl = `https://explorer.solana.com/address/${address}`;
 
+  const cardBg = isDark ? '#1e293b' : '#ffffff';
+  const cardBorder = isDark ? '#334155' : '#e5e7eb';
+  const textColor = isDark ? '#e2e8f0' : '#1e293b';
+  const codeBg = isDark ? '#0f172a' : '#f8fafc';
+  const codeBorder = isDark ? '#1e293b' : '#e2e8f0';
+  const codeColor = isDark ? '#cbd5e1' : '#475569';
+
   return (
     <div style={{
-      border: '1px solid #e5e7eb',
+      border: `1px solid ${cardBorder}`,
       borderRadius: '0.75rem',
       padding: '1.25rem',
       marginBottom: '1rem',
-      backgroundColor: 'var(--mint-bg)',
-      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+      backgroundColor: cardBg,
+      boxShadow: isDark ? '0 1px 3px rgba(0, 0, 0, 0.3)' : '0 1px 3px rgba(0, 0, 0, 0.1)'
     }}>
       <div style={{ marginBottom: '0.75rem' }}>
-        <h4 style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: 'var(--mint-fg)' }}>
+        <h4 style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: textColor }}>
           {label}
         </h4>
       </div>
@@ -39,13 +79,13 @@ export default function AddressDisplay({ label, address }) {
           flex: 1,
           minWidth: '200px',
           padding: '0.5rem 0.75rem',
-          backgroundColor: 'var(--mint-code-bg)',
+          backgroundColor: codeBg,
           borderRadius: '0.5rem',
           fontSize: '0.875rem',
           fontFamily: 'monospace',
-          color: 'var(--mint-code-fg)',
+          color: codeColor,
           wordBreak: 'break-all',
-          border: '1px solid var(--mint-border)'
+          border: `1px solid ${codeBorder}`
         }}>
           {address}
         </code>
@@ -94,7 +134,8 @@ export default function AddressDisplay({ label, address }) {
             fontWeight: 500,
             border: '1px solid #502792',
             borderRadius: '0.5rem',
-            transition: 'all 0.2s ease'
+            transition: 'all 0.2s ease',
+            backgroundColor: 'transparent'
           }}
           onMouseEnter={(e) => {
             e.target.style.backgroundColor = '#502792';
