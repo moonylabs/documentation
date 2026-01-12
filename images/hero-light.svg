@@ -1,7 +1,7 @@
 <svg width="1872" height="1104" viewBox="0 0 1919 1080" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
 <defs>
 <clipPath id="roundedCorners">
-<rect width="1872" height="1104" rx="12" ry="12"/>
+<rect width="1872" height="1104" rx="32" ry="32"/>
 </clipPath>
 <linearGradient id="paint0_linear_351_2870" x1="138.5" y1="-54" x2="231.004" y2="1072.36" gradientUnits="userSpaceOnUse">
 <stop offset="0.0432692" stop-color="#FFF2D9"/>
