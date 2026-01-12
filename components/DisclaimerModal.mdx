@@ -1,15 +1,10 @@
-'use client';
-
 import { useState, useEffect } from 'react';
 
 export const DisclaimerModal = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    
     // Check for dark mode
     const checkDarkMode = () => {
       if (typeof window === 'undefined') return;
@@ -40,8 +35,7 @@ export const DisclaimerModal = () => {
     setIsVisible(false);
   };
 
-  // Don't render until mounted to avoid hydration issues
-  if (!mounted || !isVisible) return null;
+  if (!isVisible) return null;
 
   const modalBg = isDarkMode ? '#1e293b' : 'white';
   const textColor = isDarkMode ? '#e2e8f0' : '#1e293b';
