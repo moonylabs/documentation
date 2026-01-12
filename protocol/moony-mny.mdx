@@ -23,9 +23,9 @@ Moony (MNY) is the native digital asset of the Moony protocol, implemented as a 
   boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
 }}>
   <div style={{ marginBottom: '0.75rem' }}>
-    <h4 className="address-label" style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: '#1e293b' }}>
+    <div className="address-label" style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: '#1e293b' }}>
       Token Mint Address
-    </h4>
+    </div>
   </div>
   <div style={{
     display: 'flex',
@@ -202,9 +202,9 @@ Moony (MNY) is the native digital asset of the Moony protocol, implemented as a 
   boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
 }}>
   <div style={{ marginBottom: '0.75rem' }}>
-    <h4 className="address-label" style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: '#1e293b' }}>
+    <div className="address-label" style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: '#1e293b' }}>
       Authority Address
-    </h4>
+    </div>
   </div>
   <div style={{
     display: 'flex',
@@ -407,7 +407,7 @@ Moony has a fixed maximum supply of 21 million units, an immutable constraint th
     }
     
     const cards = document.querySelectorAll('.address-card, #mint-address-card, #authority-address-card');
-    const labels = document.querySelectorAll('.address-label, #mint-address-card h4, #authority-address-card h4');
+    const labels = document.querySelectorAll('.address-label');
     const codes = document.querySelectorAll('.address-code, #mint-address-card code, #authority-address-card code');
     
     cards.forEach(card => {
