@@ -139,3 +139,28 @@ body:has([style*="z-index: 99999"]) footer {
   background-color: #E7D9FD !important;
   color: #502792 !important;
 }
+
+/* Copy button animations */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+  20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Smooth transitions for copy buttons */
+#mint-address-card button,
+#authority-address-card button,
+.address-card button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+#mint-address-card button:active,
+#authority-address-card button:active,
+.address-card button:active {
+  transform: scale(0.95);
+}
