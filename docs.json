@@ -39,7 +39,7 @@
         "pages": [
           {
             "title": "Overview",
-            "icon": "book-open",
+            "icon": "layer-group",
             "page": "protocol/overview"
           },
           {
@@ -69,7 +69,7 @@
         "pages": [
           {
             "title": "Overview",
-            "icon": "book-open",
+            "icon": "chart-pie",
             "page": "economy/overview"
           },
           {
@@ -94,7 +94,7 @@
         "pages": [
           {
             "title": "Overview",
-            "icon": "book-open",
+            "icon": "network-wired",
             "page": "network/overview"
           },
           {
