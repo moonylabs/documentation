@@ -161,6 +161,15 @@ body:has([style*="z-index: 99999"]) footer {
   color: #502792 !important;
 }
 
+/* Core Principles cards - fixed width, no responsive changes */
+.principle-card,
+.address-card,
+.formula-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
 /* Core Principles cards dark mode - match address card styling */
 .dark .principle-card {
   background-color: #18181b !important;
@@ -168,12 +177,107 @@ body:has([style*="z-index: 99999"]) footer {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
 }
 
-.dark .principle-card > div:first-child {
-  color: #fafafa !important;
+/* Card header styling - rounded purple background */
+.principle-card:not(.formula-card) > div:first-child {
+  background-color: #E7D9FD !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0.5rem !important;
+  padding: 0.5rem 0.75rem !important;
+  margin-bottom: 0.75rem !important;
+  margin-top: 0 !important;
+  color: #502792 !important;
+}
+
+.dark .principle-card:not(.formula-card) > div:first-child {
+  color: #502792 !important;
+}
+
+/* Formula card - formula box styling (isolated from card headers) */
+.formula-card > .formula-box {
+  background-color: #E7D9FD !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  border-radius: 0.5rem !important;
+  padding: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.formula-card > .formula-box code {
+  font-size: 1.125rem !important;
+  font-family: monospace !important;
+  color: #502792 !important;
+  font-weight: 600 !important;
+  display: block !important;
+  text-align: center !important;
+  background-color: transparent !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.formula-card > .formula-explanation {
+  font-size: 0.9375rem !important;
+  line-height: 1.6 !important;
+  color: #475569 !important;
+}
+
+.formula-card {
+  background-color: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.formula-card > .formula-box {
+  background-color: #E7D9FD !important;
+  border-radius: 0.5rem !important;
+  padding: 1rem !important;
+}
+
+.dark .formula-card {
+  background-color: #18181b !important;
+  border-color: #27272a !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+.dark .formula-card > .formula-box {
+  background-color: #E7D9FD !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0.5rem !important;
+  padding: 1rem !important;
+}
+
+.dark .formula-card > .formula-box code {
+  color: #502792 !important;
+}
+
+.dark .formula-card > .formula-explanation {
+  color: #d4d4d8 !important;
 }
 
 .dark .principle-card p {
   color: #d4d4d8 !important;
+}
+
+.dark .principle-card strong {
+  color: inherit !important;
+}
+
+/* All text in explanation div uses same color - ensure p and li match */
+.principle-card div[style*="color: #475569"] p,
+.principle-card div[style*="color: #475569"] li,
+.principle-card div[style*="color: #475569"] ul li,
+.dark .principle-card div[style*="color: #475569"] p,
+.dark .principle-card div[style*="color: #475569"] li,
+.dark .principle-card div[style*="color: #475569"] ul li {
+  color: #475569 !important;
+}
+
+/* Code elements in explanation text use same color as text */
+.dark .principle-card > div:not(:first-child) code {
+  color: inherit !important;
 }
 
 /* Brand link styling for light/dark mode */

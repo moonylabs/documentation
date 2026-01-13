@@ -43,9 +43,7 @@ Because the bonding curve operates transparently and permissionlessly, access to
     <div style={{
       fontSize: '1rem',
       fontWeight: 600,
-      color: '#1e293b',
-      marginTop: 0,
-      marginBottom: '0.75rem'
+      color: '#1e293b'
     }}>Price Increases with Demand</div>
     <p style={{
       margin: 0,
@@ -68,9 +66,7 @@ Because the bonding curve operates transparently and permissionlessly, access to
     <div style={{
       fontSize: '1rem',
       fontWeight: 600,
-      color: '#1e293b',
-      marginTop: 0,
-      marginBottom: '0.75rem'
+      color: '#1e293b'
     }}>Symmetric Redemption Logic</div>
     <p style={{
       margin: 0,
@@ -93,9 +89,7 @@ Because the bonding curve operates transparently and permissionlessly, access to
     <div style={{
       fontSize: '1rem',
       fontWeight: 600,
-      color: '#1e293b',
-      marginTop: 0,
-      marginBottom: '0.75rem'
+      color: '#1e293b'
     }}>Predictable and Transparent</div>
     <p style={{
       margin: 0,
@@ -118,9 +112,7 @@ Because the bonding curve operates transparently and permissionlessly, access to
     <div style={{
       fontSize: '1rem',
       fontWeight: 600,
-      color: '#1e293b',
-      marginTop: 0,
-      marginBottom: '0.75rem'
+      color: '#1e293b'
     }}>Aligned Economic Participation</div>
     <p style={{
       margin: 0,
@@ -152,53 +144,136 @@ When a participant unlocks or redeems MNY, the Moony Reserve determines pricing 
 
 </div>
 
-<div className="principle-card" style={{
-  border: '1px solid #e5e7eb',
-  borderRadius: '0.75rem',
+<div className="principle-card formula-card" style={{
   padding: '1.5rem',
-  marginBottom: '1.5rem',
-  backgroundColor: '#ffffff',
-  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+  marginBottom: '1.5rem'
 }}>
-  <div style={{
-    backgroundColor: '#E7D9FD',
-    borderRadius: '0.5rem',
-    padding: '1rem',
-    marginBottom: '1rem',
-    border: '1px solid #D8C5FD'
-  }}>
-    <code style={{
-      fontSize: '1.125rem',
-      fontFamily: 'monospace',
-      color: '#502792',
-      fontWeight: 600,
-      display: 'block',
-      textAlign: 'center'
-    }}>
+  <div className="formula-box">
+    <code>
       R'(S) = a × b × e^(c × S)
     </code>
   </div>
-  <div style={{
-    fontSize: '0.9375rem',
-    lineHeight: '1.6',
-    color: '#475569'
-  }}>
+  <div className="formula-explanation">
     <p style={{ marginBottom: '0.75rem', marginTop: 0 }}>
       The spot price is the price per token at a specific supply level. This formula gives you the instantaneous price at supply S:
     </p>
     <div style={{ marginTop: '0.75rem' }}>
-      <strong style={{ color: '#1e293b' }}>Where:</strong>
+      <strong>Where:</strong>
       <ul style={{ marginTop: '0.5rem', marginBottom: 0, paddingLeft: '1.5rem' }}>
         <li style={{ marginBottom: '0.5rem' }}>
-          <code style={{ color: '#502792', backgroundColor: 'transparent', padding: 0 }}>R'(S)</code> is the spot price (price per token) at supply S
+          <code style={{ backgroundColor: 'transparent', padding: 0 }}>R'(S)</code> is the spot price (price per token) at supply S
         </li>
         <li style={{ marginBottom: '0.5rem' }}>
-          <code style={{ color: '#502792', backgroundColor: 'transparent', padding: 0 }}>S</code> is the current circulating supply (absolute number of tokens)
+          <code style={{ backgroundColor: 'transparent', padding: 0 }}>S</code> is the current circulating supply (absolute number of tokens)
         </li>
         <li style={{ marginBottom: '0.5rem' }}>
-          <code style={{ color: '#502792', backgroundColor: 'transparent', padding: 0 }}>a, b, and c</code> are curve constants that define the exponential shape
+          <code style={{ backgroundColor: 'transparent', padding: 0 }}>a, b, and c</code> are curve constants that define the exponential shape
         </li>
       </ul>
     </div>
   </div>
+</div>
+
+## Curve Constants
+
+<div style={{ textAlign: 'justify' }}>
+
+<p style={{ marginBottom: '1.5rem' }}>
+The Moony Reserve defines the bonding curve using three fixed constants that together determine the pricing curve's scale, starting price, and rate of growth.
+</p>
+
+</div>
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem', marginBottom: '2rem' }}>
+  
+  <div className="principle-card" style={{
+    border: '1px solid #e5e7eb',
+    borderRadius: '0.75rem',
+    padding: '1.5rem',
+    marginBottom: '0',
+    backgroundColor: '#ffffff',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+  }}>
+    <div style={{
+      fontSize: '1rem',
+      fontWeight: 600,
+      color: '#1e293b'
+    }}>
+      <code style={{
+        fontFamily: 'monospace',
+        color: '#502792',
+        backgroundColor: 'transparent',
+        padding: 0
+      }}>a</code> = 11400.230149967394933471
+    </div>
+    <p style={{
+      margin: 0,
+      lineHeight: '1.6',
+      color: '#475569',
+      fontSize: '0.9375rem'
+    }}>
+      Constant a serves as a base scaling factor for the pricing curve. Its role is to determine the overall magnitude of prices across the entire supply range and to ensure that the pricing curve reaches its intended upper bound as the circulating supply approaches its maximum.
+    </p>
+  </div>
+
+  <div className="principle-card" style={{
+    border: '1px solid #e5e7eb',
+    borderRadius: '0.75rem',
+    padding: '1.5rem',
+    marginBottom: '0',
+    backgroundColor: '#ffffff',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+  }}>
+    <div style={{
+      fontSize: '1rem',
+      fontWeight: 600,
+      color: '#1e293b'
+    }}>
+      <code style={{
+        fontFamily: 'monospace',
+        color: '#502792',
+        backgroundColor: 'transparent',
+        padding: 0
+      }}>b</code> = 0.000000877175273521
+    </div>
+    <p style={{
+      margin: 0,
+      lineHeight: '1.6',
+      color: '#475569',
+      fontSize: '0.9375rem'
+    }}>
+      Constant b collaborates with constant a to establish the starting price of the pricing curve. Specifically, the product a × b defines the initial spot price when the circulating supply approaches zero, anchoring the pricing curve at approximately $0.01 USDF per token.
+    </p>
+  </div>
+
+  <div className="principle-card" style={{
+    border: '1px solid #e5e7eb',
+    borderRadius: '0.75rem',
+    padding: '1.5rem',
+    marginBottom: '0',
+    backgroundColor: '#ffffff',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+  }}>
+    <div style={{
+      fontSize: '1rem',
+      fontWeight: 600,
+      color: '#1e293b'
+    }}>
+      <code style={{
+        fontFamily: 'monospace',
+        color: '#502792',
+        backgroundColor: 'transparent',
+        padding: 0
+      }}>c</code> = 0.000000877175273521
+    </div>
+    <p style={{
+      margin: 0,
+      lineHeight: '1.6',
+      color: '#475569',
+      fontSize: '0.9375rem'
+    }}>
+      Constant c governs the exponential growth rate of the pricing curve. It dictates how rapidly the price increases as the circulating supply expands. This parameter controls the steepness of the pricing curve, ensuring that price growth accelerates predictably as the supply rises.
+    </p>
+  </div>
+
 </div>
