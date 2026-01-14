@@ -170,6 +170,18 @@ body:has([style*="z-index: 99999"]) footer {
   box-sizing: border-box !important;
 }
 
+/* Principle cards - set body text to justified with optimizations */
+.principle-card p {
+  text-align: justify !important;
+  word-spacing: -0.05em !important;
+  letter-spacing: 0.01em !important;
+  line-height: 1.7 !important;
+  text-rendering: optimizeLegibility !important;
+  hyphens: auto !important;
+  -webkit-hyphens: auto !important;
+  -moz-hyphens: auto !important;
+}
+
 /* Core Principles cards dark mode - match address card styling */
 .dark .principle-card {
   background-color: #18181b !important;
