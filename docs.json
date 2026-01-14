@@ -80,17 +80,12 @@
     "copyright": "© 2026 Moony Labs, LLC.",
     "links": [
       {
-        "label": "Disclaimer",
+        "label": "Legal",
         "items": [
           {
             "label": "Disclaimer",
             "href": "/disclaimer"
-          }
-        ]
-      },
-      {
-        "label": "Licensing",
-        "items": [
+          },
           {
             "label": "Licensing",
             "href": "/licensing"
