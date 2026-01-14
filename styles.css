@@ -433,3 +433,45 @@ section p {
   letter-spacing: 0.01em !important;
   line-height: 1.7 !important;
 }
+
+/* Mobile: Reduce horizontal padding for more compact content */
+@media (max-width: 768px) {
+  main,
+  article,
+  section,
+  [class*="content"],
+  [class*="Content"],
+  [role="main"] {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+  
+  /* Target the main content container */
+  main > div,
+  article > div,
+  section > div,
+  [class*="container"] > div {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  
+  /* Reduce padding on cards and containers, but preserve formula card padding */
+  .principle-card,
+  [class*="Card"]:not(.formula-card),
+  [class*="card"]:not(.formula-card) {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  
+  /* Keep formula cards with original padding for proper math display */
+  .formula-card {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+  
+  /* Preserve formula box padding */
+  .formula-card > .formula-box {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
