@@ -498,5 +498,43 @@ section p {
   -moz-hyphens: none !important;
 }
 
+/* Footer social icons - styled for left column below logo */
+.social-icons-container {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 0.75rem !important;
+  margin-top: 1.5rem !important;
+}
+
+/* Footer section headers - ensure labels display as headers */
+footer h4,
+footer [class*="footer"] h4,
+footer [class*="Footer"] h4,
+footer > div > div > div > h4,
+footer [class*="links"] > div > h4 {
+  display: block !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  color: #6b7280 !important;
+  margin-bottom: 0.75rem !important;
+  margin-top: 0 !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}
+
+.dark footer h4,
+.dark footer [class*="footer"] h4,
+.dark footer [class*="Footer"] h4,
+.dark footer > div > div > div > h4,
+.dark footer [class*="links"] > div > h4 {
+  color: #9ca3af !important;
+}
+
+.social-icons-container a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
 
 

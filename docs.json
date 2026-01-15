@@ -8,6 +8,9 @@
     "dark": "#502792"
   },
   "favicon": "/favicon.png",
+  "customScripts": [
+    "/footer-socials.js"
+  ],
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
@@ -133,7 +136,7 @@
     ],
     "socials": {
       "x": "https://x.com/moonylabs",
-      "linkedin": "https://www.linkedin.com/company/moonylabs",
+      "linkedin": "https://www.linkedin.com/company/110984897",
       "github": "https://github.com/moonylabs"
     }
   }
