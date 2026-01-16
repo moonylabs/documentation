@@ -536,6 +536,103 @@ footer [class*="links"] > div > h4 {
   justify-content: center !important;
 }
 
+/* Mobile address container layout - stack buttons below address code */
+@media (max-width: 768px) {
+  /* Parent: flex column - code first, then button row */
+  .address-card > div[style*="flexDirection"]:has(code),
+  #mint-address-card > div[style*="flexDirection"]:has(code),
+  #authority-address-card > div[style*="flexDirection"]:has(code),
+  #reserve-address-card > div[style*="flexDirection"]:has(code),
+  #usdf-vault-card > div[style*="flexDirection"]:has(code),
+  #moony-vault-card > div[style*="flexDirection"]:has(code) {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+  }
+  
+  /* Div with code: stack code (full width) above button */
+  .address-card > div[style*="flexDirection"]:has(code) > div:has(code),
+  #mint-address-card > div[style*="flexDirection"]:has(code) > div:has(code),
+  #authority-address-card > div[style*="flexDirection"]:has(code) > div:has(code),
+  #reserve-address-card > div[style*="flexDirection"]:has(code) > div:has(code),
+  #usdf-vault-card > div[style*="flexDirection"]:has(code) > div:has(code),
+  #moony-vault-card > div[style*="flexDirection"]:has(code) > div:has(code) {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+  }
+  
+  /* Code: full width */
+  .address-code,
+  #mint-address-card code,
+  #authority-address-card code,
+  #reserve-address-card code,
+  #usdf-vault-card code,
+  #moony-vault-card code {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Div with button: use display:contents to make button a direct child, then position in flex row */
+  .address-card > div[style*="flexDirection"]:has(code) > div:has(button):not(:has(code)),
+  #mint-address-card > div[style*="flexDirection"]:has(code) > div:has(button):not(:has(code)),
+  #authority-address-card > div[style*="flexDirection"]:has(code) > div:has(button):not(:has(code)),
+  #reserve-address-card > div[style*="flexDirection"]:has(code) > div:has(button):not(:has(code)),
+  #usdf-vault-card > div[style*="flexDirection"]:has(code) > div:has(button):not(:has(code)),
+  #moony-vault-card > div[style*="flexDirection"]:has(code) > div:has(button):not(:has(code)) {
+    display: contents !important; /* Makes button a direct child of parent */
+  }
+  
+  /* Create flex row for buttons: button and verify link side by side */
+  .address-card > div[style*="flexDirection"]:has(code) > button,
+  #mint-address-card > div[style*="flexDirection"]:has(code) > button,
+  #authority-address-card > div[style*="flexDirection"]:has(code) > button,
+  #reserve-address-card > div[style*="flexDirection"]:has(code) > button,
+  #usdf-vault-card > div[style*="flexDirection"]:has(code) > button,
+  #moony-vault-card > div[style*="flexDirection"]:has(code) > button {
+    order: 2 !important;
+  }
+  
+  .address-card > div[style*="flexDirection"]:has(code) > a[href*="explorer.solana.com"],
+  #mint-address-card > div[style*="flexDirection"]:has(code) > a[href*="explorer.solana.com"],
+  #authority-address-card > div[style*="flexDirection"]:has(code) > a[href*="explorer.solana.com"],
+  #reserve-address-card > div[style*="flexDirection"]:has(code) > a[href*="explorer.solana.com"],
+  #usdf-vault-card > div[style*="flexDirection"]:has(code) > a[href*="explorer.solana.com"],
+  #moony-vault-card > div[style*="flexDirection"]:has(code) > a[href*="explorer.solana.com"] {
+    order: 3 !important;
+  }
+  
+  /* After button, create a flex row container using ::after pseudo-element on the button */
+  /* Actually, simpler: Use flexbox on parent and wrap button+link in a visual container */
+  /* Since we can't modify HTML, use flex-wrap or create a wrapper via CSS Grid subgrid */
+  
+  /* Best solution: Use negative margin to pull verify link up next to button */
+  .address-card > div[style*="flexDirection"]:has(code) > a[href*="explorer.solana.com"],
+  #mint-address-card > div[style*="flexDirection"]:has(code) > a[href*="explorer.solana.com"],
+  #authority-address-card > div[style*="flexDirection"]:has(code) > a[href*="explorer.solana.com"],
+  #reserve-address-card > div[style*="flexDirection"]:has(code) > a[href*="explorer.solana.com"],
+  #usdf-vault-card > div[style*="flexDirection"]:has(code) > a[href*="explorer.solana.com"],
+  #moony-vault-card > div[style*="flexDirection"]:has(code) > a[href*="explorer.solana.com"] {
+    margin-top: -0.75rem !important; /* Pull up to be next to button */
+    margin-left: 0.5rem !important; /* Space from button */
+    display: inline-block !important;
+    vertical-align: top !important;
+  }
+  
+  /* Ensure button container allows inline layout */
+  .address-card > div[style*="flexDirection"]:has(code) > button,
+  #mint-address-card > div[style*="flexDirection"]:has(code) > button,
+  #authority-address-card > div[style*="flexDirection"]:has(code) > button,
+  #reserve-address-card > div[style*="flexDirection"]:has(code) > button,
+  #usdf-vault-card > div[style*="flexDirection"]:has(code) > button,
+  #moony-vault-card > div[style*="flexDirection"]:has(code) > button {
+    display: inline-block !important;
+    vertical-align: top !important;
+  }
+}
+
 /* Hide empty three-dot menu on mobile */
 /* The three-dot menu in Mintlify typically appears in the top right when there are navbar links, */
 /* language switchers, or version switchers. If it's empty, we hide it. */
