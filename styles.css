@@ -544,10 +544,11 @@ footer [class*="links"] > div > h4 {
   #reserve-address-card code,
   #usdf-vault-card code,
   #moony-vault-card code {
-    font-size: 0.75rem !important;
+    font-size: 0.625rem !important; /* 10px */
     line-height: 1.4 !important;
     word-break: break-all !important;
     overflow-wrap: break-word !important;
+    letter-spacing: -0.01em !important; /* Slightly tighter letter spacing */
   }
 }
 
