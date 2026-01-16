@@ -9,7 +9,8 @@
   },
   "favicon": "/favicon.png",
   "customScripts": [
-    "/footer-socials.js"
+    "/footer-socials.js",
+    "/mobile-address-layout.js"
   ],
   "logo": {
     "light": "/logo/light.svg",
