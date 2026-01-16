@@ -565,6 +565,13 @@ footer [class*="links"] > div > h4 {
   }
   
   /* Inner div with code: make it column layout (code full width, button below) */
+  /* Target the div that has both code and button - override inline flex styles */
+  .address-card > div[style*="flexDirection"]:has(code) > div[style*="display: flex"]:has(code),
+  #mint-address-card > div[style*="flexDirection"]:has(code) > div[style*="display: flex"]:has(code),
+  #authority-address-card > div[style*="flexDirection"]:has(code) > div[style*="display: flex"]:has(code),
+  #reserve-address-card > div[style*="flexDirection"]:has(code) > div[style*="display: flex"]:has(code),
+  #usdf-vault-card > div[style*="flexDirection"]:has(code) > div[style*="display: flex"]:has(code),
+  #moony-vault-card > div[style*="flexDirection"]:has(code) > div[style*="display: flex"]:has(code),
   .address-card > div[style*="flexDirection"]:has(code) > div:has(code),
   #mint-address-card > div[style*="flexDirection"]:has(code) > div:has(code),
   #authority-address-card > div[style*="flexDirection"]:has(code) > div:has(code),
@@ -573,11 +580,12 @@ footer [class*="links"] > div > h4 {
   #moony-vault-card > div[style*="flexDirection"]:has(code) > div:has(code) {
     display: flex !important;
     flex-direction: column !important;
+    align-items: stretch !important;
     gap: 0.75rem !important;
     grid-row: 1 !important;
   }
   
-  /* Code in row 1, full width */
+  /* Code in row 1, full width - override any inline styles */
   .address-code,
   #mint-address-card code,
   #authority-address-card code,
@@ -587,9 +595,13 @@ footer [class*="links"] > div > h4 {
     width: 100% !important;
     max-width: 100% !important;
     flex: none !important;
+    flex-grow: 0 !important;
+    flex-shrink: 0 !important;
+    flex-basis: auto !important;
+    box-sizing: border-box !important;
   }
   
-  /* Button inside the inner div - should be below code now */
+  /* Button inside the inner div - force it below code */
   .address-card > div[style*="flexDirection"]:has(code) > div:has(code) > button,
   #mint-address-card > div[style*="flexDirection"]:has(code) > div:has(code) > button,
   #authority-address-card > div[style*="flexDirection"]:has(code) > div:has(code) > button,
@@ -598,6 +610,18 @@ footer [class*="links"] > div > h4 {
   #moony-vault-card > div[style*="flexDirection"]:has(code) > div:has(code) > button {
     align-self: flex-start !important;
     width: fit-content !important;
+    margin-top: 0.75rem !important;
+    order: 2 !important;
+  }
+  
+  /* Ensure code comes first in the column */
+  .address-card > div[style*="flexDirection"]:has(code) > div:has(code) > code,
+  #mint-address-card > div[style*="flexDirection"]:has(code) > div:has(code) > code,
+  #authority-address-card > div[style*="flexDirection"]:has(code) > div:has(code) > code,
+  #reserve-address-card > div[style*="flexDirection"]:has(code) > div:has(code) > code,
+  #usdf-vault-card > div[style*="flexDirection"]:has(code) > div:has(code) > code,
+  #moony-vault-card > div[style*="flexDirection"]:has(code) > div:has(code) > code {
+    order: 1 !important;
   }
   
   /* Row 2: Create a flex row container for button and verify link */
