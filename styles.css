@@ -549,7 +549,10 @@ footer [class*="links"] > div > h4 {
     word-break: break-all !important;
     overflow-wrap: break-word !important;
     letter-spacing: -0.015em !important; /* Slightly tighter letter spacing */
-    padding: 0.375rem 0.5rem !important; /* Reduce padding to give more space */
+    padding: 0.5rem 0.75rem !important; /* Match button height - button has padding: 0.5rem 1rem */
+    min-height: 2.5rem !important; /* Ensure consistent height matching button */
+    display: flex !important;
+    align-items: center !important;
   }
 }
 
