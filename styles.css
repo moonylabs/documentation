@@ -128,7 +128,7 @@ body:has([style*="z-index: 99999"]) footer {
 .dark #usdf-vault-card button,
 .dark #moony-vault-card button,
 .dark .address-card button {
-  background-color: #E7D9FD !important;
+  background-color: #d4b8fa !important;
   color: #502792 !important;
 }
 
