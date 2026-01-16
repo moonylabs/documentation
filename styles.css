@@ -536,6 +536,21 @@ footer [class*="links"] > div > h4 {
   justify-content: center !important;
 }
 
+/* Mobile address text - reduce font size to fit on one line */
+@media (max-width: 768px) {
+  .address-code,
+  #mint-address-card code,
+  #authority-address-card code,
+  #reserve-address-card code,
+  #usdf-vault-card code,
+  #moony-vault-card code {
+    font-size: 0.75rem !important;
+    line-height: 1.4 !important;
+    word-break: break-all !important;
+    overflow-wrap: break-word !important;
+  }
+}
+
 /* Hide empty three-dot menu on mobile */
 /* The three-dot menu in Mintlify typically appears in the top right when there are navbar links, */
 /* language switchers, or version switchers. If it's empty, we hide it. */
