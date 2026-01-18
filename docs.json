@@ -78,6 +78,16 @@
       "vscode"
     ]
   },
+  "assistant": {
+    "enabled": true,
+    "sampleQuestions": [
+      "What is Moony?",
+      "How does Proof of Capital work?",
+      "What is the total supply?",
+      "How do I get started with Moony?",
+      "Who can participate in the network?"
+    ]
+  },
   "footer": {
     "copyright": "© 2026 Moony Labs, LLC.",
     "links": [
