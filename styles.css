@@ -164,10 +164,36 @@ body:has([style*="z-index: 99999"]) footer {
 /* Core Principles cards - fixed width, no responsive changes */
 .principle-card,
 .address-card,
-.formula-card {
+.formula-card,
+.table-card {
   width: 100% !important;
   max-width: 100% !important;
   box-sizing: border-box !important;
+}
+
+/* Table card - matches principle-card but without purple table styling */
+.table-card {
+  background-color: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 0.75rem !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.dark .table-card {
+  background-color: #18181b !important;
+  border-color: #27272a !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+.table-card p {
+  text-align: justify !important;
+  word-spacing: -0.05em !important;
+  letter-spacing: 0.01em !important;
+  line-height: 1.7 !important;
+}
+
+.dark .table-card p {
+  color: #d4d4d8 !important;
 }
 
 /* Principle cards - set body text to justified with optimizations */
@@ -553,6 +579,7 @@ footer [class*="links"] > div > h4 {
     visibility: hidden !important;
   }
 }
+
 
 
 
