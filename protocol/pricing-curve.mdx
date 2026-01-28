@@ -11,15 +11,11 @@ icon: chart-line
 <div style={{ textAlign: 'justify' }}>
 
 <p style={{ marginBottom: '1.5rem' }}>
-Moony's primary price discovery mechanism is an onchain bonding curve - a deterministic exponential function encoded within the Moony Reserve smart contract. Unlike traditional market-based price discovery that relies on order books or automated market makers (AMMs) with liquidity pools, the bonding curve calculates the price of MNY based solely on the current circulating supply. As tokens enter circulation through unlocking, the price rises along a mathematically defined trajectory. As tokens are redeemed and removed from circulation, the price falls along the same curve in reverse.
+Moony's primary price discovery mechanism is an onchain bonding curve - a deterministic exponential function encoded within the Moony Reserve smart contract. Unlike traditional market-based price discovery that relies on order books or liquidity pools, the bonding curve calculates the price of MNY based solely on the current circulating supply. As tokens enter circulation through unlocking, the price rises along a mathematically defined trajectory. As tokens are redeemed and removed from circulation, the price falls along the same curve in reverse.
 </p>
 
 <p style={{ marginBottom: '1.5rem' }}>
-The exponential model was selected for its specific economic properties: gradual price appreciation during early adoption phases, accelerating value capture as the network matures, and a natural ceiling that bounds maximum token price. This creates predictable incentive structures where early participants benefit from lower entry prices while later participants contribute proportionally more capital to the reserve - capital that backs the redemption value of all circulating tokens.
-</p>
-
-<p style={{ marginBottom: '1.5rem' }}>
-This mechanism applies symmetrically to both unlocking and redemption using identical mathematical functions. All participants interact with the same pricing logic, enforced by immutable onchain code with no administrative override capability. Prices cannot be altered, manipulated, or manually adjusted by any party. While MNY may also trade on external secondary markets, the Reserve's deterministic pricing serves as an anchor that bounds market variance through natural arbitrage dynamics. All transaction outcomes are independently verifiable and reproducible using the formulas and constants documented below.
+The exponential model creates predictable incentive structures: gradual price appreciation during early adoption, accelerating value capture as the network matures, and a natural ceiling at maximum supply. Early participants benefit from lower entry prices while later participants contribute proportionally more capital to the reserve - capital that backs the redemption value of all circulating tokens. This mechanism applies symmetrically to both unlocking and redemption, enforced by immutable onchain code with no administrative override capability. All transaction outcomes are independently verifiable using the formulas documented below.
 </p>
 
 </div>
@@ -29,11 +25,7 @@ This mechanism applies symmetrically to both unlocking and redemption using iden
 <div style={{ textAlign: 'justify' }}>
 
 <p style={{ marginBottom: '1.5rem' }}>
-The spot price represents the instantaneous price per MNY token at any given circulating supply level. In bonding curve terminology, "spot price" refers to the marginal cost of the next infinitesimally small unit of tokens - the derivative of the cumulative cost function. This differs from traditional market spot prices, which reflect the last traded price between counterparties. Here, the spot price is a continuous mathematical function with no bid-ask spread, no slippage on infinitesimal trades, and no dependence on external liquidity or market sentiment.
-</p>
-
-<p style={{ marginBottom: '1.5rem' }}>
-The spot price function is defined by an exponential equation with three immutable constants:
+The spot price represents the instantaneous price per MNY token at any given circulating supply level - a continuous mathematical function with no bid-ask spread and no dependence on external liquidity. It is defined by an exponential equation with three immutable constants:
 </p>
 
 </div>
@@ -60,11 +52,16 @@ The spot price function is defined by an exponential equation with three immutab
           <code style={{ backgroundColor: 'transparent', padding: 0 }}>e</code> - Euler's number (~2.71828), the base of the natural exponential function
         </li>
       </ul>
-      <p style={{ marginTop: '1rem', marginBottom: 0, fontSize: '0.9375rem', color: '#475569' }}>
-        The exponential form ensures that the rate of price change is proportional to the current price itself - a property that creates smooth, continuous appreciation without discontinuities or arbitrage opportunities at any supply level.
-      </p>
     </div>
   </div>
+</div>
+
+<div style={{ textAlign: 'justify' }}>
+
+<p style={{ marginBottom: '1.5rem' }}>
+The exponential form ensures that the rate of price change is proportional to the current price itself - creating smooth, continuous appreciation without discontinuities at any supply level.
+</p>
+
 </div>
 
 ### Constants
@@ -72,7 +69,7 @@ The spot price function is defined by an exponential equation with three immutab
 <div style={{ textAlign: 'justify' }}>
 
 <p style={{ marginBottom: '1.5rem' }}>
-The three constants that parameterize the curve were derived to satisfy specific boundary conditions: an initial price of approximately 0.01 USDF when supply approaches zero, a terminal price of 1,000,000 USDF at maximum supply (21,000,000 MNY), and a growth rate that produces a smooth, continuous price trajectory between these bounds. These values are immutably encoded in the Moony Reserve smart contract and cannot be modified after deployment:
+Three immutable constants parameterize the curve to produce an initial price of ~0.01 USDF and a terminal price of 1,000,000 USDF at maximum supply (21M MNY):
 </p>
 
 </div>
@@ -176,7 +173,7 @@ The three constants that parameterize the curve were derived to satisfy specific
 <div style={{ textAlign: 'justify' }}>
 
 <p style={{ marginBottom: '1.5rem' }}>
-The following reference table illustrates spot prices at key supply milestones, demonstrating the exponential growth characteristic of the curve. These values are computed directly from the spot price formula and can be independently verified:
+Reference prices at key supply milestones, computed directly from the spot price formula:
 </p>
 
 </div>
@@ -199,10 +196,6 @@ The following reference table illustrates spot prices at key supply milestones, 
 | 20,000,000 | 415,000 |
 | 21,000,000 | 1,000,000 |
 
-<p style={{ marginTop: '1rem', marginBottom: 0, fontSize: '0.9375rem' }}>
-The price trajectory exhibits the characteristic "hockey stick" shape of exponential growth: relatively stable through the first half of supply distribution (0-10M tokens), followed by rapid acceleration as supply approaches the 21M maximum. This distribution creates strong incentives for early participation while ensuring that later entrants contribute substantially more capital per token to the reserve - capital that enhances the redemption backing for all token holders.
-</p>
-
 </div>
 
 ## Transaction Pricing
@@ -210,11 +203,7 @@ The price trajectory exhibits the characteristic "hockey stick" shape of exponen
 <div style={{ textAlign: 'justify' }}>
 
 <p style={{ marginBottom: '1.5rem' }}>
-While the spot price defines the instantaneous cost of an infinitesimal token quantity, actual transactions involve discrete token amounts. The total cost or value of a transaction is computed by integrating the spot price function over the supply range traversed during the transaction - mathematically equivalent to calculating the area under the curve between two supply points.
-</p>
-
-<p style={{ marginBottom: '1.5rem' }}>
-This integral-based approach ensures that transaction pricing is path-independent and deterministic: the cost to acquire tokens from supply S₁ to S₂ is identical regardless of whether the transaction occurs in a single operation or multiple smaller transactions. The formulas below represent closed-form solutions to these integrals, enabling efficient onchain computation without numerical approximation.
+The spot price tells you the current price per token, but you cannot simply multiply it by the quantity you want - because each token you buy slightly increases the price of the next one. Instead, the total cost is computed by integrating the spot price function across the full range of the transaction. The formulas below handle this automatically: two for buying (cost and tokens received), two for selling (value and tokens required).
 </p>
 
 </div>
@@ -224,7 +213,7 @@ This integral-based approach ensures that transaction pricing is path-independen
 <div style={{ textAlign: 'justify' }}>
 
 <p style={{ marginBottom: '1.5rem' }}>
-Given a desired quantity of tokens to acquire, this formula computes the total USDF cost. The result represents the definite integral of the spot price function from current supply to new supply - the exact area under the exponential curve across the transaction range:
+Given a token quantity to acquire, this formula computes the total USDF cost - the definite integral from current supply to new supply:
 </p>
 
 </div>
@@ -251,11 +240,16 @@ Given a desired quantity of tokens to acquire, this formula computes the total U
           Since b = c by design, the coefficient (a · b / c) simplifies to <code style={{ backgroundColor: 'transparent', padding: 0 }}>a</code>
         </li>
       </ul>
-      <p style={{ marginTop: '1rem', marginBottom: 0, fontSize: '0.9375rem', color: '#475569' }}>
-        The computed cost always exceeds (spot price × quantity) because each successive token in the transaction is priced marginally higher than the previous. This price impact is an inherent property of bonding curves and scales with transaction size relative to total supply.
-      </p>
     </div>
   </div>
+</div>
+
+<div style={{ textAlign: 'justify' }}>
+
+<p style={{ marginBottom: '1.5rem' }}>
+The computed cost always exceeds (spot price × quantity) because each successive token in the transaction is priced marginally higher than the previous. This price impact is an inherent property of bonding curves and scales with transaction size relative to total supply.
+</p>
+
 </div>
 
 ### Tokens Bought for Value
@@ -263,7 +257,7 @@ Given a desired quantity of tokens to acquire, this formula computes the total U
 <div style={{ textAlign: 'justify' }}>
 
 <p style={{ marginBottom: '1.5rem' }}>
-In practice, participants typically specify a USDF amount to spend rather than a token quantity to acquire. This inverse function - derived by solving the cost integral for the unknown upper bound - determines the exact quantity of MNY tokens received for a given USDF expenditure. This is the primary calculation executed during token acquisition in client applications:
+When participants specify a USDF amount to spend (the typical case), this inverse function determines the exact quantity of MNY received:
 </p>
 
 </div>
@@ -293,11 +287,16 @@ In practice, participants typically specify a USDF amount to spend rather than a
           <code style={{ backgroundColor: 'transparent', padding: 0 }}>ln</code> - natural logarithm, the inverse of exponentiation (e^x)
         </li>
       </ul>
-      <p style={{ marginTop: '1rem', marginBottom: 0, fontSize: '0.9375rem', color: '#475569' }}>
-        The logarithmic term arises from inverting the exponential cost function. Because the natural log is the inverse of e^x, this formula algebraically solves for the supply endpoint that yields exactly the specified cost when integrated from S₀.
-      </p>
     </div>
   </div>
+</div>
+
+<div style={{ textAlign: 'justify' }}>
+
+<p style={{ marginBottom: '1.5rem' }}>
+The logarithmic term arises from inverting the exponential cost function. Because the natural log is the inverse of e^x, this formula algebraically solves for the supply endpoint that yields exactly the specified cost when integrated from S₀.
+</p>
+
 </div>
 
 ### Value from Selling Tokens
@@ -305,7 +304,7 @@ In practice, participants typically specify a USDF amount to spend rather than a
 <div style={{ textAlign: 'justify' }}>
 
 <p style={{ marginBottom: '1.5rem' }}>
-Redemption operates symmetrically to acquisition: tokens are returned to the reserve, circulating supply decreases, and USDF is released to the participant. The value received is computed by integrating the spot price function in reverse - from the current supply down to the post-redemption supply level:
+The same logic applies in reverse when redeeming tokens. Tokens return to the reserve, supply decreases, and USDF is released:
 </p>
 
 </div>
@@ -332,11 +331,16 @@ Redemption operates symmetrically to acquisition: tokens are returned to the res
           Returns the gross redemption value before protocol fees are applied
         </li>
       </ul>
-      <p style={{ marginTop: '1rem', marginBottom: 0, fontSize: '0.9375rem', color: '#475569' }}>
-        The mathematical symmetry between acquisition and redemption ensures that the reserve always holds sufficient USDF to honor all outstanding redemptions at current curve prices. This is a fundamental solvency invariant of the bonding curve design - the integrated value locked in the reserve exactly equals the integrated redemption value of all circulating tokens.
-      </p>
     </div>
   </div>
+</div>
+
+<div style={{ textAlign: 'justify' }}>
+
+<p style={{ marginBottom: '1.5rem' }}>
+The mathematical symmetry between acquisition and redemption ensures that the reserve always holds sufficient USDF to honor all outstanding redemptions at current curve prices. This is a fundamental solvency invariant - the value locked in the reserve exactly equals the redemption value of all circulating tokens.
+</p>
+
 </div>
 
 ### Tokens Required for Value
@@ -344,7 +348,7 @@ Redemption operates symmetrically to acquisition: tokens are returned to the res
 <div style={{ textAlign: 'justify' }}>
 
 <p style={{ marginBottom: '1.5rem' }}>
-Similar to acquisition, redemption flows in client applications typically specify a desired USDF amount to receive rather than a token quantity to redeem. This inverse function computes the exact number of MNY tokens that must be returned to the reserve to release the specified USDF value. The formula operates on reserve value rather than supply, providing an equivalent but computationally distinct approach:
+When participants specify a desired USDF amount to receive, this inverse function computes the MNY required to redeem. It operates on reserve value rather than supply:
 </p>
 
 </div>
@@ -374,80 +378,28 @@ Similar to acquisition, redemption flows in client applications typically specif
           <code style={{ backgroundColor: 'transparent', padding: 0 }}>ln</code> - natural logarithm, the inverse of exponentiation (e^x)
         </li>
       </ul>
-      <p style={{ marginTop: '1rem', marginBottom: 0, fontSize: '0.9375rem', color: '#475569' }}>
-        This formulation uses the reserve's locked value as the state variable rather than circulating supply. The two representations are mathematically equivalent due to the one-to-one correspondence between supply levels and cumulative reserve value defined by the bonding curve integral.
-      </p>
     </div>
   </div>
+</div>
+
+<div style={{ textAlign: 'justify' }}>
+
+<p style={{ marginBottom: '1.5rem' }}>
+This formulation uses the reserve's locked value as the state variable rather than circulating supply. The two are mathematically equivalent due to the one-to-one correspondence between supply levels and cumulative reserve value.
+</p>
+
 </div>
 
 <Info>
 Redemptions are subject to a fee (in basis points) deducted from the gross value. See the <a href="/protocol/proof-of-capital#fee-model" className="brand-link">Fee Model</a> section for details.
 </Info>
 
-### Worked Example
-
-<div style={{ textAlign: 'justify' }}>
-
-<p style={{ marginBottom: '1rem' }}>
-The following example demonstrates the cost calculation for a token acquisition, illustrating how the integral-based pricing produces a result that differs from simple spot price multiplication. Consider a transaction where the current circulating supply is 1,000,000 MNY and a participant seeks to acquire 10,000 tokens:
-</p>
-
-</div>
-
-<div className="principle-card" style={{
-  border: '1px solid #e5e7eb',
-  borderRadius: '0.75rem',
-  padding: '1.5rem',
-  marginBottom: '1.5rem',
-  backgroundColor: '#f8fafc'
-}}>
-  <div style={{ marginBottom: '1rem' }}>
-    <strong>Given:</strong>
-    <ul style={{ marginTop: '0.5rem', marginBottom: 0, paddingLeft: '1.5rem' }}>
-      <li>currentSupply = 1,000,000</li>
-      <li>tokensToBuy = 10,000</li>
-      <li>newSupply = 1,010,000</li>
-    </ul>
-  </div>
-  <div style={{ marginBottom: '1rem' }}>
-    <strong>Calculation:</strong>
-    <ul style={{ marginTop: '0.5rem', marginBottom: 0, paddingLeft: '1.5rem' }}>
-      <li>Cost = a × (e^(c × newSupply) - e^(c × currentSupply))</li>
-      <li>Cost = 11,400.23 × (e^0.8859 - e^0.8772)</li>
-      <li>Cost = 11,400.23 × (2.4250 - 2.4039)</li>
-      <li>Cost = 11,400.23 × 0.0211</li>
-    </ul>
-  </div>
-  <div>
-    <strong>Result:</strong>
-    <ul style={{ marginTop: '0.5rem', marginBottom: 0, paddingLeft: '1.5rem' }}>
-      <li>Total cost: ~240.54 USDF</li>
-      <li>Average price per token: ~0.024 USDF</li>
-      <li>Spot price at entry: ~0.024 USDF</li>
-      <li>Spot price at exit: ~0.024 USDF</li>
-    </ul>
-  </div>
-</div>
-
-<div style={{ textAlign: 'justify' }}>
-
-<p style={{ marginBottom: '1.5rem' }}>
-The average execution price of 0.024 USDF per token is marginally higher than the spot price at the transaction's starting supply level. This differential - commonly referred to as "price impact" or "slippage" in trading contexts - arises because the transaction traverses the curve: each successive token in the batch is priced at a marginally higher point along the exponential function. For this example, acquiring 10,000 tokens (1% of the starting supply) results in minimal price impact. Larger transactions relative to current supply would exhibit proportionally greater deviation between entry spot price and average execution price.
-</p>
-
-</div>
-
 ## Secondary Market Dynamics
 
 <div style={{ textAlign: 'justify' }}>
 
 <p style={{ marginBottom: '1.5rem' }}>
-While the Moony Reserve serves as the primary venue for MNY price discovery, tokens may also trade on external secondary markets such as decentralized exchanges (DEXs) or centralized trading platforms. On these venues, price discovery follows traditional market mechanics - order book matching, AMM pool ratios, or other liquidity-based mechanisms - which can produce prices that temporarily diverge from the Reserve's deterministic curve.
-</p>
-
-<p style={{ marginBottom: '1.5rem' }}>
-However, the Reserve's guaranteed liquidity and deterministic pricing create a powerful anchoring effect through arbitrage. When secondary market prices deviate from the Reserve price, rational arbitrageurs can extract risk-free profit by trading against the discrepancy:
+The formulas above govern transactions directly with the Moony Reserve. But MNY may also trade on external markets (DEXs, exchanges) where prices are set by supply and demand rather than the bonding curve. How do these two pricing systems interact? The Reserve's guaranteed liquidity creates a powerful anchoring effect through arbitrage:
 </p>
 
 </div>
@@ -511,11 +463,7 @@ However, the Reserve's guaranteed liquidity and deterministic pricing create a p
 <div style={{ textAlign: 'justify' }}>
 
 <p style={{ marginBottom: '1.5rem' }}>
-This arbitrage mechanism effectively establishes the Reserve as both a price floor and price ceiling for external markets. The magnitude of sustainable deviation is bounded by transaction costs (gas fees, exchange fees, slippage) - any price gap exceeding these costs becomes an arbitrage opportunity that market participants will exploit until equilibrium is restored.
-</p>
-
-<p style={{ marginBottom: '1.5rem' }}>
-The economic implication is significant: regardless of external market volatility, sentiment-driven speculation, or temporary liquidity imbalances on secondary venues, MNY prices across all markets remain tethered to the Reserve's deterministic curve. This provides participants with price stability guarantees that traditional tokens - whose value depends entirely on secondary market dynamics - cannot offer.
+This arbitrage mechanism establishes the Reserve as both a price floor and ceiling for external markets. Any price gap exceeding transaction costs becomes an opportunity that arbitrageurs will exploit until equilibrium is restored, keeping MNY prices across all markets tethered to the deterministic curve.
 </p>
 
 </div>
@@ -525,11 +473,7 @@ The economic implication is significant: regardless of external market volatilit
 <div style={{ textAlign: 'justify' }}>
 
 <p style={{ marginBottom: '1.5rem' }}>
-While the continuous formulas above define the mathematical specification of the pricing curve, direct onchain computation of exponential and logarithmic functions presents practical challenges. These transcendental functions require iterative approximation algorithms that consume significant computational resources (gas) and introduce potential precision variance across different implementations. To address these constraints while preserving exact mathematical correctness, the Moony Reserve employs a discrete implementation based on precomputed lookup tables.
-</p>
-
-<p style={{ marginBottom: '1.5rem' }}>
-This approach precomputes all curve values at regular supply intervals, storing them as fixed-point integers in contract storage. Transaction pricing then reduces to table lookups with linear interpolation between adjacent entries - operations that are computationally efficient and produce bit-identical results across all execution environments.
+The formulas above are mathematically exact, but how does the smart contract actually compute them? Direct calculation of exponentials and logarithms onchain is computationally expensive. Instead, the Moony Reserve precomputes all curve values at regular supply intervals and stores them in lookup tables. Transaction pricing reduces to table lookups with linear interpolation - efficient and producing identical results every time.
 </p>
 
 </div>
@@ -538,22 +482,65 @@ This approach precomputes all curve values at regular supply intervals, storing 
 
 <div style={{ textAlign: 'justify' }}>
 
-<p style={{ marginBottom: '1rem' }}>
-The discrete implementation maintains two parallel data structures, each containing values precomputed from the continuous formulas at fixed supply intervals:
-</p>
-
-<ul style={{ marginBottom: '1.5rem', paddingLeft: '1.5rem' }}>
-  <li style={{ marginBottom: '0.75rem' }}>
-    <strong>Discrete Pricing Table</strong> - contains the spot price P(S) evaluated at each discrete supply level. Used for displaying current market price and computing marginal costs.
-  </li>
-  <li style={{ marginBottom: '0.75rem' }}>
-    <strong>Discrete Cumulative Value Table</strong> - contains the definite integral of P(S) from 0 to each discrete supply level. Enables O(1) transaction cost computation by subtracting cumulative values at transaction boundaries.
-  </li>
-</ul>
-
 <p style={{ marginBottom: '1.5rem' }}>
-During transaction execution, the contract identifies the table entries bracketing the current and target supply levels, retrieves the corresponding values, and applies linear interpolation for sub-interval precision. This produces results that match the continuous formulas to within the interpolation error bound, which is negligible at the configured step size.
+The implementation maintains two parallel data structures, each precomputed from the continuous formulas at fixed supply intervals:
 </p>
+
+</div>
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem', marginBottom: '2rem' }}>
+
+  <div className="principle-card" style={{
+    border: '1px solid #e5e7eb',
+    borderRadius: '0.75rem',
+    padding: '1.5rem',
+    marginBottom: '0',
+    backgroundColor: '#ffffff',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+  }}>
+    <div style={{
+      fontSize: '1rem',
+      fontWeight: 600,
+      color: '#1e293b',
+      marginBottom: '0.5rem'
+    }}>
+      Discrete Pricing Table
+    </div>
+    <p style={{
+      margin: 0,
+      lineHeight: '1.6',
+      color: '#475569',
+      fontSize: '0.9375rem'
+    }}>
+      Spot price P(S) evaluated at each discrete supply level. Used for displaying current market price.
+    </p>
+  </div>
+
+  <div className="principle-card" style={{
+    border: '1px solid #e5e7eb',
+    borderRadius: '0.75rem',
+    padding: '1.5rem',
+    marginBottom: '0',
+    backgroundColor: '#ffffff',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+  }}>
+    <div style={{
+      fontSize: '1rem',
+      fontWeight: 600,
+      color: '#1e293b',
+      marginBottom: '0.5rem'
+    }}>
+      Discrete Cumulative Value Table
+    </div>
+    <p style={{
+      margin: 0,
+      lineHeight: '1.6',
+      color: '#475569',
+      fontSize: '0.9375rem'
+    }}>
+      The integral of P(S) from 0 to each supply level. Enables O(1) transaction cost computation by subtracting values at transaction boundaries.
+    </p>
+  </div>
 
 </div>
 
@@ -561,30 +548,95 @@ During transaction execution, the contract identifies the table entries bracketi
 
 <div style={{ textAlign: 'justify' }}>
 
-<p style={{ marginBottom: '1rem' }}>
-The lookup tables are configured with the following precision parameters, balancing storage efficiency against interpolation accuracy:
+<p style={{ marginBottom: '1.5rem' }}>
+The lookup tables are configured to balance storage efficiency against interpolation accuracy:
 </p>
-
-<ul style={{ marginBottom: '1.5rem', paddingLeft: '1.5rem' }}>
-  <li style={{ marginBottom: '0.75rem' }}>
-    <strong>Step size</strong>: 100 tokens - each table entry at index i represents the curve value at supply S = i × 100. This granularity ensures interpolation error remains below 0.01% for typical transaction sizes.
-  </li>
-  <li style={{ marginBottom: '0.75rem' }}>
-    <strong>Decimal precision</strong>: 18 decimal places - all values are stored as integers scaled by 10^18, matching the standard ERC-20 decimal convention and preserving full precision through arithmetic operations.
-  </li>
-  <li style={{ marginBottom: '0.75rem' }}>
-    <strong>Total entries</strong>: 210,001 per table - covering all supply levels from 0 through the 21,000,000 MNY maximum in 100-token increments.
-  </li>
-</ul>
 
 </div>
 
-### Verification
+<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem', marginBottom: '2rem' }}>
+
+  <div className="principle-card" style={{
+    border: '1px solid #e5e7eb',
+    borderRadius: '0.75rem',
+    padding: '1.5rem',
+    marginBottom: '0',
+    backgroundColor: '#ffffff',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+  }}>
+    <div style={{
+      fontSize: '1rem',
+      fontWeight: 600,
+      color: '#1e293b'
+    }}>
+      Step size: 100 tokens
+    </div>
+    <p style={{
+      margin: 0,
+      lineHeight: '1.6',
+      color: '#475569',
+      fontSize: '0.9375rem'
+    }}>
+      Each table entry represents the curve value at supply S = i × 100. Interpolation error remains below 0.01%.
+    </p>
+  </div>
+
+  <div className="principle-card" style={{
+    border: '1px solid #e5e7eb',
+    borderRadius: '0.75rem',
+    padding: '1.5rem',
+    marginBottom: '0',
+    backgroundColor: '#ffffff',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+  }}>
+    <div style={{
+      fontSize: '1rem',
+      fontWeight: 600,
+      color: '#1e293b'
+    }}>
+      Decimal precision: 18 places
+    </div>
+    <p style={{
+      margin: 0,
+      lineHeight: '1.6',
+      color: '#475569',
+      fontSize: '0.9375rem'
+    }}>
+      All values stored as integers scaled by 10^18, matching the standard SPL token convention.
+    </p>
+  </div>
+
+  <div className="principle-card" style={{
+    border: '1px solid #e5e7eb',
+    borderRadius: '0.75rem',
+    padding: '1.5rem',
+    marginBottom: '0',
+    backgroundColor: '#ffffff',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+  }}>
+    <div style={{
+      fontSize: '1rem',
+      fontWeight: 600,
+      color: '#1e293b'
+    }}>
+      Total entries: 210,001 per table
+    </div>
+    <p style={{
+      margin: 0,
+      lineHeight: '1.6',
+      color: '#475569',
+      fontSize: '0.9375rem'
+    }}>
+      Covers all supply levels from 0 through the 21,000,000 MNY maximum in 100-token increments.
+    </p>
+  </div>
+
+</div>
 
 <div style={{ textAlign: 'justify' }}>
 
 <p style={{ marginBottom: '1.5rem' }}>
-The lookup tables are fully deterministic and independently verifiable. Given the constants (a, b, c) and formulas documented above, any implementation can regenerate the complete table contents and verify byte-for-byte equivalence with the deployed contract data. This verifiability extends to transaction outcomes: given the pre-transaction supply and transaction parameters, the resulting cost or value can be computed offline and compared against the onchain execution result. Any discrepancy would indicate either an implementation error or contract compromise - neither of which is possible given the immutable, audited nature of the deployed code.
+These tables are fully deterministic and independently verifiable. Any implementation can regenerate the complete table contents from the constants and formulas documented above and verify equivalence with the deployed contract data.
 </p>
 
 </div>
