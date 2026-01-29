@@ -10,46 +10,24 @@ icon: shield-check
 
 <div style={{ textAlign: 'justify' }}>
 
-<p style={{ marginBottom: '1.5rem' }}>
-Moony uses a distribution model called Proof of Capital (PoC), implemented entirely through its immutable onchain Moony Reserve. Under this model, MNY enters circulation exclusively in exchange for verifiable onchain capital, ensuring that distribution is transparent, market-driven, and free from discretionary control.
+<p style={{ marginBottom: '1rem' }}>
+Moony uses a distribution model called Proof of Capital (PoC), implemented entirely through the immutable Moony Reserve. Under this model, MNY enters circulation exclusively in exchange for verifiable onchain capital. There are no private allocations, discretionary issuance, or off-chain mechanisms.
 </p>
 
 <p style={{ marginBottom: '1.5rem' }}>
-Rather than relying on private allocations, discretionary issuance, or off-chain mechanisms, participation in Moony's monetary system is tied directly to real economic commitment. Every unit of MNY unlocked into circulation corresponds to capital deposited onchain, aligning growth with genuine demand.
-</p>
-
-<p style={{ marginBottom: '1.5rem' }}>
-The Moony Reserve retains all deposited capital as protocol liquidity, forming a persistent, verifiable foundation beneath the circulating supply. This liquidity enables redemptions and anchors Moony's monetary system in observable value, while all pricing and distribution behavior is enforced deterministically by the contract's immutable logic.
+The core benefit of Proof of Capital is that deposited capital remains onchain as guaranteed redemption liquidity. Every unit of MNY in circulation corresponds to capital held in the Reserve, ensuring that participants can always redeem at price levels determined by the pricing curve. This creates a persistent, verifiable liquidity foundation that grows with the network.
 </p>
 
 </div>
 
-## Capital-Based Mining
+## How It Works
 
-<div style={{ textAlign: 'justify' }}>
-
-<p style={{ marginBottom: '1.5rem' }}>
-Moony's Proof of Capital (PoC) mechanism offers a capital-based alternative to traditional Proof-of-Work (PoW) distribution models. Instead of relying on specialized hardware and energy-intensive computation to compete for block rewards, PoC allows any participant to unlock MNY by depositing USDF directly into the onchain Moony Reserve. This shifts distribution from computational competition to direct, verifiable economic participation.
-</p>
-
-<p style={{ marginBottom: '1.5rem' }}>
-Because PoC does not depend on proprietary equipment, geographic concentration, or access to industrial-scale infrastructure, participation remains open on equal terms to anyone with access to the network. This design aligns Moony's distribution model with its role as open monetary infrastructure, lowering structural barriers to entry and enabling broad, global participation from the outset.
-</p>
-
-<p style={{ marginBottom: '1.5rem' }}>
-Under this model, mining functions as a constructive economic process rather than an extractive one. Each deposit unlocks MNY from the pre-minted supply while simultaneously adding redeemable onchain liquidity to the system. Participation strengthens the monetary foundation of the network itself, rather than externalizing costs or concentrating rewards.
-</p>
-
-<p style={{ marginBottom: '1.5rem' }}>
-By combining PoC with Solana's efficient execution environment, Moony establishes a distribution model designed for long-term sustainability and open access. Each token unlocked contributes to deeper liquidity, ensures that growth reflects genuine demand, and supports a self-reinforcing framework for the circulation of a scarce digital asset as a shared public good.
-</p>
-
+<div style={{ backgroundColor: '#E7D9FD', borderRadius: '1rem', padding: '0', overflow: 'hidden', marginBottom: '1.5rem' }}>
+  <img src="/images/pattern2.png" alt="Moony Pattern" style={{ borderRadius: '1rem', width: '100%' }} />
 </div>
 
-## Core Features
+<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '0', marginBottom: '1.5rem' }}>
 
-<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem', marginBottom: '2rem' }}>
-  
   <div className="principle-card" style={{
     border: '1px solid #e5e7eb',
     borderRadius: '0.75rem',
@@ -65,16 +43,72 @@ By combining PoC with Solana's efficient execution environment, Moony establishe
       display: 'flex',
       alignItems: 'center',
       gap: '0.5rem'
-    }}><Icon icon="unlock" size={18} color="currentColor" /> Permissionless</div>
+    }}><Icon icon="right-to-bracket" size={18} color="currentColor" /> Buy</div>
     <p style={{
       margin: 0,
       lineHeight: '1.6',
       color: '#475569',
       fontSize: '0.9375rem'
     }}>
-      Anyone can participate directly through the Moony Reserve, without approval, intermediaries, or centralized control.
+      Deposit USDF into the Moony Reserve to unlock MNY. The amount received is determined by the current position on the pricing curve. As more MNY enters circulation, the price increases along the curve.
     </p>
   </div>
+
+  <div className="principle-card" style={{
+    border: '1px solid #e5e7eb',
+    borderRadius: '0.75rem',
+    padding: '1.5rem',
+    marginBottom: '0',
+    backgroundColor: '#ffffff',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+  }}>
+    <div style={{
+      fontSize: '1rem',
+      fontWeight: 600,
+      color: '#1e293b',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '0.5rem'
+    }}><Icon icon="right-from-bracket" size={18} color="currentColor" /> Sell</div>
+    <p style={{
+      margin: 0,
+      lineHeight: '1.6',
+      color: '#475569',
+      fontSize: '0.9375rem'
+    }}>
+      Return MNY to the Reserve to redeem USDF at the current curve price, with a 1% fee applied. Because all deposited capital remains in the Reserve, redemption liquidity is always available.
+    </p>
+  </div>
+
+</div>
+
+<div style={{ textAlign: 'justify' }}>
+
+<p style={{ marginBottom: '1.5rem' }}>
+Both operations execute atomically onchain, requiring no intermediaries, approvals, or custodial trust. The Reserve functions as a two-way exchange governed entirely by code.
+</p>
+
+</div>
+
+<Info>
+Buy and sell prices are determined by a deterministic pricing curve. See <a href="/protocol/pricing-curve" className="brand-link">Pricing Curve</a> for details.
+</Info>
+
+## Capital-Based Mining
+
+<div style={{ textAlign: 'justify' }}>
+
+<p style={{ marginBottom: '1rem' }}>
+Proof of Capital offers an alternative to Proof-of-Work (PoW) distribution. Instead of specialized hardware and energy-intensive computation, PoC allows anyone to unlock MNY by depositing capital directly into the Reserve. There are no equipment requirements, geographic advantages, or industrial-scale barriers to entry.
+</p>
+
+<p style={{ marginBottom: '1.5rem' }}>
+Under this model, mining is constructive rather than extractive. Each deposit unlocks MNY while simultaneously adding redeemable liquidity to the system. Participation strengthens the monetary foundation rather than externalizing costs, establishing a sustainable distribution model aligned with Moony's role as open monetary infrastructure.
+</p>
+
+</div>
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem', marginBottom: '2rem' }}>
 
   <div className="principle-card" style={{
     border: '1px solid #e5e7eb',
@@ -98,7 +132,7 @@ By combining PoC with Solana's efficient execution environment, Moony establishe
       color: '#475569',
       fontSize: '0.9375rem'
     }}>
-      Capital used to unlock MNY remains onchain within the Moony Reserve, forming the liquidity backbone of Moony's monetary system. Participation strengthens shared infrastructure rather than extracting value from it.
+      Capital remains onchain as protocol liquidity. Participation strengthens shared infrastructure rather than extracting value from it.
     </p>
   </div>
 
@@ -124,7 +158,7 @@ By combining PoC with Solana's efficient execution environment, Moony establishe
       color: '#475569',
       fontSize: '0.9375rem'
     }}>
-      By replacing energy-intensive computation with verifiable onchain capital deposits, Proof of Capital aligns with Solana's low-carbon infrastructure.
+      Replaces energy-intensive computation with verifiable capital deposits, aligning with Solana's low-carbon infrastructure.
     </p>
   </div>
 
@@ -164,7 +198,7 @@ Acquiring MNY directly from the Moony Reserve carries no fee, enabling open and 
       color: '#475569',
       fontSize: '0.9375rem'
     }}>
-      The redemption fee helps mitigate front-running and sandwich attacks, a class of exploits in which automated bots extract value from predictable onchain price movements. By introducing modest economic friction on redemptions, the fee reduces the viability of rapid in-and-out strategies along the bonding curve and helps preserve fair execution for participants interacting directly with the Moony Reserve.
+      The redemption fee helps mitigate front-running and sandwich attacks, a class of exploits in which automated bots extract value from predictable onchain price movements. By introducing modest economic friction on redemptions, the fee reduces the viability of rapid in-and-out strategies along the pricing curve and helps preserve fair execution for participants interacting directly with the Moony Reserve.
     </p>
   </div>
 
@@ -208,32 +242,20 @@ For additional context on the open-source infrastructure used to deploy the Moon
 
 <div style={{ textAlign: 'justify' }}>
 
-<p style={{ marginBottom: '1.5rem' }}>
-USDF is a dollar-denominated stablecoin used by the Moony protocol as its onchain reserve asset. It serves as the unit of account through which capital enters and exits the system, providing a stable and familiar reference point for participants interacting with the Moony Reserve.
+<p style={{ marginBottom: '1rem' }}>
+USDF is a dollar-denominated stablecoin that serves as the Moony Reserve's unit of account. Issued by Flipcash Inc. as a Coinbase Custom Stablecoin, each USDF is fully backed 1:1 by U.S. dollar-denominated collateral held in segregated Coinbase custody.
+</p>
+
+<p style={{ marginBottom: '1rem' }}>
+Within the Moony protocol, USDF functions as neutral reserve capital. Deposits are recorded onchain as protocol liquidity, supporting redemptions and anchoring circulating MNY in verifiable value.
 </p>
 
 <p style={{ marginBottom: '1.5rem' }}>
-USDF is issued by Flipcash Inc. as a Coinbase Custom Stablecoin, created in collaboration with Coinbase. Under this framework, Coinbase is responsible for stablecoin contract creation, custody of reserve assets, compliance oversight, and security auditing of the USDF infrastructure.
-</p>
-
-<p style={{ marginBottom: '1.5rem' }}>
-Each unit of USDF is fully backed 1:1 by U.S. dollar-denominated stablecoin collateral, including USDC, held in segregated Coinbase custody. This backing allows USDF to be redeemed for U.S. dollars or used throughout the broader digital asset network as a reliable dollar representation.
-</p>
-
-<p style={{ marginBottom: '1.5rem' }}>
-Within the Moony protocol, USDF functions exclusively as neutral reserve capital. When participants deposit USDF into the Moony Reserve, it is recorded onchain as protocol liquidity, supporting redemptions and anchoring the circulating supply of MNY in verifiable value.
-</p>
-
-<p style={{ marginBottom: '1.5rem' }}>
-While Flipcash and Coinbase manage the issuance, custody, and compliance of USDF itself, neither entity exercises control over the Moony protocol, its Moony Reserve, or the circulation of MNY. All pricing, distribution, and redemption behavior within Moony is governed solely by immutable onchain logic.
-</p>
-
-<p style={{ marginBottom: '1.5rem' }}>
-This separation allows Moony to remain an open, permissionless digital public good, while relying on established financial infrastructure to bridge legacy monetary systems and decentralized value exchange.
+While Flipcash and Coinbase manage USDF issuance and custody, neither controls the Moony protocol. All pricing, distribution, and redemption behavior is governed solely by immutable onchain logic.
 </p>
 
 </div>
 
 <Info>
-To learn more about USDF, including its backing, redemption process, and integration with the Coinbase network, visit the <a href="https://www.coinbase.com/developer-platform/products/stablecoin-as-a-service" target="_blank" rel="noopener noreferrer" className="brand-link">USDF documentation</a>.
+To learn more about USDF, visit the <a href="https://www.coinbase.com/developer-platform/products/stablecoin-as-a-service" target="_blank" rel="noopener noreferrer" className="brand-link">Coinbase Custom Stablecoins</a> documentation.
 </Info>

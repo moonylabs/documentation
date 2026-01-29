@@ -1,6 +1,6 @@
 ---
 title: 'Pricing Curve'
-description: 'The deterministic bonding curve that governs Moony pricing'
+description: 'The deterministic pricing curve that governs MNY pricing'
 icon: chart-line
 ---
 
@@ -11,7 +11,7 @@ icon: chart-line
 <div style={{ textAlign: 'justify' }}>
 
 <p style={{ marginBottom: '1.5rem' }}>
-Moony's primary price discovery mechanism is an onchain bonding curve - a deterministic exponential function encoded within the Moony Reserve smart contract. Unlike traditional market-based price discovery that relies on order books or liquidity pools, the bonding curve calculates the price of MNY based solely on the current circulating supply. As tokens enter circulation through unlocking, the price rises along a mathematically defined trajectory. As tokens are redeemed and removed from circulation, the price falls along the same curve in reverse.
+Moony's primary price discovery mechanism is an onchain pricing curve - a deterministic exponential function encoded within the Moony Reserve smart contract. Unlike traditional market-based price discovery that relies on order books or liquidity pools, the pricing curve calculates the price of MNY based solely on the current circulating supply. As tokens enter circulation through unlocking, the price rises along a mathematically defined trajectory. As tokens are redeemed and removed from circulation, the price falls along the same curve in reverse.
 </p>
 
 <p style={{ marginBottom: '1.5rem' }}>
@@ -256,7 +256,7 @@ Given a token quantity to acquire, this formula computes the total USDF cost - t
 <div style={{ textAlign: 'justify' }}>
 
 <p style={{ marginBottom: '1.5rem' }}>
-The computed cost always exceeds (spot price × quantity) because each successive token in the transaction is priced marginally higher than the previous. This price impact is an inherent property of bonding curves and scales with transaction size relative to total supply.
+The computed cost always exceeds (spot price × quantity) because each successive token in the transaction is priced marginally higher than the previous. This price impact is an inherent property of pricing curves and scales with transaction size relative to total supply.
 </p>
 
 </div>
@@ -417,7 +417,7 @@ Redemptions are subject to a fee (in basis points) deducted from the gross value
 <div style={{ textAlign: 'justify' }}>
 
 <p style={{ marginBottom: '1.5rem' }}>
-The formulas above govern transactions directly with the Moony Reserve. But MNY may also trade on external markets (DEXs, exchanges) where prices are set by supply and demand rather than the bonding curve. How do these two pricing systems interact? The Reserve's guaranteed liquidity creates a powerful anchoring effect through arbitrage:
+The formulas above govern transactions directly with the Moony Reserve. But MNY may also trade on external markets (DEXs, exchanges) where prices are set by supply and demand rather than the pricing curve. How do these two pricing systems interact? The Reserve's guaranteed liquidity creates a powerful anchoring effect through arbitrage:
 </p>
 
 </div>

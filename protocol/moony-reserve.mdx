@@ -588,23 +588,97 @@ The Moony Reserve is the trustless mechanism through which all MNY enters circul
 <div style={{ textAlign: 'justify' }}>
 
 <p style={{ marginBottom: '1.5rem' }}>
-When a user sends USDF, a dollar-denominated stablecoin, to the Moony Reserve, the protocol determines pricing using a deterministic bonding curve. Based on this pricing determination, the contract releases a corresponding amount from the pre-minted supply of Moony (MNY) and transfers it directly to the user's wallet. The USDF is retained onchain as protocol liquidity, ensuring that each unit of Moony in circulation is backed by verifiable capital.
+The Moony Reserve operates as a two-way exchange mechanism. Participants can acquire MNY by depositing capital, or redeem MNY to withdraw capital, all through direct interaction with the smart contract. No intermediaries, permissions, or discretionary approvals are involved. The Reserve's behavior is governed by two core components: a distribution mechanism and a pricing curve.
 </p>
 
-<p style={{ marginBottom: '1.5rem' }}>
-To redeem Moony, users send MNY back to the Moony Reserve. The protocol returns USDF at the current redemption rate, again determined by the bonding curve. Pricing updates automatically with each transaction and is applied consistently according to the contract's immutable rules.
-</p>
+</div>
 
-<p style={{ marginBottom: '1.5rem' }}>
-This two-way mechanism allows participants to enter and exit freely, without intermediaries, permissions, or discretionary control. Circulation and redemption occur directly through the contract's internal logic, producing predictable and transparent outcomes for all participants.
-</p>
+<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem', marginBottom: '2rem' }}>
+
+  <div className="principle-card" style={{
+    border: '1px solid #e5e7eb',
+    borderRadius: '0.75rem',
+    padding: '1.5rem',
+    marginBottom: '0',
+    backgroundColor: '#ffffff',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+  }}>
+    <div style={{
+      fontSize: '1rem',
+      fontWeight: 600,
+      color: '#1e293b',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '0.5rem'
+    }}><Icon icon="arrows-rotate" size={18} color="currentColor" /> Distribution Mechanism</div>
+    <p style={{
+      margin: 0,
+      lineHeight: '1.6',
+      color: '#475569',
+      fontSize: '0.9375rem'
+    }}>
+      MNY enters circulation only when participants deposit verifiable capital. This ensures distribution reflects genuine demand rather than discretionary allocation, and that all circulating supply is backed by onchain liquidity.
+    </p>
+    <div style={{
+      marginTop: '1rem',
+      paddingTop: '0.75rem',
+      borderTop: '1px solid #e5e7eb',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '0.5rem',
+      fontSize: '0.8125rem',
+      color: '#6b7280'
+    }}>
+      <Icon icon="circle-info" size={12} color="currentColor" />
+      <span>See: <a href="/protocol/proof-of-capital" className="brand-link">Proof of Capital</a></span>
+    </div>
+  </div>
+
+  <div className="principle-card" style={{
+    border: '1px solid #e5e7eb',
+    borderRadius: '0.75rem',
+    padding: '1.5rem',
+    marginBottom: '0',
+    backgroundColor: '#ffffff',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+  }}>
+    <div style={{
+      fontSize: '1rem',
+      fontWeight: 600,
+      color: '#1e293b',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '0.5rem'
+    }}><Icon icon="chart-line" size={18} color="currentColor" /> Pricing Curve</div>
+    <p style={{
+      margin: 0,
+      lineHeight: '1.6',
+      color: '#475569',
+      fontSize: '0.9375rem'
+    }}>
+      A deterministic pricing curve governs all pricing. The price of MNY adjusts automatically based on circulating supply, ensuring consistent and predictable outcomes for every transaction.
+    </p>
+    <div style={{
+      marginTop: '1rem',
+      paddingTop: '0.75rem',
+      borderTop: '1px solid #e5e7eb',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '0.5rem',
+      fontSize: '0.8125rem',
+      color: '#6b7280'
+    }}>
+      <Icon icon="circle-info" size={12} color="currentColor" />
+      <span>See: <a href="/protocol/pricing-curve" className="brand-link">Pricing Curve</a></span>
+    </div>
+  </div>
 
 </div>
 
 ## Core Principles
 
 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem', marginBottom: '2rem' }}>
-  
+
   <div className="principle-card" style={{
     border: '1px solid #e5e7eb',
     borderRadius: '0.75rem',
@@ -620,14 +694,14 @@ This two-way mechanism allows participants to enter and exit freely, without int
       display: 'flex',
       alignItems: 'center',
       gap: '0.5rem'
-    }}><Icon icon="door-open" size={18} color="currentColor" /> Open Access</div>
+    }}><Icon icon="door-open" size={18} color="currentColor" /> Permissionless</div>
     <p style={{
       margin: 0,
       lineHeight: '1.6',
       color: '#475569',
       fontSize: '0.9375rem'
     }}>
-      The Moony Reserve is designed to provide equal access to participation from the outset. All MNY enters circulation through a single, publicly accessible mechanism governed by immutable rules. There are no private allocations, special permissions, or preferential pathways. Every participant interacts with the same contract under the same conditions, ensuring that access to Moony is open to anyone on equal terms.
+      Anyone can interact with the Moony Reserve directly from their own wallet. There are no intermediaries, whitelists, identity checks, or private allocations. Every participant accesses the same contract under the same conditions.
     </p>
   </div>
 
@@ -646,66 +720,14 @@ This two-way mechanism allows participants to enter and exit freely, without int
       display: 'flex',
       alignItems: 'center',
       gap: '0.5rem'
-    }}><Icon icon="lock" size={18} color="currentColor" /> Immutable</div>
+    }}><Icon icon="lock" size={18} color="currentColor" /> Trust-Minimized</div>
     <p style={{
       margin: 0,
       lineHeight: '1.6',
       color: '#475569',
       fontSize: '0.9375rem'
     }}>
-      The Moony Reserve cannot be altered once deployed. There are no admin keys, upgrade paths, or special permissions. The distribution, pricing, and redemption logic is permanently encoded at the smart contract level, ensuring that no future changes or governance actions can override it.
-    </p>
-  </div>
-
-  <div className="principle-card" style={{
-    border: '1px solid #e5e7eb',
-    borderRadius: '0.75rem',
-    padding: '1.5rem',
-    marginBottom: '0',
-    backgroundColor: '#ffffff',
-    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
-  }}>
-    <div style={{
-      fontSize: '1rem',
-      fontWeight: 600,
-      color: '#1e293b',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '0.5rem'
-    }}><Icon icon="unlock" size={18} color="currentColor" /> Permissionless</div>
-    <p style={{
-      margin: 0,
-      lineHeight: '1.6',
-      color: '#475569',
-      fontSize: '0.9375rem'
-    }}>
-      Anyone can interact with the Moony Reserve directly from their own wallet. There are no intermediaries, whitelists, or identity checks required. Participation is open to all and does not depend on approval, status, or affiliation.
-    </p>
-  </div>
-
-  <div className="principle-card" style={{
-    border: '1px solid #e5e7eb',
-    borderRadius: '0.75rem',
-    padding: '1.5rem',
-    marginBottom: '0',
-    backgroundColor: '#ffffff',
-    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
-  }}>
-    <div style={{
-      fontSize: '1rem',
-      fontWeight: 600,
-      color: '#1e293b',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '0.5rem'
-    }}><Icon icon="wallet" size={18} color="currentColor" /> Non-Custodial</div>
-    <p style={{
-      margin: 0,
-      lineHeight: '1.6',
-      color: '#475569',
-      fontSize: '0.9375rem'
-    }}>
-      The Moony Reserve does not operate as a custodial intermediary. Users interact directly with the contract to exchange USDF for MNY, or to redeem MNY for USDF, without relying on any third party to hold or control their funds. All transfers are executed atomically onchain according to the contract's logic.
+      The Reserve cannot be altered once deployed. There are no admin keys, upgrade paths, or custodial intermediaries. Users interact directly with immutable code, and all transfers execute atomically onchain.
     </p>
   </div>
 
@@ -731,7 +753,7 @@ This two-way mechanism allows participants to enter and exit freely, without int
       color: '#475569',
       fontSize: '0.9375rem'
     }}>
-      All supply, liquidity, and pricing data is recorded on the Solana blockchain. Every interaction with the Moony Reserve is publicly visible and verifiable. The system is fully auditable and provable in real time.
+      All supply, liquidity, and pricing data is recorded on the Solana blockchain. Every interaction is publicly visible, verifiable, and auditable in real time.
     </p>
   </div>
 
@@ -741,24 +763,94 @@ This two-way mechanism allows participants to enter and exit freely, without int
 
 <div style={{ textAlign: 'justify' }}>
 
-<p style={{ marginBottom: '1.5rem' }}>
-The Moony Reserve was deployed by Moony Labs, LLC. as a specific, immutable onchain instance on the Solana blockchain, using publicly released, open-source infrastructure developed by Code Inc., the parent company of Flipcash Inc.
+<p style={{ marginBottom: '1rem' }}>
+The Moony Reserve was deployed by Moony Labs, LLC. on the Solana blockchain using open-source smart contract infrastructure developed and publicly released by Code Inc. Once deployed, neither Moony Labs nor Code Inc. maintains any control over the protocol. All distribution, pricing, and redemption behavior is governed exclusively by immutable onchain logic that cannot be altered by any party.
 </p>
 
 <p style={{ marginBottom: '1.5rem' }}>
-This open-source infrastructure defines the contract architecture and economic logic under which the autonomous Moony protocol was deployed. Moony Labs did not author, modify, or customize the underlying smart contract logic. Instead, it used the infrastructure as provided to originate and publish the Moony deployment as a distinct, immutable onchain protocol instance.
-</p>
-
-<p style={{ marginBottom: '1.5rem' }}>
-While Flipcash and Code Inc. developed and released the underlying open-source tooling, neither entity maintains control over the Moony protocol or its Moony Reserve. All distribution into circulation, pricing, and redemption behavior is governed exclusively by the protocol's immutable onchain logic and cannot be altered by Moony Labs or any other party after deployment.
-</p>
-
-<p style={{ marginBottom: '1.5rem' }}>
-The Moony protocol is fully open and composable. Developers may integrate MNY across wallets, applications, and protocols that support Solana without permission or coordination. This design reinforces open access, neutrality, and interoperability, ensuring that Moony can evolve organically and remain resilient as the network grows.
+This architecture makes Moony fully open and composable. Developers can integrate MNY across wallets, applications, and protocols without permission or coordination, reinforcing open access and interoperability as the network grows.
 </p>
 
 </div>
 
-<Info>
-Additional details regarding upstream software licensing and attribution are available on the <a href="/licensing" className="brand-link">Licensing</a> page.
-</Info>
+<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem', marginBottom: '2rem' }}>
+
+  <div className="principle-card" style={{
+    border: '1px solid #e5e7eb',
+    borderRadius: '0.75rem',
+    padding: '1.5rem',
+    marginBottom: '0',
+    backgroundColor: '#ffffff',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+  }}>
+    <div style={{
+      fontSize: '1rem',
+      fontWeight: 600,
+      color: '#1e293b',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '0.5rem'
+    }}><Icon icon="scale-balanced" size={18} color="currentColor" /> MIT License</div>
+    <p style={{
+      margin: 0,
+      lineHeight: '1.6',
+      color: '#475569',
+      fontSize: '0.9375rem'
+    }}>
+      The underlying smart contract infrastructure is released under the MIT License, a permissive open-source license that allows unrestricted use, modification, and distribution.
+    </p>
+    <div style={{
+      marginTop: '1rem',
+      paddingTop: '0.75rem',
+      borderTop: '1px solid #e5e7eb',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '0.5rem',
+      fontSize: '0.8125rem',
+      color: '#6b7280'
+    }}>
+      <Icon icon="circle-info" size={12} color="currentColor" />
+      <span>See: <a href="/licensing" className="brand-link">Licensing</a></span>
+    </div>
+  </div>
+
+  <div className="principle-card" style={{
+    border: '1px solid #e5e7eb',
+    borderRadius: '0.75rem',
+    padding: '1.5rem',
+    marginBottom: '0',
+    backgroundColor: '#ffffff',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+  }}>
+    <div style={{
+      fontSize: '1rem',
+      fontWeight: 600,
+      color: '#1e293b',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '0.5rem'
+    }}><Icon icon="shield-halved" size={18} color="currentColor" /> Security Audit</div>
+    <p style={{
+      margin: 0,
+      lineHeight: '1.6',
+      color: '#475569',
+      fontSize: '0.9375rem'
+    }}>
+      The smart contract infrastructure has been independently audited by Sec3, a security firm specializing in Solana program analysis. The audit, completed in January 2026, identified nine issues across severity levels, all of which have been resolved or formally acknowledged.
+    </p>
+    <div style={{
+      marginTop: '1rem',
+      paddingTop: '0.75rem',
+      borderTop: '1px solid #e5e7eb',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '0.5rem',
+      fontSize: '0.8125rem',
+      color: '#6b7280'
+    }}>
+      <Icon icon="circle-info" size={12} color="currentColor" />
+      <span>See: <a href="https://github.com/code-payments/flipcash-program/blob/main/docs/audit_final.pdf" target="_blank" rel="noopener noreferrer" className="brand-link">Full Audit Report</a></span>
+    </div>
+  </div>
+
+</div>
