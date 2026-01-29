@@ -24,192 +24,148 @@ Unlike traditional currencies subject to discretionary monetary policy, Moony's 
 Explore how MNY enables peer-to-peer payments, micropayments, and decentralized finance in the <a href="/economy/overview" className="brand-link">Moony Economy</a> section.
 </Info>
 
-## Contract Addresses
+## Token Addresses
 
-<div id="mint-address-card" className="address-card" style={{
-  border: '1px solid #e5e7eb',
-  borderRadius: '0.75rem',
-  padding: '1.25rem',
-  marginBottom: '1rem',
-  backgroundColor: '#ffffff',
-  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
-}}>
-  <div style={{ marginBottom: '0.75rem' }}>
-    <div className="address-label" style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: '#1e293b' }}>
-      Token Mint Address
-    </div>
-  </div>
-  <div style={{
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.75rem'
+export const AddressCard = ({ id, label, address, description, explorerUrl, isPlaceholder }) => (
+  <div id={id} className="address-card" style={{
+    border: '1px solid #e5e7eb',
+    borderRadius: '0.75rem',
+    padding: '1.25rem',
+    marginBottom: '1rem',
+    backgroundColor: '#ffffff',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
   }}>
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      gap: '0.75rem'
-    }}>
-      <code className="address-code" style={{
-        flex: 1,
-        maxWidth: '600px',
-        padding: '0.5rem 0.75rem',
-        backgroundColor: '#E7D9FD',
-        borderRadius: '0.5rem',
-        fontSize: '0.875rem',
-        fontFamily: 'monospace',
-        color: '#502792',
-        wordBreak: 'break-all',
-        border: '1px solid #D8C5FD'
-      }}>
-        52MNGpgvydSwCtC2H4qeiZXZ1TxEuRVCRGa8LAfk2kSj
-      </code>
-      <button
-        id="copy-mint-btn"
-        data-address="52MNGpgvydSwCtC2H4qeiZXZ1TxEuRVCRGa8LAfk2kSj"
+    <div style={{ marginBottom: '0.75rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: description ? '0.5rem' : 0 }}>
+        <div className="address-label" style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: '#1e293b' }}>
+          {label}
+        </div>
+        {isPlaceholder && (
+          <span style={{
+            fontSize: '0.625rem',
+            fontWeight: 600,
+            color: '#9333ea',
+            backgroundColor: '#f3e8ff',
+            padding: '0.125rem 0.5rem',
+            borderRadius: '9999px',
+            textTransform: 'uppercase',
+            letterSpacing: '0.025em'
+          }}>Placeholder</span>
+        )}
+      </div>
+      {description && (
+        <div style={{ fontSize: '0.75rem', color: '#6b7280', fontStyle: 'italic' }}>
+          {description}
+        </div>
+      )}
+    </div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <code className="address-code" style={{
+          flex: 1,
+          maxWidth: '600px',
+          padding: '0.5rem 0.75rem',
+          backgroundColor: '#E7D9FD',
+          borderRadius: '0.5rem',
+          fontSize: '0.875rem',
+          fontFamily: 'monospace',
+          color: '#502792',
+          wordBreak: 'break-all',
+          border: '1px solid #D8C5FD'
+        }}>
+          {address}
+        </code>
+        <button
+          data-address={address}
+          onClick={(e) => {
+            e.preventDefault();
+            const btn = e.currentTarget;
+            const textSpan = btn.querySelector('span');
+            const address = btn.getAttribute('data-address');
+            if (btn.dataset.copying === 'true') return;
+            btn.dataset.copying = 'true';
+            navigator.clipboard.writeText(address).then(() => {
+              const originalText = textSpan.textContent;
+              textSpan.textContent = 'Copied!';
+              btn.style.backgroundColor = '#E7D9FD';
+              btn.style.color = '#502792';
+              setTimeout(() => {
+                textSpan.textContent = originalText;
+                btn.style.backgroundColor = '#502792';
+                btn.style.color = 'white';
+                btn.dataset.copying = 'false';
+              }, 2000);
+            });
+          }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            padding: '0.5rem 1rem',
+            backgroundColor: '#502792',
+            color: 'white',
+            border: 'none',
+            borderRadius: '0.5rem',
+            fontSize: '0.875rem',
+            fontWeight: 500,
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+            whiteSpace: 'nowrap'
+          }}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          <span>Copy</span>
+        </button>
+      </div>
+      <a
+        href={explorerUrl}
+        target="_blank"
+        rel="noopener noreferrer"
         style={{
           display: 'flex',
           alignItems: 'center',
           gap: '0.5rem',
           padding: '0.5rem 1rem',
-          backgroundColor: '#502792',
-          color: 'white',
-          border: 'none',
-          borderRadius: '0.5rem',
+          color: '#502792',
+          textDecoration: 'none',
           fontSize: '0.875rem',
           fontWeight: 500,
-          cursor: 'pointer',
-          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-          whiteSpace: 'nowrap'
+          border: '1px solid #502792',
+          borderRadius: '0.5rem',
+          transition: 'all 0.2s ease',
+          backgroundColor: 'transparent',
+          width: 'fit-content'
         }}
       >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+        <span>Verify on Solana Explorer</span>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M10.5 1.5L1.5 10.5M10.5 1.5H6M10.5 1.5V6"/>
         </svg>
-        <span>Copy</span>
-      </button>
+      </a>
     </div>
-    <a
-      href="https://explorer.solana.com/address/52MNGpgvydSwCtC2H4qeiZXZ1TxEuRVCRGa8LAfk2kSj"
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.5rem',
-        padding: '0.5rem 1rem',
-        color: '#502792',
-        textDecoration: 'none',
-        fontSize: '0.875rem',
-        fontWeight: 500,
-        border: '1px solid #502792',
-        borderRadius: '0.5rem',
-        transition: 'all 0.2s ease',
-        backgroundColor: 'transparent',
-        width: 'fit-content'
-      }}
-    >
-      <span>Verify on Solana Explorer</span>
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M10.5 1.5L1.5 10.5M10.5 1.5H6M10.5 1.5V6"/>
-      </svg>
-    </a>
   </div>
-</div>
+);
 
-<div id="authority-address-card" className="address-card" style={{
-  border: '1px solid #e5e7eb',
-  borderRadius: '0.75rem',
-  padding: '1.25rem',
-  marginBottom: '1rem',
-  backgroundColor: '#ffffff',
-  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
-}}>
-  <div style={{ marginBottom: '0.75rem' }}>
-    <div className="address-label" style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: '#1e293b' }}>
-      Authority Address
-    </div>
-    <div style={{ fontSize: '0.75rem', color: '#6b7280', fontStyle: 'italic', marginTop: '0.25rem' }}>
-      Mint authority is held by the Moony Reserve smart contract.
-    </div>
-  </div>
-  <div style={{
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.75rem'
-  }}>
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      gap: '0.75rem'
-    }}>
-      <code className="address-code" style={{
-        flex: 1,
-        maxWidth: '600px',
-        padding: '0.5rem 0.75rem',
-        backgroundColor: '#E7D9FD',
-        borderRadius: '0.5rem',
-        fontSize: '0.875rem',
-        fontFamily: 'monospace',
-        color: '#502792',
-        wordBreak: 'break-all',
-        border: '1px solid #D8C5FD'
-      }}>
-        jfy1btcfsjSn2WCqLVaxiEjp4zgmemGyRsdCPbPwnZV
-      </code>
-      <button
-        id="copy-authority-btn"
-        data-address="jfy1btcfsjSn2WCqLVaxiEjp4zgmemGyRsdCPbPwnZV"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-          padding: '0.5rem 1rem',
-          backgroundColor: '#502792',
-          color: 'white',
-          border: 'none',
-          borderRadius: '0.5rem',
-          fontSize: '0.875rem',
-          fontWeight: 500,
-          cursor: 'pointer',
-          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-          whiteSpace: 'nowrap'
-        }}
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-        </svg>
-        <span>Copy</span>
-      </button>
-    </div>
-    <a
-      href="https://explorer.solana.com/address/jfy1btcfsjSn2WCqLVaxiEjp4zgmemGyRsdCPbPwnZV"
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.5rem',
-        padding: '0.5rem 1rem',
-        color: '#502792',
-        textDecoration: 'none',
-        fontSize: '0.875rem',
-        fontWeight: 500,
-        border: '1px solid #502792',
-        borderRadius: '0.5rem',
-        transition: 'all 0.2s ease',
-        backgroundColor: 'transparent',
-        width: 'fit-content'
-      }}
-    >
-      <span>Verify on Solana Explorer</span>
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M10.5 1.5L1.5 10.5M10.5 1.5H6M10.5 1.5V6"/>
-      </svg>
-    </a>
-  </div>
-</div>
+<AddressCard
+  id="mny-mint-card"
+  label="MNY Token Mint"
+  address="54ggcQ23uen5b9QXMAns99MQNTKn7iyzq4wvCW6e8r25"
+  description="The SPL token mint address for MNY."
+  explorerUrl="https://explorer.solana.com/address/54ggcQ23uen5b9QXMAns99MQNTKn7iyzq4wvCW6e8r25"
+  isPlaceholder={true}
+/>
+
+<AddressCard
+  id="authority-card"
+  label="Authority"
+  address="jfy1btcfsjSn2WCqLVaxiEjp4zgmemGyRsdCPbPwnZV"
+  description="The signing authority wallet for MNY."
+  explorerUrl="https://explorer.solana.com/address/jfy1btcfsjSn2WCqLVaxiEjp4zgmemGyRsdCPbPwnZV"
+  isPlaceholder={true}
+/>
 
 ## Core Properties
 
@@ -450,351 +406,3 @@ Combined with Solana's sub-cent transaction fees, this precision enables economi
 <Info>
 Learn how divisibility enables new economic models in the <a href="/economy/micropayments" className="brand-link">Micropayments</a> section.
 </Info>
-
-<script dangerouslySetInnerHTML={{__html: `
-(function() {
-  if (typeof window === 'undefined') return;
-  
-  function updateDarkMode() {
-    const isDark = document.documentElement.classList.contains('dark') || 
-                   window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    // Try to get the navigation bar's background color to match it
-    const navBar = document.querySelector('aside, [class*="sidebar"], [class*="Sidebar"], nav[class*="nav"]');
-    let navBg = null;
-    if (navBar && isDark) {
-      const computedStyle = window.getComputedStyle(navBar);
-      navBg = computedStyle.backgroundColor;
-    }
-    
-    const cards = document.querySelectorAll('.address-card, #mint-address-card, #authority-address-card');
-    const labels = document.querySelectorAll('.address-label');
-    const codes = document.querySelectorAll('.address-code, #mint-address-card code, #authority-address-card code');
-    
-    cards.forEach(card => {
-      if (isDark) {
-        // Use navigation bar color if found, otherwise use default dark color
-        card.style.backgroundColor = navBg || '#18181b';
-        card.style.borderColor = '#27272a';
-        card.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.3)';
-      } else {
-        card.style.backgroundColor = '#ffffff';
-        card.style.borderColor = '#e5e7eb';
-        card.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
-      }
-    });
-    
-    labels.forEach(label => {
-      label.style.color = isDark ? '#fafafa' : '#1e293b';
-    });
-    
-    codes.forEach(code => {
-      if (isDark) {
-        code.style.backgroundColor = '#27272a';
-        code.style.borderColor = '#3f3f46';
-        code.style.color = '#d4d4d8';
-      } else {
-        code.style.backgroundColor = '#E7D9FD';
-        code.style.borderColor = '#D8C5FD';
-        code.style.color = '#502792';
-      }
-    });
-    
-    // Update button colors for dark mode
-    const buttons = document.querySelectorAll('#mint-address-card button, #authority-address-card button');
-    buttons.forEach(btn => {
-      if (isDark && !btn.style.backgroundColor.includes('E7D9FD')) { // Don't override "Copied!" state
-        btn.style.backgroundColor = '#E7D9FD';
-        btn.style.color = '#502792';
-      } else if (!isDark && !btn.style.backgroundColor.includes('10b981')) {
-        btn.style.backgroundColor = '#502792';
-        btn.style.color = 'white';
-      }
-    });
-    
-    // Update link colors for dark mode
-    const links = document.querySelectorAll('#mint-address-card a[href*="explorer.solana.com"], #authority-address-card a[href*="explorer.solana.com"]');
-    links.forEach(link => {
-      if (isDark) {
-        link.style.color = '#E7D9FD';
-        link.style.borderColor = '#E7D9FD';
-        // Update hover handlers
-        link.onmouseenter = function() {
-          this.style.backgroundColor = '#E7D9FD';
-          this.style.color = '#502792';
-        };
-        link.onmouseleave = function() {
-          this.style.backgroundColor = 'transparent';
-          this.style.color = '#E7D9FD';
-        };
-      } else {
-        link.style.color = '#502792';
-        link.style.borderColor = '#502792';
-        // Update hover handlers
-        link.onmouseenter = function() {
-          this.style.backgroundColor = '#502792';
-          this.style.color = 'white';
-        };
-        link.onmouseleave = function() {
-          this.style.backgroundColor = 'transparent';
-          this.style.color = '#502792';
-        };
-      }
-    });
-  }
-  
-  // Initial update
-  updateDarkMode();
-  
-  // Watch for dark mode changes
-  const observer = new MutationObserver(updateDarkMode);
-  observer.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ['class']
-  });
-  
-  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-  mediaQuery.addEventListener('change', updateDarkMode);
-  
-  function fallbackCopyToClipboard(text) {
-    // Create a temporary textarea element
-    const textArea = document.createElement('textarea');
-    textArea.value = text;
-    textArea.style.position = 'fixed';
-    textArea.style.left = '-999999px';
-    textArea.style.top = '-999999px';
-    textArea.style.opacity = '0';
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    
-    try {
-      const successful = document.execCommand('copy');
-      document.body.removeChild(textArea);
-      return successful;
-    } catch (err) {
-      document.body.removeChild(textArea);
-      return false;
-    }
-  }
-  
-  function showSuccessState(btn, textSpan, codeElement) {
-    // Store original state
-    const originalText = textSpan.textContent;
-    const originalBg = btn.style.backgroundColor;
-    const originalColor = btn.style.color;
-    const svg = btn.querySelector('svg');
-    const originalSvg = svg.innerHTML;
-    
-    // Add click animation - scale down then up
-    btn.style.transform = 'scale(0.95)';
-    setTimeout(() => {
-      btn.style.transform = 'scale(1)';
-    }, 100);
-    
-    // Update to success state with smooth transition
-    textSpan.textContent = 'Copied!';
-    btn.style.backgroundColor = '#10b981';
-    btn.style.color = 'white';
-    btn.style.cursor = 'default';
-    
-    // Animate icon change - rotate and scale
-    svg.style.transform = 'rotate(0deg) scale(0.8)';
-    svg.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-    svg.innerHTML = '<path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>';
-    
-    setTimeout(() => {
-      svg.style.transform = 'rotate(0deg) scale(1)';
-    }, 50);
-    
-    // Also highlight the address code element briefly with pulse effect
-    if (codeElement) {
-      const originalCodeBg = codeElement.style.backgroundColor;
-      const originalCodeTransition = codeElement.style.transition;
-      codeElement.style.transition = 'background-color 0.4s ease, transform 0.2s ease';
-      codeElement.style.backgroundColor = '#dcfce7';
-      codeElement.style.transform = 'scale(1.02)';
-      
-      setTimeout(() => {
-        codeElement.style.transform = 'scale(1)';
-      }, 200);
-      
-      setTimeout(() => {
-        codeElement.style.backgroundColor = originalCodeBg;
-        codeElement.style.transition = originalCodeTransition;
-      }, 1200);
-    }
-    
-    // Revert after 2 seconds with smooth animation
-    setTimeout(() => {
-      btn.style.transform = 'scale(0.98)';
-      setTimeout(() => {
-        textSpan.textContent = originalText;
-        btn.style.backgroundColor = originalBg;
-        btn.style.color = originalColor;
-        btn.style.cursor = 'pointer';
-        btn.style.transform = 'scale(1)';
-        svg.innerHTML = originalSvg;
-        svg.style.transform = 'scale(0.8)';
-        setTimeout(() => {
-          svg.style.transform = 'scale(1)';
-          btn.dataset.copying = 'false';
-        }, 150);
-      }, 100);
-    }, 2000);
-  }
-  
-  function showErrorState(btn, textSpan) {
-    const originalText = textSpan.textContent;
-    const originalBg = btn.style.backgroundColor;
-    const originalColor = btn.style.color;
-    
-    btn.style.animation = 'shake 0.5s ease';
-    textSpan.textContent = 'Failed';
-    btn.style.backgroundColor = '#ef4444';
-    btn.style.color = 'white';
-    
-    setTimeout(() => {
-      btn.style.animation = '';
-      textSpan.textContent = originalText;
-      btn.style.backgroundColor = originalBg;
-      btn.style.color = originalColor;
-      btn.dataset.copying = 'false';
-    }, 2000);
-  }
-  
-  function setupCopyButton(buttonId, textId, address) {
-    const btn = document.getElementById(buttonId);
-    if (!btn) return;
-    
-    // Find the text span (it might not have an ID anymore)
-    const textSpan = document.getElementById(textId) || btn.querySelector('span');
-    if (!textSpan) return;
-    
-    // Add smooth transitions for all button properties
-    btn.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-    
-    // Remove any existing onClick handler by cloning the button
-    const newBtn = btn.cloneNode(true);
-    btn.parentNode.replaceChild(newBtn, btn);
-    
-    newBtn.addEventListener('click', async function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      
-      // Prevent multiple rapid clicks
-      if (newBtn.dataset.copying === 'true') return;
-      newBtn.dataset.copying = 'true';
-      
-      const textSpan = newBtn.querySelector('span');
-      const address = newBtn.getAttribute('data-address');
-      const svg = newBtn.querySelector('svg');
-      const codeElement = newBtn.closest('div').querySelector('code');
-      
-      try {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          await navigator.clipboard.writeText(address);
-        } else {
-          const textArea = document.createElement('textarea');
-          textArea.value = address;
-          textArea.style.position = 'fixed';
-          textArea.style.left = '-999999px';
-          textArea.style.top = '-999999px';
-          textArea.style.opacity = '0';
-          document.body.appendChild(textArea);
-          textArea.focus();
-          textArea.select();
-          document.execCommand('copy');
-          document.body.removeChild(textArea);
-        }
-        
-        const originalText = textSpan.textContent;
-        const originalBg = newBtn.style.backgroundColor;
-        const originalColor = newBtn.style.color;
-        const originalSvg = svg.innerHTML;
-        
-        newBtn.style.transform = 'scale(0.95)';
-        setTimeout(() => { newBtn.style.transform = 'scale(1)'; }, 100);
-        
-            textSpan.textContent = 'Copied!';
-            newBtn.style.backgroundColor = '#E7D9FD';
-            newBtn.style.color = '#502792';
-        newBtn.style.cursor = 'default';
-        
-        svg.style.transform = 'scale(0.8)';
-        svg.style.transition = 'transform 0.3s ease';
-        svg.innerHTML = '<path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>';
-        setTimeout(() => { svg.style.transform = 'scale(1)'; }, 50);
-        
-        if (codeElement) {
-          const originalCodeBg = codeElement.style.backgroundColor;
-          codeElement.style.transition = 'background-color 0.4s ease, transform 0.2s ease';
-          codeElement.style.backgroundColor = '#F3EBFF';
-          codeElement.style.transform = 'scale(1.02)';
-          setTimeout(() => { codeElement.style.transform = 'scale(1)'; }, 200);
-          setTimeout(() => {
-            codeElement.style.backgroundColor = originalCodeBg;
-          }, 1200);
-        }
-        
-        setTimeout(() => {
-          newBtn.style.transform = 'scale(0.98)';
-          setTimeout(() => {
-            textSpan.textContent = originalText;
-            newBtn.style.backgroundColor = originalBg;
-            newBtn.style.color = originalColor;
-            newBtn.style.cursor = 'pointer';
-            newBtn.style.transform = 'scale(1)';
-            svg.innerHTML = originalSvg;
-            svg.style.transform = 'scale(0.8)';
-            setTimeout(() => {
-              svg.style.transform = 'scale(1)';
-              newBtn.dataset.copying = 'false';
-            }, 150);
-          }, 100);
-        }, 2000);
-      } catch (err) {
-        console.error('Copy failed:', err);
-        const originalText = textSpan.textContent;
-        newBtn.style.animation = 'shake 0.5s ease';
-        textSpan.textContent = 'Failed';
-        newBtn.style.backgroundColor = '#ef4444';
-        newBtn.style.color = 'white';
-        setTimeout(() => {
-          newBtn.style.animation = '';
-          textSpan.textContent = originalText;
-          newBtn.style.backgroundColor = '#502792';
-          newBtn.style.color = 'white';
-          newBtn.dataset.copying = 'false';
-        }, 2000);
-      }
-    });
-  }
-  
-  function setupHoverEffects() {
-    const links = document.querySelectorAll('a[href*="explorer.solana.com"]');
-    links.forEach(link => {
-      link.addEventListener('mouseenter', function() {
-        this.style.backgroundColor = '#502792';
-        this.style.color = 'white';
-      });
-      link.addEventListener('mouseleave', function() {
-        this.style.backgroundColor = 'transparent';
-        this.style.color = '#502792';
-      });
-    });
-  }
-  
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      setupCopyButton('copy-mint-btn', 'copy-mint-text', '52MNGpgvydSwCtC2H4qeiZXZ1TxEuRVCRGa8LAfk2kSj');
-      setupCopyButton('copy-authority-btn', 'copy-authority-text', 'jfy1btcfsjSn2WCqLVaxiEjp4zgmemGyRsdCPbPwnZV');
-      setupHoverEffects();
-    });
-  } else {
-    setupCopyButton('copy-mint-btn', 'copy-mint-text', '52MNGpgvydSwCtC2H4qeiZXZ1TxEuRVCRGa8LAfk2kSj');
-    setupCopyButton('copy-authority-btn', 'copy-authority-text', 'jfy1btcfsjSn2WCqLVaxiEjp4zgmemGyRsdCPbPwnZV');
-    setupHoverEffects();
-  }
-})();
-`}} />

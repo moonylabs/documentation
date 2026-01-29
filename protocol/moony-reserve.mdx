@@ -16,568 +16,161 @@ The Moony Reserve is the trustless mechanism through which all MNY enters circul
 
 </div>
 
-## Contract Addresses
+## Reserve Addresses
 
-<div id="reserve-address-card" className="address-card" style={{
-  border: '1px solid #e5e7eb',
-  borderRadius: '0.75rem',
-  padding: '1.25rem',
-  marginBottom: '1rem',
-  backgroundColor: '#ffffff',
-  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
-}}>
-  <div style={{ marginBottom: '0.75rem' }}>
-    <div className="address-label" style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: '#1e293b' }}>
-      Moony Reserve
-    </div>
-  </div>
-  <div style={{
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.75rem'
+<Warning>
+These addresses are provided for transparency and verification purposes only. Do not send tokens directly to these addresses. To interact with the Moony Reserve, use the Flipcash app or a compatible interface.
+</Warning>
+
+export const AddressCard = ({ id, label, address, description, explorerUrl, isPlaceholder }) => (
+  <div id={id} className="address-card" style={{
+    border: '1px solid #e5e7eb',
+    borderRadius: '0.75rem',
+    padding: '1.25rem',
+    marginBottom: '1rem',
+    backgroundColor: '#ffffff',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
   }}>
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      gap: '0.75rem'
-    }}>
-      <code className="address-code" style={{
-        flex: 1,
-        maxWidth: '600px',
-        padding: '0.5rem 0.75rem',
-        backgroundColor: '#E7D9FD',
-        borderRadius: '0.5rem',
-        fontSize: '0.875rem',
-        fontFamily: 'monospace',
-        color: '#502792',
-        wordBreak: 'break-all',
-        border: '1px solid #D8C5FD'
-      }}>
-        jfy1btcfsjSn2WCqLVaxiEjp4zgmemGyRsdCPbPwnZV
-      </code>
-      <button
-      id="copy-reserve-btn"
-      data-address="jfy1btcfsjSn2WCqLVaxiEjp4zgmemGyRsdCPbPwnZV"
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const btn = e.currentTarget;
-        const textSpan = btn.querySelector('span');
-        const address = btn.getAttribute('data-address');
-        const svg = btn.querySelector('svg');
-        const codeElement = btn.closest('div').querySelector('code');
-        
-        if (btn.dataset.copying === 'true') return;
-        btn.dataset.copying = 'true';
-        
-        const copyText = async () => {
-          try {
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-              await navigator.clipboard.writeText(address);
-            } else {
-              const textArea = document.createElement('textarea');
-              textArea.value = address;
-              textArea.style.position = 'fixed';
-              textArea.style.left = '-999999px';
-              textArea.style.top = '-999999px';
-              textArea.style.opacity = '0';
-              document.body.appendChild(textArea);
-              textArea.focus();
-              textArea.select();
-              document.execCommand('copy');
-              document.body.removeChild(textArea);
-            }
-            
-            const originalText = textSpan.textContent;
-            const originalBg = btn.style.backgroundColor;
-            const originalColor = btn.style.color;
-            const originalSvg = svg.innerHTML;
-            
-            btn.style.transform = 'scale(0.95)';
-            setTimeout(() => { btn.style.transform = 'scale(1)'; }, 100);
-            
-            textSpan.textContent = 'Copied!';
-            btn.style.backgroundColor = '#E7D9FD';
-            btn.style.color = '#502792';
-            btn.style.cursor = 'default';
-            
-            svg.style.transform = 'scale(0.8)';
-            svg.style.transition = 'transform 0.3s ease';
-            svg.innerHTML = '<path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>';
-            setTimeout(() => { svg.style.transform = 'scale(1)'; }, 50);
-            
-            if (codeElement) {
-              const originalCodeBg = codeElement.style.backgroundColor;
-              codeElement.style.transition = 'background-color 0.4s ease, transform 0.2s ease';
-              codeElement.style.backgroundColor = '#F3EBFF';
-              codeElement.style.transform = 'scale(1.02)';
-              setTimeout(() => { codeElement.style.transform = 'scale(1)'; }, 200);
-              setTimeout(() => {
-                codeElement.style.backgroundColor = originalCodeBg;
-              }, 1200);
-            }
-            
-            setTimeout(() => {
-              btn.style.transform = 'scale(0.98)';
+    <div style={{ marginBottom: '0.75rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: description ? '0.5rem' : 0 }}>
+        <div className="address-label" style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: '#1e293b' }}>
+          {label}
+        </div>
+        {isPlaceholder && (
+          <span style={{
+            fontSize: '0.625rem',
+            fontWeight: 600,
+            color: '#9333ea',
+            backgroundColor: '#f3e8ff',
+            padding: '0.125rem 0.5rem',
+            borderRadius: '9999px',
+            textTransform: 'uppercase',
+            letterSpacing: '0.025em'
+          }}>Placeholder</span>
+        )}
+      </div>
+      {description && (
+        <div style={{ fontSize: '0.75rem', color: '#6b7280', fontStyle: 'italic' }}>
+          {description}
+        </div>
+      )}
+    </div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <code className="address-code" style={{
+          flex: 1,
+          maxWidth: '600px',
+          padding: '0.5rem 0.75rem',
+          backgroundColor: '#E7D9FD',
+          borderRadius: '0.5rem',
+          fontSize: '0.875rem',
+          fontFamily: 'monospace',
+          color: '#502792',
+          wordBreak: 'break-all',
+          border: '1px solid #D8C5FD'
+        }}>
+          {address}
+        </code>
+        <button
+          data-address={address}
+          onClick={(e) => {
+            e.preventDefault();
+            const btn = e.currentTarget;
+            const textSpan = btn.querySelector('span');
+            const address = btn.getAttribute('data-address');
+            if (btn.dataset.copying === 'true') return;
+            btn.dataset.copying = 'true';
+            navigator.clipboard.writeText(address).then(() => {
+              const originalText = textSpan.textContent;
+              textSpan.textContent = 'Copied!';
+              btn.style.backgroundColor = '#E7D9FD';
+              btn.style.color = '#502792';
               setTimeout(() => {
                 textSpan.textContent = originalText;
-                btn.style.backgroundColor = originalBg;
-                btn.style.color = originalColor;
-                btn.style.cursor = 'pointer';
-                btn.style.transform = 'scale(1)';
-                svg.innerHTML = originalSvg;
-                svg.style.transform = 'scale(0.8)';
-                setTimeout(() => {
-                  svg.style.transform = 'scale(1)';
-                  btn.dataset.copying = 'false';
-                }, 150);
-              }, 100);
-            }, 2000);
-          } catch (err) {
-            console.error('Copy failed:', err);
-            const originalText = textSpan.textContent;
-            btn.style.animation = 'shake 0.5s ease';
-            textSpan.textContent = 'Failed';
-            btn.style.backgroundColor = '#ef4444';
-            btn.style.color = 'white';
-            setTimeout(() => {
-              btn.style.animation = '';
-              textSpan.textContent = originalText;
-              btn.style.backgroundColor = '#502792';
-              btn.style.color = 'white';
-              btn.dataset.copying = 'false';
-            }, 2000);
-          }
-        };
-        
-        copyText();
-      }}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.5rem',
-        padding: '0.5rem 1rem',
-        backgroundColor: '#502792',
-        color: 'white',
-        border: 'none',
-        borderRadius: '0.5rem',
-        fontSize: '0.875rem',
-        fontWeight: 500,
-        cursor: 'pointer',
-        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        whiteSpace: 'nowrap'
-      }}
-    >
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-      </svg>
-      <span>Copy</span>
-    </button>
+                btn.style.backgroundColor = '#502792';
+                btn.style.color = 'white';
+                btn.dataset.copying = 'false';
+              }, 2000);
+            });
+          }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            padding: '0.5rem 1rem',
+            backgroundColor: '#502792',
+            color: 'white',
+            border: 'none',
+            borderRadius: '0.5rem',
+            fontSize: '0.875rem',
+            fontWeight: 500,
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+            whiteSpace: 'nowrap'
+          }}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          <span>Copy</span>
+        </button>
+      </div>
+      <a
+        href={explorerUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          padding: '0.5rem 1rem',
+          color: '#502792',
+          textDecoration: 'none',
+          fontSize: '0.875rem',
+          fontWeight: 500,
+          border: '1px solid #502792',
+          borderRadius: '0.5rem',
+          transition: 'all 0.2s ease',
+          backgroundColor: 'transparent',
+          width: 'fit-content'
+        }}
+      >
+        <span>Verify on Solana Explorer</span>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M10.5 1.5L1.5 10.5M10.5 1.5H6M10.5 1.5V6"/>
+        </svg>
+      </a>
     </div>
-    <a
-      href="https://explorer.solana.com/address/jfy1btcfsjSn2WCqLVaxiEjp4zgmemGyRsdCPbPwnZV"
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.5rem',
-        padding: '0.5rem 1rem',
-        color: '#502792',
-        textDecoration: 'none',
-        fontSize: '0.875rem',
-        fontWeight: 500,
-        border: '1px solid #502792',
-        borderRadius: '0.5rem',
-        transition: 'all 0.2s ease',
-        backgroundColor: 'transparent',
-        width: 'fit-content'
-      }}
-    >
-      <span>Verify on Solana Explorer</span>
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M10.5 1.5L1.5 10.5M10.5 1.5H6M10.5 1.5V6"/>
-      </svg>
-    </a>
   </div>
-</div>
+);
 
-<div id="usdf-vault-card" className="address-card" style={{
-  border: '1px solid #e5e7eb',
-  borderRadius: '0.75rem',
-  padding: '1.25rem',
-  marginBottom: '1rem',
-  backgroundColor: '#ffffff',
-  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
-}}>
-  <div style={{ marginBottom: '0.75rem' }}>
-    <div className="address-label" style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: '#1e293b', marginBottom: '0.5rem' }}>
-      USDF Vault
-    </div>
-    <div style={{ fontSize: '0.75rem', color: '#6b7280', fontStyle: 'italic' }}>
-      Do not send tokens directly to this address. This is a vault address for reference only. Always interact with the Moony Reserve directly.
-    </div>
-  </div>
-  <div style={{
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.75rem'
-  }}>
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      gap: '0.75rem'
-    }}>
-      <code className="address-code" style={{
-        flex: 1,
-        maxWidth: '600px',
-        padding: '0.5rem 0.75rem',
-        backgroundColor: '#E7D9FD',
-        borderRadius: '0.5rem',
-        fontSize: '0.875rem',
-        fontFamily: 'monospace',
-        color: '#502792',
-        wordBreak: 'break-all',
-        border: '1px solid #D8C5FD'
-      }}>
-        jfy1btcfsjSn2WCqLVaxiEjp4zgmemGyRsdCPbPwnZV
-      </code>
-      <button
-        id="copy-usdf-vault-btn"
-      data-address="jfy1btcfsjSn2WCqLVaxiEjp4zgmemGyRsdCPbPwnZV"
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const btn = e.currentTarget;
-        const textSpan = btn.querySelector('span');
-        const address = btn.getAttribute('data-address');
-        const svg = btn.querySelector('svg');
-        const codeElement = btn.closest('div').querySelector('code');
-        
-        if (btn.dataset.copying === 'true') return;
-        btn.dataset.copying = 'true';
-        
-        const copyText = async () => {
-          try {
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-              await navigator.clipboard.writeText(address);
-            } else {
-              const textArea = document.createElement('textarea');
-              textArea.value = address;
-              textArea.style.position = 'fixed';
-              textArea.style.left = '-999999px';
-              textArea.style.top = '-999999px';
-              textArea.style.opacity = '0';
-              document.body.appendChild(textArea);
-              textArea.focus();
-              textArea.select();
-              document.execCommand('copy');
-              document.body.removeChild(textArea);
-            }
-            
-            const originalText = textSpan.textContent;
-            const originalBg = btn.style.backgroundColor;
-            const originalColor = btn.style.color;
-            const originalSvg = svg.innerHTML;
-            
-            btn.style.transform = 'scale(0.95)';
-            setTimeout(() => { btn.style.transform = 'scale(1)'; }, 100);
-            
-            textSpan.textContent = 'Copied!';
-            btn.style.backgroundColor = '#E7D9FD';
-            btn.style.color = '#502792';
-            btn.style.cursor = 'default';
-            
-            svg.style.transform = 'scale(0.8)';
-            svg.style.transition = 'transform 0.3s ease';
-            svg.innerHTML = '<path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>';
-            setTimeout(() => { svg.style.transform = 'scale(1)'; }, 50);
-            
-            if (codeElement) {
-              const originalCodeBg = codeElement.style.backgroundColor;
-              codeElement.style.transition = 'background-color 0.4s ease, transform 0.2s ease';
-              codeElement.style.backgroundColor = '#F3EBFF';
-              codeElement.style.transform = 'scale(1.02)';
-              setTimeout(() => { codeElement.style.transform = 'scale(1)'; }, 200);
-              setTimeout(() => {
-                codeElement.style.backgroundColor = originalCodeBg;
-              }, 1200);
-            }
-            
-            setTimeout(() => {
-              btn.style.transform = 'scale(0.98)';
-              setTimeout(() => {
-                textSpan.textContent = originalText;
-                btn.style.backgroundColor = originalBg;
-                btn.style.color = originalColor;
-                btn.style.cursor = 'pointer';
-                btn.style.transform = 'scale(1)';
-                svg.innerHTML = originalSvg;
-                svg.style.transform = 'scale(0.8)';
-                setTimeout(() => {
-                  svg.style.transform = 'scale(1)';
-                  btn.dataset.copying = 'false';
-                }, 150);
-              }, 100);
-            }, 2000);
-          } catch (err) {
-            console.error('Copy failed:', err);
-            const originalText = textSpan.textContent;
-            btn.style.animation = 'shake 0.5s ease';
-            textSpan.textContent = 'Failed';
-            btn.style.backgroundColor = '#ef4444';
-            btn.style.color = 'white';
-            setTimeout(() => {
-              btn.style.animation = '';
-              textSpan.textContent = originalText;
-              btn.style.backgroundColor = '#502792';
-              btn.style.color = 'white';
-              btn.dataset.copying = 'false';
-            }, 2000);
-          }
-        };
-        
-        copyText();
-      }}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.5rem',
-        padding: '0.5rem 1rem',
-        backgroundColor: '#502792',
-        color: 'white',
-        border: 'none',
-        borderRadius: '0.5rem',
-        fontSize: '0.875rem',
-        fontWeight: 500,
-        cursor: 'pointer',
-        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        whiteSpace: 'nowrap'
-      }}
-    >
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-      </svg>
-      <span>Copy</span>
-    </button>
-    </div>
-    <a
-      href="https://explorer.solana.com/address/jfy1btcfsjSn2WCqLVaxiEjp4zgmemGyRsdCPbPwnZV"
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.5rem',
-        padding: '0.5rem 1rem',
-        color: '#502792',
-        textDecoration: 'none',
-        fontSize: '0.875rem',
-        fontWeight: 500,
-        border: '1px solid #502792',
-        borderRadius: '0.5rem',
-        transition: 'all 0.2s ease',
-        backgroundColor: 'transparent',
-        width: 'fit-content'
-      }}
-    >
-      <span>Verify on Solana Explorer</span>
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M10.5 1.5L1.5 10.5M10.5 1.5H6M10.5 1.5V6"/>
-      </svg>
-    </a>
-  </div>
-</div>
+<AddressCard
+  id="pool-card"
+  label="Liquidity Pool"
+  address="EEMP4DQcXzw56avKxPhmh2Kjdxxvwavt5ecLUKcxVeTW"
+  description="The Reserve state account. This PDA stores the pool configuration and links to all vaults."
+  explorerUrl="https://explorer.solana.com/address/EEMP4DQcXzw56avKxPhmh2Kjdxxvwavt5ecLUKcxVeTW"
+  isPlaceholder={true}
+/>
 
-<div id="moony-vault-card" className="address-card" style={{
-  border: '1px solid #e5e7eb',
-  borderRadius: '0.75rem',
-  padding: '1.25rem',
-  marginBottom: '1rem',
-  backgroundColor: '#ffffff',
-  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
-}}>
-  <div style={{ marginBottom: '0.75rem' }}>
-    <div className="address-label" style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: '#1e293b', marginBottom: '0.5rem' }}>
-      Moony Vault
-    </div>
-    <div style={{ fontSize: '0.75rem', color: '#6b7280', fontStyle: 'italic' }}>
-      Do not send tokens directly to this address. This is a vault address for reference only. Always interact with the Moony Reserve directly.
-    </div>
-  </div>
-  <div style={{
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.75rem'
-  }}>
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      gap: '0.75rem'
-    }}>
-      <code className="address-code" style={{
-        flex: 1,
-        maxWidth: '600px',
-        padding: '0.5rem 0.75rem',
-        backgroundColor: '#E7D9FD',
-        borderRadius: '0.5rem',
-        fontSize: '0.875rem',
-        fontFamily: 'monospace',
-        color: '#502792',
-        wordBreak: 'break-all',
-        border: '1px solid #D8C5FD'
-      }}>
-        BFDanLgELhpCCGTtaa7c8WGxTXcTxgwkf9DMQd4qheSK
-      </code>
-      <button
-        id="copy-moony-vault-btn"
-      data-address="BFDanLgELhpCCGTtaa7c8WGxTXcTxgwkf9DMQd4qheSK"
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const btn = e.currentTarget;
-        const textSpan = btn.querySelector('span');
-        const address = btn.getAttribute('data-address');
-        const svg = btn.querySelector('svg');
-        const codeElement = btn.closest('div').querySelector('code');
-        
-        if (btn.dataset.copying === 'true') return;
-        btn.dataset.copying = 'true';
-        
-        const copyText = async () => {
-          try {
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-              await navigator.clipboard.writeText(address);
-            } else {
-              const textArea = document.createElement('textarea');
-              textArea.value = address;
-              textArea.style.position = 'fixed';
-              textArea.style.left = '-999999px';
-              textArea.style.top = '-999999px';
-              textArea.style.opacity = '0';
-              document.body.appendChild(textArea);
-              textArea.focus();
-              textArea.select();
-              document.execCommand('copy');
-              document.body.removeChild(textArea);
-            }
-            
-            const originalText = textSpan.textContent;
-            const originalBg = btn.style.backgroundColor;
-            const originalColor = btn.style.color;
-            const originalSvg = svg.innerHTML;
-            
-            btn.style.transform = 'scale(0.95)';
-            setTimeout(() => { btn.style.transform = 'scale(1)'; }, 100);
-            
-            textSpan.textContent = 'Copied!';
-            btn.style.backgroundColor = '#E7D9FD';
-            btn.style.color = '#502792';
-            btn.style.cursor = 'default';
-            
-            svg.style.transform = 'scale(0.8)';
-            svg.style.transition = 'transform 0.3s ease';
-            svg.innerHTML = '<path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>';
-            setTimeout(() => { svg.style.transform = 'scale(1)'; }, 50);
-            
-            if (codeElement) {
-              const originalCodeBg = codeElement.style.backgroundColor;
-              codeElement.style.transition = 'background-color 0.4s ease, transform 0.2s ease';
-              codeElement.style.backgroundColor = '#F3EBFF';
-              codeElement.style.transform = 'scale(1.02)';
-              setTimeout(() => { codeElement.style.transform = 'scale(1)'; }, 200);
-              setTimeout(() => {
-                codeElement.style.backgroundColor = originalCodeBg;
-              }, 1200);
-            }
-            
-            setTimeout(() => {
-              btn.style.transform = 'scale(0.98)';
-              setTimeout(() => {
-                textSpan.textContent = originalText;
-                btn.style.backgroundColor = originalBg;
-                btn.style.color = originalColor;
-                btn.style.cursor = 'pointer';
-                btn.style.transform = 'scale(1)';
-                svg.innerHTML = originalSvg;
-                svg.style.transform = 'scale(0.8)';
-                setTimeout(() => {
-                  svg.style.transform = 'scale(1)';
-                  btn.dataset.copying = 'false';
-                }, 150);
-              }, 100);
-            }, 2000);
-          } catch (err) {
-            console.error('Copy failed:', err);
-            const originalText = textSpan.textContent;
-            btn.style.animation = 'shake 0.5s ease';
-            textSpan.textContent = 'Failed';
-            btn.style.backgroundColor = '#ef4444';
-            btn.style.color = 'white';
-            setTimeout(() => {
-              btn.style.animation = '';
-              textSpan.textContent = originalText;
-              btn.style.backgroundColor = '#502792';
-              btn.style.color = 'white';
-              btn.dataset.copying = 'false';
-            }, 2000);
-          }
-        };
-        
-        copyText();
-      }}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.5rem',
-        padding: '0.5rem 1rem',
-        backgroundColor: '#502792',
-        color: 'white',
-        border: 'none',
-        borderRadius: '0.5rem',
-        fontSize: '0.875rem',
-        fontWeight: 500,
-        cursor: 'pointer',
-        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        whiteSpace: 'nowrap'
-      }}
-    >
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-      </svg>
-      <span>Copy</span>
-    </button>
-    </div>
-    <a
-      href="https://explorer.solana.com/address/BFDanLgELhpCCGTtaa7c8WGxTXcTxgwkf9DMQd4qheSK"
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.5rem',
-        padding: '0.5rem 1rem',
-        color: '#502792',
-        textDecoration: 'none',
-        fontSize: '0.875rem',
-        fontWeight: 500,
-        border: '1px solid #502792',
-        borderRadius: '0.5rem',
-        transition: 'all 0.2s ease',
-        backgroundColor: 'transparent',
-        width: 'fit-content'
-      }}
-    >
-      <span>Verify on Solana Explorer</span>
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M10.5 1.5L1.5 10.5M10.5 1.5H6M10.5 1.5V6"/>
-      </svg>
-    </a>
-  </div>
-</div>
+<AddressCard
+  id="mny-vault-card"
+  label="MNY Vault"
+  address="BMYftxDcbLDTzRCkLmQ9amwNgqsZ74A1wsd1gURum3Ep"
+  description="Holds the unreleased MNY supply. Do not send tokens directly to this address."
+  explorerUrl="https://explorer.solana.com/address/BMYftxDcbLDTzRCkLmQ9amwNgqsZ74A1wsd1gURum3Ep"
+  isPlaceholder={true}
+/>
+
+<AddressCard
+  id="usdf-vault-card"
+  label="USDF Vault"
+  address="3QEYi2emN2ggYGG66RYdgDhNnumXTuQec4Ar6o5qpb6R"
+  description="Holds the USDF reserve backing circulating MNY. Do not send tokens directly to this address."
+  explorerUrl="https://explorer.solana.com/address/3QEYi2emN2ggYGG66RYdgDhNnumXTuQec4Ar6o5qpb6R"
+  isPlaceholder={true}
+/>
 
 ## How It Works
 
