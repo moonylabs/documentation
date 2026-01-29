@@ -32,7 +32,7 @@ The spot price represents the instantaneous price per MNY token at any given cir
 
 <div className="principle-card formula-card" style={{
   padding: '1.5rem',
-  marginBottom: '1.5rem'
+  marginBottom: '0.5rem'
 }}>
   <div className="formula-box">
     $$
@@ -55,6 +55,10 @@ The spot price represents the instantaneous price per MNY token at any given cir
     </div>
   </div>
 </div>
+
+<p style={{ fontSize: '0.75rem', color: '#6b7280', marginBottom: '1.5rem' }}>
+  Source: <a href="https://github.com/code-payments/flipcash-program/blob/main/api/src/curve.rs#L22-L28" style={{ color: '#6b7280' }}>curve.rs:22-28</a>
+</p>
 
 <div style={{ textAlign: 'justify' }}>
 
@@ -168,6 +172,10 @@ Three immutable constants parameterize the curve to produce an initial price of 
 
 </div>
 
+<p style={{ fontSize: '0.75rem', color: '#6b7280', marginBottom: '1.5rem' }}>
+  Source: <a href="https://github.com/code-payments/flipcash-program/blob/main/api/src/consts.rs#L18-L20" style={{ color: '#6b7280' }}>consts.rs:18-20</a>
+</p>
+
 ### Price at Supply Milestones
 
 <div style={{ textAlign: 'justify' }}>
@@ -220,7 +228,7 @@ Given a token quantity to acquire, this formula computes the total USDF cost - t
 
 <div className="principle-card formula-card" style={{
   padding: '1.5rem',
-  marginBottom: '1.5rem'
+  marginBottom: '0.5rem'
 }}>
   <div className="formula-box">
     $$
@@ -244,6 +252,10 @@ Given a token quantity to acquire, this formula computes the total USDF cost - t
   </div>
 </div>
 
+<p style={{ fontSize: '0.75rem', color: '#6b7280', marginBottom: '1.5rem' }}>
+  Source: <a href="https://github.com/code-payments/flipcash-program/blob/main/api/src/curve.rs#L36-L54" style={{ color: '#6b7280' }}>curve.rs:36-54</a>
+</p>
+
 <div style={{ textAlign: 'justify' }}>
 
 <p style={{ marginBottom: '1.5rem' }}>
@@ -264,7 +276,7 @@ When participants specify a USDF amount to spend (the typical case), this invers
 
 <div className="principle-card formula-card" style={{
   padding: '1.5rem',
-  marginBottom: '1.5rem'
+  marginBottom: '0.5rem'
 }}>
   <div className="formula-box">
     $$
@@ -291,6 +303,10 @@ When participants specify a USDF amount to spend (the typical case), this invers
   </div>
 </div>
 
+<p style={{ fontSize: '0.75rem', color: '#6b7280', marginBottom: '1.5rem' }}>
+  Source: <a href="https://github.com/code-payments/flipcash-program/blob/main/api/src/curve.rs#L62-L74" style={{ color: '#6b7280' }}>curve.rs:62-74</a>
+</p>
+
 <div style={{ textAlign: 'justify' }}>
 
 <p style={{ marginBottom: '1.5rem' }}>
@@ -311,7 +327,7 @@ The same logic applies in reverse when redeeming tokens. Tokens return to the re
 
 <div className="principle-card formula-card" style={{
   padding: '1.5rem',
-  marginBottom: '1.5rem'
+  marginBottom: '0.5rem'
 }}>
   <div className="formula-box">
     $$
@@ -335,6 +351,10 @@ The same logic applies in reverse when redeeming tokens. Tokens return to the re
   </div>
 </div>
 
+<p style={{ fontSize: '0.75rem', color: '#6b7280', marginBottom: '1.5rem' }}>
+  Source: <a href="https://github.com/code-payments/flipcash-program/blob/main/api/src/curve.rs#L36-L54" style={{ color: '#6b7280' }}>curve.rs:36-54</a> (same integral, reversed)
+</p>
+
 <div style={{ textAlign: 'justify' }}>
 
 <p style={{ marginBottom: '1.5rem' }}>
@@ -355,7 +375,7 @@ When participants specify a desired USDF amount to receive, this inverse functio
 
 <div className="principle-card formula-card" style={{
   padding: '1.5rem',
-  marginBottom: '1.5rem'
+  marginBottom: '0.5rem'
 }}>
   <div className="formula-box">
     $$
@@ -381,6 +401,10 @@ When participants specify a desired USDF amount to receive, this inverse functio
     </div>
   </div>
 </div>
+
+<p style={{ fontSize: '0.75rem', color: '#6b7280', marginBottom: '1.5rem' }}>
+  Source: <a href="https://github.com/code-payments/flipcash-program/blob/main/api/src/curve.rs#L62-L74" style={{ color: '#6b7280' }}>curve.rs:62-74</a> (equivalent formulation)
+</p>
 
 <div style={{ textAlign: 'justify' }}>
 
@@ -544,6 +568,10 @@ The implementation maintains two parallel data structures, each precomputed from
 
 </div>
 
+<p style={{ fontSize: '0.75rem', color: '#6b7280', marginBottom: '1.5rem' }}>
+  Source: <a href="https://github.com/code-payments/flipcash-program/blob/main/api/src/table.rs" style={{ color: '#6b7280' }}>table.rs</a>
+</p>
+
 ### Precision
 
 <div style={{ textAlign: 'justify' }}>
@@ -632,6 +660,10 @@ The lookup tables are configured to balance storage efficiency against interpola
   </div>
 
 </div>
+
+<p style={{ fontSize: '0.75rem', color: '#6b7280', marginBottom: '1.5rem' }}>
+  Source: <a href="https://github.com/code-payments/flipcash-program/blob/main/api/src/table.rs#L6" style={{ color: '#6b7280' }}>table.rs:6</a>, <a href="https://github.com/code-payments/flipcash-program/blob/main/api/src/consts.rs#L12" style={{ color: '#6b7280' }}>consts.rs:12</a>
+</p>
 
 <div style={{ textAlign: 'justify' }}>
 
