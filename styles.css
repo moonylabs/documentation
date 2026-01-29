@@ -562,36 +562,34 @@ footer [class*="links"] > div > h4 {
   justify-content: center !important;
 }
 
-/* Callout styling - use brand purple instead of default blue */
-[class*="Note"],
-[class*="Info"],
-[class*="Check"],
-[class*="Tip"],
-[class*="Warning"] {
+/* Quick Start page - callouts with brand purple */
+.quickstart-page [class*="Note"],
+.quickstart-page [class*="Info"],
+.quickstart-page [class*="Check"],
+.quickstart-page [class*="Tip"] {
   background-color: #F3ECFD !important;
   border-color: #E7D9FD !important;
 }
 
-[class*="Note"] svg,
-[class*="Info"] svg,
-[class*="Check"] svg,
-[class*="Tip"] svg {
+.quickstart-page [class*="Note"] svg,
+.quickstart-page [class*="Info"] svg,
+.quickstart-page [class*="Check"] svg,
+.quickstart-page [class*="Tip"] svg {
   color: #502792 !important;
 }
 
-.dark [class*="Note"],
-.dark [class*="Info"],
-.dark [class*="Check"],
-.dark [class*="Tip"],
-.dark [class*="Warning"] {
+.dark .quickstart-page [class*="Note"],
+.dark .quickstart-page [class*="Info"],
+.dark .quickstart-page [class*="Check"],
+.dark .quickstart-page [class*="Tip"] {
   background-color: rgba(80, 39, 146, 0.15) !important;
   border-color: #502792 !important;
 }
 
-.dark [class*="Note"] svg,
-.dark [class*="Info"] svg,
-.dark [class*="Check"] svg,
-.dark [class*="Tip"] svg {
+.dark .quickstart-page [class*="Note"] svg,
+.dark .quickstart-page [class*="Info"] svg,
+.dark .quickstart-page [class*="Check"] svg,
+.dark .quickstart-page [class*="Tip"] svg {
   color: #E7D9FD !important;
 }
 
