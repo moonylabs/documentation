@@ -594,7 +594,7 @@ The lookup tables are configured to balance storage efficiency against interpola
       fontWeight: 600,
       color: '#1e293b'
     }}>
-      Decimal precision: 18 places
+      Fixed-point arithmetic
     </div>
     <p style={{
       margin: 0,
@@ -602,7 +602,7 @@ The lookup tables are configured to balance storage efficiency against interpola
       color: '#475569',
       fontSize: '0.9375rem'
     }}>
-      All values stored as integers scaled by 10^18, matching the standard SPL token convention.
+      Internal calculations use 128-bit integers with 18 decimal scaling for precision. The MNY token uses 10 decimal places.
     </p>
   </div>
 
