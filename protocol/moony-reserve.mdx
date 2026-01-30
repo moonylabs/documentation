@@ -145,31 +145,27 @@ export const AddressCard = ({ id, label, address, description, explorerUrl, isPl
   </div>
 );
 
+<Note>On-chain addresses will be published at mainnet launch.</Note>
+
 <AddressCard
   id="pool-card"
   label="Liquidity Pool"
-  address="EEMP4DQcXzw56avKxPhmh2Kjdxxvwavt5ecLUKcxVeTW"
+  address="Coming soon..."
   description="The Reserve state account. This PDA stores the pool configuration and links to all vaults."
-  explorerUrl="https://explorer.solana.com/address/EEMP4DQcXzw56avKxPhmh2Kjdxxvwavt5ecLUKcxVeTW"
-  isPlaceholder={true}
 />
 
 <AddressCard
   id="mny-vault-card"
   label="MNY Vault"
-  address="BMYftxDcbLDTzRCkLmQ9amwNgqsZ74A1wsd1gURum3Ep"
+  address="Coming soon..."
   description="Holds the unreleased MNY supply. Do not send tokens directly to this address."
-  explorerUrl="https://explorer.solana.com/address/BMYftxDcbLDTzRCkLmQ9amwNgqsZ74A1wsd1gURum3Ep"
-  isPlaceholder={true}
 />
 
 <AddressCard
   id="usdf-vault-card"
   label="USDF Vault"
-  address="3QEYi2emN2ggYGG66RYdgDhNnumXTuQec4Ar6o5qpb6R"
+  address="Coming soon..."
   description="Holds the USDF reserve backing circulating MNY. Do not send tokens directly to this address."
-  explorerUrl="https://explorer.solana.com/address/3QEYi2emN2ggYGG66RYdgDhNnumXTuQec4Ar6o5qpb6R"
-  isPlaceholder={true}
 />
 
 ## How It Works
@@ -212,10 +208,10 @@ The Moony Reserve operates as a two-way exchange mechanism. Participants can acq
     }}>
       MNY enters circulation only when participants deposit verifiable capital. This ensures distribution reflects genuine demand rather than discretionary allocation, and that all circulating supply is backed by onchain liquidity.
     </p>
-    <div style={{
+    <div className="card-divider" style={{
       marginTop: '1rem',
       paddingTop: '0.75rem',
-      borderTop: '1px solid #e5e7eb',
+      borderTop: '0.5px solid #e5e7eb',
       display: 'flex',
       alignItems: 'center',
       gap: '0.5rem',
@@ -251,10 +247,10 @@ The Moony Reserve operates as a two-way exchange mechanism. Participants can acq
     }}>
       A deterministic pricing curve governs all pricing. The price of MNY adjusts automatically based on circulating supply, ensuring consistent and predictable outcomes for every transaction.
     </p>
-    <div style={{
+    <div className="card-divider" style={{
       marginTop: '1rem',
       paddingTop: '0.75rem',
-      borderTop: '1px solid #e5e7eb',
+      borderTop: '0.5px solid #e5e7eb',
       display: 'flex',
       alignItems: 'center',
       gap: '0.5rem',
@@ -392,10 +388,10 @@ This architecture makes Moony fully open and composable. Developers can integrat
     }}>
       The underlying smart contract infrastructure is released under the MIT License, a permissive open-source license that allows unrestricted use, modification, and distribution.
     </p>
-    <div style={{
+    <div className="card-divider" style={{
       marginTop: '1rem',
       paddingTop: '0.75rem',
-      borderTop: '1px solid #e5e7eb',
+      borderTop: '0.5px solid #e5e7eb',
       display: 'flex',
       alignItems: 'center',
       gap: '0.5rem',
@@ -431,10 +427,10 @@ This architecture makes Moony fully open and composable. Developers can integrat
     }}>
       The smart contract infrastructure has been independently audited by Sec3, a security firm specializing in Solana program analysis. The audit, completed in January 2026, identified nine issues across severity levels, all of which have been resolved or formally acknowledged.
     </p>
-    <div style={{
+    <div className="card-divider" style={{
       marginTop: '1rem',
       paddingTop: '0.75rem',
-      borderTop: '1px solid #e5e7eb',
+      borderTop: '0.5px solid #e5e7eb',
       display: 'flex',
       alignItems: 'center',
       gap: '0.5rem',

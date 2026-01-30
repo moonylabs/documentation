@@ -95,7 +95,8 @@ body:has([style*="z-index: 99999"]) footer {
 .dark #authority-address-card,
 .dark #reserve-address-card,
 .dark #usdf-vault-card,
-.dark #moony-vault-card {
+.dark #moony-vault-card,
+.dark #program-id-card {
   background-color: #18181b !important;
   border-color: #27272a !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
@@ -106,7 +107,8 @@ body:has([style*="z-index: 99999"]) footer {
 .dark #authority-address-card h4,
 .dark #reserve-address-card h4,
 .dark #usdf-vault-card h4,
-.dark #moony-vault-card h4 {
+.dark #moony-vault-card h4,
+.dark #program-id-card h4 {
   color: #fafafa !important;
 }
 
@@ -115,7 +117,8 @@ body:has([style*="z-index: 99999"]) footer {
 .dark #authority-address-card code,
 .dark #reserve-address-card code,
 .dark #usdf-vault-card code,
-.dark #moony-vault-card code {
+.dark #moony-vault-card code,
+.dark #program-id-card code {
   background-color: #E7D9FD !important;
   border-color: #D8C5FD !important;
   color: #502792 !important;
@@ -127,6 +130,7 @@ body:has([style*="z-index: 99999"]) footer {
 .dark #reserve-address-card button,
 .dark #usdf-vault-card button,
 .dark #moony-vault-card button,
+.dark #program-id-card button,
 .dark .address-card button {
   background-color: #d4b8fa !important;
   color: #502792 !important;
@@ -137,28 +141,35 @@ body:has([style*="z-index: 99999"]) footer {
 .dark #reserve-address-card button:hover,
 .dark #usdf-vault-card button:hover,
 .dark #moony-vault-card button:hover,
+.dark #program-id-card button:hover,
 .dark .address-card button:hover {
   background-color: #d4b8fa !important;
 }
 
-.dark #mint-address-card a[href*="explorer.solana.com"],
-.dark #authority-address-card a[href*="explorer.solana.com"],
-.dark #reserve-address-card a[href*="explorer.solana.com"],
-.dark #usdf-vault-card a[href*="explorer.solana.com"],
-.dark #moony-vault-card a[href*="explorer.solana.com"],
-.dark .address-card a[href*="explorer.solana.com"] {
+.dark .address-card a,
+.dark .address-card a span {
   color: #E7D9FD !important;
   border-color: #E7D9FD !important;
 }
 
-.dark #mint-address-card a[href*="explorer.solana.com"]:hover,
-.dark #authority-address-card a[href*="explorer.solana.com"]:hover,
-.dark #reserve-address-card a[href*="explorer.solana.com"]:hover,
-.dark #usdf-vault-card a[href*="explorer.solana.com"]:hover,
-.dark #moony-vault-card a[href*="explorer.solana.com"]:hover,
-.dark .address-card a[href*="explorer.solana.com"]:hover {
-  background-color: #E7D9FD !important;
-  color: #502792 !important;
+.dark .address-card a svg,
+.dark .address-card a svg * {
+  stroke: #E7D9FD !important;
+}
+
+.dark .address-card a:hover,
+.dark .address-card a:hover span {
+  color: #E7D9FD !important;
+}
+
+.dark .address-card a:hover svg,
+.dark .address-card a:hover svg * {
+  stroke: #E7D9FD !important;
+}
+
+/* Divider lines in cards - subtle in dark mode */
+.dark .card-divider {
+  border-top-color: #3f3f46 !important;
 }
 
 /* Core Principles cards - fixed width, no responsive changes */
