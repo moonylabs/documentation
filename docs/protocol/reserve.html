@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Reserve, Moony Docs</title>
+<meta name="description" content="The trustless mechanism through which all MNY enters circulation." />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css" />
+<link rel="stylesheet" href="/assets/docs.css" />
+<link rel="stylesheet" href="/assets/docs-shell.css" />
+<link rel="canonical" href="https://www.moonylabs.com/docs/protocol/reserve" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.moonylabs.com/docs/protocol/reserve" />
+<meta property="og:title" content="The Reserve, Moony Docs" />
+<meta property="og:description" content="The trustless mechanism through which all MNY enters circulation." />
+<meta property="og:image" content="https://www.moonylabs.com/assets/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="The Reserve, Moony Docs" />
+<meta name="twitter:description" content="The trustless mechanism through which all MNY enters circulation." />
+<meta name="twitter:image" content="https://www.moonylabs.com/assets/og.png" />
+</head>
+<body data-doc-page="reserve">
+
+<div class="dx-layout">
+  <aside class="dx-sidebar" id="dxSidebar"></aside>
+
+  <main class="dx-main">
+    <div class="crumb">
+      <a href="/docs">Docs</a><span class="sep">/</span>
+      <span>Moony Protocol</span><span class="sep">/</span>
+      <span>The Reserve</span>
+    </div>
+
+    <p class="dx-eyebrow">Moony Protocol</p>
+    <h1>The Reserve</h1>
+    <p class="dx-lead">The trustless mechanism through which all MNY enters circulation.</p>
+
+    <section class="doc-section" id="reserve" style="padding-top:clamp(34px,4vw,46px)">
+      <div class="dx-feature-panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="12" cy="12" r="3.2"/><path d="M12 8.8v-1M15.2 12h1M12 15.2v1M8.8 12h-1M17 20v1M7 20v1"/></svg></div>
+      <p>The Reserve is the trustless mechanism through which all MNY enters circulation, exclusively in exchange for verifiable onchain capital. Rather than relying on discretionary allocation, private sales, or centralized control, the entire MNY supply is held in a program that releases tokens into circulation according to transparent, immutable rules. This ensures that every unit of MNY is acquired on equal terms, with no special access or preferential treatment.</p>
+      <p>Deposited capital remains onchain as redemption liquidity. Every unit of MNY in circulation corresponds to capital held in the Reserve, and the ability to redeem at price levels determined by the pricing curve is a mathematical invariant of the system. This creates a persistent, verifiable liquidity foundation that grows with the network.</p>
+      <div class="dx-stats">
+        <div class="dx-stat"><div class="v">100%</div><div class="k">Backed by onchain capital</div></div>
+        <div class="dx-stat"><div class="v">0%</div><div class="k">Fee to acquire MNY</div></div>
+        <div class="dx-stat"><div class="v">1%</div><div class="k">Fee to redeem, hardcoded</div></div>
+        <div class="dx-stat"><div class="v">—</div><div class="k">Admin keys · fully revoked</div></div>
+      </div>
+    </section>
+
+    <section class="doc-section" id="addresses">
+      <h2><span class="sn">#</span>Reserve Addresses</h2>
+      <div class="callout note">
+        <svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+        <div><div class="cbody">These addresses are provided for transparency and onchain verification. To interact with the Reserve, use the Flipcash app or a compatible interface. Do not send tokens directly to these addresses.</div></div>
+      </div>
+      <div class="addr-card">
+        <div class="addr-card-h">Reserve Account</div>
+        <div class="addr-card-d">The onchain account that stores the Reserve state and links to all vaults.</div>
+        <div class="addr-row"><code>5Ztd1ECKq4cXYt7BiRXK999hK2eQqtjJF9J3F1zw2jYC</code><button class="copy-btn" data-copy="5Ztd1ECKq4cXYt7BiRXK999hK2eQqtjJF9J3F1zw2jYC">Copy</button><a class="addr-verify" href="https://explorer.solana.com/address/5Ztd1ECKq4cXYt7BiRXK999hK2eQqtjJF9J3F1zw2jYC" target="_blank" rel="noopener">Verify ↗</a></div>
+      </div>
+      <div class="addr-card">
+        <div class="addr-card-h">MNY Vault</div>
+        <div class="addr-card-d">Holds the MNY supply not yet in circulation.</div>
+        <div class="addr-row"><code>HWVNBLfwKyDAkV4YFffZrThsEke3kUko1VVuGjuDAHef</code><button class="copy-btn" data-copy="HWVNBLfwKyDAkV4YFffZrThsEke3kUko1VVuGjuDAHef">Copy</button><a class="addr-verify" href="https://explorer.solana.com/address/HWVNBLfwKyDAkV4YFffZrThsEke3kUko1VVuGjuDAHef" target="_blank" rel="noopener">Verify ↗</a></div>
+      </div>
+      <div class="addr-card">
+        <div class="addr-card-h">USDF Vault</div>
+        <div class="addr-card-d">Holds the USDF capital backing all circulating MNY.</div>
+        <div class="addr-row"><code>8VhsmHR25oQSfNMT8nJNFZirsLZLAnz3eH9rr43pgY9F</code><button class="copy-btn" data-copy="8VhsmHR25oQSfNMT8nJNFZirsLZLAnz3eH9rr43pgY9F">Copy</button><a class="addr-verify" href="https://explorer.solana.com/address/8VhsmHR25oQSfNMT8nJNFZirsLZLAnz3eH9rr43pgY9F" target="_blank" rel="noopener">Verify ↗</a></div>
+      </div>
+    </section>
+
+    <section class="doc-section" id="how-it-works">
+      <h2><span class="sn">#</span>How It Works</h2>
+      <p>All MNY enters and exits circulation through the Reserve. Both buying and selling execute atomically onchain, requiring no intermediaries, approvals, or custodial trust.</p>
+      <div class="dx-flow">
+        <div class="dx-leg buy">
+          <div class="lh"><span class="d"></span>Buy</div>
+          <p>Deposit USDF into the Reserve to acquire MNY. The amount received is set by the current position on the pricing curve. As more MNY enters circulation, the price rises along the curve.</p>
+          <div class="fee">Deposit USDF · receive <b>MNY</b></div>
+        </div>
+        <div class="dx-hub">
+          <div class="core"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="12" cy="12" r="3.2"/><path d="M12 8.8v-1M15.2 12h1M12 15.2v1M8.8 12h-1"/></svg></div>
+          <div class="lbl">The Reserve</div>
+        </div>
+        <div class="dx-leg sell">
+          <div class="lh"><span class="d"></span>Sell</div>
+          <p>Return MNY to the Reserve to redeem USDF at the current curve price, less a 1% fee. Redemption liquidity is a mathematical invariant, maintained by the capital held in the Reserve.</p>
+          <div class="fee">Return MNY · receive <b>USDF − 1%</b></div>
+        </div>
+      </div>
+      <div class="callout note">
+        <svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+        <div><div class="cbody">Buy and sell prices are determined by a deterministic pricing curve. See <a href="/docs/protocol/pricing-curve">Pricing Curve</a> for details.</div></div>
+      </div>
+      <h3 id="pool-state">Pool state</h3>
+      <p>The Reserve's entire state lives in one onchain pool account. Anyone can read it (the <a href="/docs/developers/cli#query"><code>get-currency</code></a> command does exactly this) and verify the vaults, accrued fees, and fee rate directly.</p>
+      <div class="term">
+        <div class="term-bar"><span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span><span class="ttitle">pool.rs · state</span><button class="copy-btn tcopy" data-copy="// PDA seeds: [&quot;pool&quot;, currency]
+// Read with: flipcash get-currency --mint &lt;MNY&gt;
+pub struct LiquidityPool {
+    pub authority: Pubkey,        // set at init (Flipcash)
+    pub currency: Pubkey,         // Currency for this pool
+
+    // SPL token accounts
+    pub mint_a: Pubkey,           // SPL Mint A (target = MNY)
+    pub mint_b: Pubkey,           // SPL Mint B (base = USDF)
+    pub vault_a: Pubkey,          // Vault A (target)
+    pub vault_b: Pubkey,          // Vault B (base)
+
+    // Fees
+    pub fees_accumulated: u64,
+    pub sell_fee: u16,            // Basis points (100 = 1%)
+
+    // Bump seeds for PDAs
+    pub bump: u8,
+    pub vault_a_bump: u8,
+    pub vault_b_bump: u8,
+
+    _padding: [u8; 3],
+}">Copy</button></div>
+<pre class="term-body"><span class="ln"><span class="cm">// PDA seeds: ["pool", currency]</span></span><span class="ln"><span class="cm">// Read with: flipcash get-currency --mint &lt;MNY&gt;</span></span><span class="ln"><span class="fl">pub</span> <span class="fl">struct</span> <span class="pr">LiquidityPool</span> {</span><span class="ln">    <span class="fl">pub</span> authority: Pubkey,        <span class="cm">// set at init (Flipcash)</span></span><span class="ln">    <span class="fl">pub</span> currency: Pubkey,         <span class="cm">// Currency for this pool</span></span><span class="ln"> </span><span class="ln">    <span class="cm">// SPL token accounts</span></span><span class="ln">    <span class="fl">pub</span> mint_a: Pubkey,           <span class="cm">// SPL Mint A (target = MNY)</span></span><span class="ln">    <span class="fl">pub</span> mint_b: Pubkey,           <span class="cm">// SPL Mint B (base = USDF)</span></span><span class="ln">    <span class="fl">pub</span> vault_a: Pubkey,          <span class="cm">// Vault A (target)</span></span><span class="ln">    <span class="fl">pub</span> vault_b: Pubkey,          <span class="cm">// Vault B (base)</span></span><span class="ln"> </span><span class="ln">    <span class="cm">// Fees</span></span><span class="ln">    <span class="fl">pub</span> fees_accumulated: u64,</span><span class="ln">    <span class="fl">pub</span> sell_fee: u16,            <span class="cm">// Basis points (100 = 1%)</span></span><span class="ln"> </span><span class="ln">    <span class="cm">// Bump seeds for PDAs</span></span><span class="ln">    <span class="fl">pub</span> bump: u8,</span><span class="ln">    <span class="fl">pub</span> vault_a_bump: u8,</span><span class="ln">    <span class="fl">pub</span> vault_b_bump: u8,</span><span class="ln"> </span><span class="ln">    _padding: [u8; 3],</span><span class="ln">}</span></pre>
+      </div>
+      <div class="callout note">
+        <svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m7 8-4 4 4 4M13 8l4 4-4 4"/></svg>
+        <div><div class="ctitle">Interact with the Reserve</div><div class="cbody">Query the pool, acquire MNY, and redeem it from the command line. See the <a href="/docs/developers/cli">CLI reference</a> for the full command set, or integrate against the open-source program directly.</div></div>
+      </div>
+    </section>
+
+    <section class="doc-section" id="fee-model">
+      <h2><span class="sn">#</span>Fee Model</h2>
+      <p>There is no fee to acquire MNY from the Reserve. Redemptions incur a 1% fee, deducted from the USDF returned to the participant. The 1% rate is enforced by the program itself, which rejects any pool not initialized at exactly 100 bps; it applies uniformly to all redemptions regardless of size or participant and cannot be changed.</p>
+      <div class="term">
+        <div class="term-bar"><span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span><span class="ttitle">program · InitializePool</span><button class="copy-btn tcopy" data-copy="// program/src/instruction/pool.rs - InitializePool rejects
+// any pool whose fee isn't exactly 1%:
+check_condition(
+    args.sell_fee == 100,
+    &quot;Sell fee must be 1% (100 bps)&quot;
+)?;
+
+pool.sell_fee = args.sell_fee;   // stored on the pool: 100 = 1%
+
+// No instruction can change it, and the program is immutable
+// - so every pool's fee is fixed at 1% forever.
+// Acquiring (minting) MNY charges no fee.">Copy</button></div>
+<pre class="term-body"><span class="ln"><span class="cm">// program/src/instruction/pool.rs - InitializePool rejects</span></span><span class="ln"><span class="cm">// any pool whose fee isn't exactly 1%:</span></span><span class="ln"><span class="pr">check_condition</span>(</span><span class="ln">    args.sell_fee == 100,</span><span class="ln">    "Sell fee must be 1% (100 bps)"</span><span class="ln">)?;</span><span class="ln"> </span><span class="ln">pool.sell_fee = args.sell_fee;   <span class="cm">// stored on the pool: 100 = 1%</span></span><span class="ln"> </span><span class="ln"><span class="cm">// No instruction can change it, and the program is immutable</span></span><span class="ln"><span class="cm">// - so every pool's fee is fixed at 1% forever.</span></span><span class="ln"><span class="cm">// Acquiring (minting) MNY charges no fee.</span></span></pre>
+      </div>
+      <div class="principles">
+        <div class="principle"><div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.5 7.5 8 9 4.5-1.5 8-4 8-9V6l-8-3Z"/></svg></div><div><h3>Security</h3><p>The fee creates deliberate economic friction on sell-side transactions, making sandwich attacks and other MEV extraction strategies unprofitable against the pricing curve.</p></div></div>
+        <div class="principle"><div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4l-6 6 2 2 6-6a4 4 0 0 0 5.4-5.4l-2.3 2.3-2-2 2.3-2.3Z"/></svg></div><div><h3>Fee handling</h3><p>Collected fees accrue onchain as <code>fees_accumulated</code> and are burned by a permissionless instruction (anyone can call <code>burn_fees</code>). Because USDF is a Coinbase Custom Stablecoin backed 1:1 by USDC, burning the fee redeems the equivalent USDC to Flipcash; it never accrues to Moony Labs. The rate is enforced at 1% by the program and applies identically to every redemption.</p></div></div>
+      </div>
+    </section>
+
+    <section class="doc-section" id="usdf">
+      <h2><span class="sn">#</span>Reserve Asset: USDF</h2>
+      <div class="dx-feature-panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M16.5 6.5A4 4 0 0 0 13 5h-2a3.5 3.5 0 0 0 0 7h2a3.5 3.5 0 0 1 0 7h-2a4 4 0 0 1-3.5-1.5"/></svg></div>
+      <p>USDF is a dollar-denominated stablecoin that serves as the Reserve's unit of account. Issued in partnership between Flipcash and Coinbase as a Coinbase Custom Stablecoin, each USDF is fully backed 1:1 by U.S. dollar-denominated collateral held in segregated Coinbase custody.</p>
+      <div class="addr-card">
+        <div class="addr-card-h">USDF Token Mint</div>
+        <div class="addr-card-d">The onchain mint address for USDF, the reserve capital behind all circulating MNY.</div>
+        <div class="addr-row"><code>5AMAA9JV9H97YYVxx8F6FsCMmTwXSuTTQneiup4RYAUQ</code><button class="copy-btn" data-copy="5AMAA9JV9H97YYVxx8F6FsCMmTwXSuTTQneiup4RYAUQ">Copy</button><a class="addr-verify" href="https://explorer.solana.com/address/5AMAA9JV9H97YYVxx8F6FsCMmTwXSuTTQneiup4RYAUQ" target="_blank" rel="noopener">Verify ↗</a></div>
+      </div>
+      <p>While Flipcash and Coinbase manage USDF issuance and custody, neither controls the Moony protocol. All pricing, distribution, and redemption behavior is governed solely by immutable onchain logic.</p>
+      <div class="callout note">
+        <svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+        <div><div class="cbody">To learn more about USDF, visit the <a href="https://www.coinbase.com/blog/coinbase-powers-usdf-flipcashs-custom-stablecoin" target="_blank" rel="noopener">Coinbase Custom Stablecoins</a> documentation.</div></div>
+      </div>
+    </section>
+
+    <section class="doc-section" id="open-source">
+      <h2><span class="sn">#</span>Open-Source Infrastructure</h2>
+      <p>The Reserve program was developed and open-sourced by Code Inc. under the MIT License. Moony Labs used it to create the Moony currency, minting the fixed supply and initializing its Reserve onchain, then relinquished all control. Neither Code Inc. nor Moony Labs can alter the protocol; all distribution, pricing, and redemption behavior is governed exclusively by immutable onchain logic that cannot be changed by any party.</p>
+      <p>This architecture makes Moony fully open and composable. Developers can integrate MNY across wallets, applications, and protocols without permission or coordination.</p>
+      <div class="principles">
+        <div class="principle"><div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 7l14 0M7 7l-3 7a3 3 0 0 0 6 0L7 7ZM17 7l-3 7a3 3 0 0 0 6 0l-3-7Z"/></svg></div><div><h3>MIT License</h3><p>The underlying program infrastructure is released under the MIT License, a permissive open-source license that allows unrestricted use, modification, and distribution.</p><span class="meta">→ <a href="https://github.com/code-payments/flipcash-program/blob/main/LICENSE.md" target="_blank" rel="noopener">MIT License</a></span></div></div>
+        <div class="principle"><div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.5 7.5 8 9 4.5-1.5 8-4 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></div><div><h3>Security Audit</h3><p>The program infrastructure has been independently audited by Sec3, a security firm specializing in Solana program analysis. The audit was completed in January 2026 with all findings resolved. The full report is publicly available.</p><span class="meta">→ <a href="https://github.com/code-payments/flipcash-program/blob/main/docs/audit_final.pdf" target="_blank" rel="noopener">Full Audit Report</a></span></div></div>
+      </div>
+    </section>
+
+    <nav class="dx-pager">
+      <a href="/docs/protocol/mny"><span class="pg-k">← Previous</span><span class="pg-t">Moony (MNY)</span></a>
+      <a class="next" href="/docs/protocol/pricing-curve"><span class="pg-k">Next →</span><span class="pg-t">Pricing Curve</span></a>
+    </nav>
+
+    <div class="dx-foot">
+      <span>© 2026 Moony Labs, LLC · MIT</span>
+    </div>
+  </main>
+
+  <nav class="dx-onthispage" id="dxOtp"></nav>
+</div>
+
+<script src="/assets/app.js"></script>
+<script src="/assets/search-index.js"></script>
+<script src="/assets/docs-nav.js"></script>
+</body>
+</html>

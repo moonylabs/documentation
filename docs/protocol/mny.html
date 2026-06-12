@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Moony (MNY), Moony Docs</title>
+<meta name="description" content="The native digital asset of the Moony protocol." />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css" />
+<link rel="stylesheet" href="/assets/docs.css" />
+<link rel="stylesheet" href="/assets/docs-shell.css" />
+<link rel="canonical" href="https://www.moonylabs.com/docs/protocol/mny" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.moonylabs.com/docs/protocol/mny" />
+<meta property="og:title" content="Moony (MNY), Moony Docs" />
+<meta property="og:description" content="The native digital asset of the Moony protocol." />
+<meta property="og:image" content="https://www.moonylabs.com/assets/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Moony (MNY), Moony Docs" />
+<meta name="twitter:description" content="The native digital asset of the Moony protocol." />
+<meta name="twitter:image" content="https://www.moonylabs.com/assets/og.png" />
+</head>
+<body data-doc-page="mny">
+
+<div class="dx-layout">
+  <aside class="dx-sidebar" id="dxSidebar"></aside>
+
+  <main class="dx-main">
+    <div class="crumb">
+      <a href="/docs">Docs</a><span class="sep">/</span>
+      <span>Moony Protocol</span><span class="sep">/</span>
+      <span>Moony (MNY)</span>
+    </div>
+
+    <p class="dx-eyebrow">Moony Protocol</p>
+    <h1>Moony (MNY)</h1>
+    <p class="dx-lead">The native digital asset of the Moony protocol.</p>
+
+    <section class="doc-section" id="mny" style="padding-top:clamp(34px,4vw,46px)">
+      <div class="dx-feature-panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="6" stroke-width="2.4"/><rect x="4.5" y="19.2" width="15" height="2.3" rx="1.15" fill="currentColor" stroke="none"/></svg></div>
+      <p>Moony (MNY) is a digital currency on Solana built for permissionless peer-to-peer payments without intermediaries. It is the foundational unit of exchange for an open, composable economy.</p>
+      <div class="dx-stats">
+        <div class="dx-stat"><div class="v">21M</div><div class="k">Fixed maximum supply</div></div>
+        <div class="dx-stat"><div class="v">10</div><div class="k">Decimal places</div></div>
+        <div class="dx-stat"><div class="v">0</div><div class="k">Mint authority · revoked</div></div>
+        <div class="dx-stat"><div class="v">SPL</div><div class="k">Token standard · Solana</div></div>
+      </div>
+      <div class="callout note">
+        <svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+        <div><div class="cbody">Explore how MNY enables peer-to-peer payments, micropayments, and decentralized finance in the <a href="/docs/economy/overview">Moony Economy</a> section.</div></div>
+      </div>
+    </section>
+
+    <section class="doc-section" id="addresses">
+      <h2><span class="sn">#</span>Token Addresses</h2>
+      <div class="addr-card">
+        <div class="addr-card-h">MNY Token Mint</div>
+        <div class="addr-card-d">The onchain mint address for MNY.</div>
+        <div class="addr-row">
+          <code>4muAfB6m1P7C3Znad1VUsoqYFwvGQRkWGpJ3A4vupxz6</code>
+          <button class="copy-btn" data-copy="4muAfB6m1P7C3Znad1VUsoqYFwvGQRkWGpJ3A4vupxz6">Copy</button>
+          <a class="addr-verify" href="https://explorer.solana.com/address/4muAfB6m1P7C3Znad1VUsoqYFwvGQRkWGpJ3A4vupxz6" target="_blank" rel="noopener">Verify ↗</a>
+        </div>
+      </div>
+      <div class="addr-card">
+        <div class="addr-card-h">MNY Update Authority</div>
+        <div class="addr-card-d">The metadata update authority for the MNY token. Controls token name, symbol, and image only. Has no authority over supply, minting, or protocol behavior.</div>
+        <div class="addr-row">
+          <code>mnyXRKy3pz8WXG4XQC6inaKNbzrqq2xRJfGv5Lq9qgR</code>
+          <button class="copy-btn" data-copy="mnyXRKy3pz8WXG4XQC6inaKNbzrqq2xRJfGv5Lq9qgR">Copy</button>
+          <a class="addr-verify" href="https://explorer.solana.com/address/mnyXRKy3pz8WXG4XQC6inaKNbzrqq2xRJfGv5Lq9qgR" target="_blank" rel="noopener">Verify ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="doc-section" id="fixed-supply">
+      <h2><span class="sn">#</span>Fixed Supply</h2>
+      <div class="dx-feature-panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9l8 4"/><circle cx="12" cy="12" r="9"/></svg></div>
+      <p>Moony has a fixed maximum supply of 21 million units, an immutable constraint that cryptographically ensures the protocol's long-term economic integrity. This cap mirrors Bitcoin's supply design, reflecting a shared commitment to absolute digital scarcity as a foundation for sound money.</p>
+      <p>There is no mechanism by which additional units can ever be created. The mint authority has been permanently revoked, with no administrative keys, governance votes, or protocol upgrades able to expand the supply beyond the fixed cap.</p>
+      <div class="term">
+        <div class="term-bar"><span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span><span class="ttitle">consts.rs · supply</span><button class="copy-btn tcopy" data-copy="// api/src/consts.rs - fixed at deployment, forever
+pub const TOKEN_DECIMALS: u8    = 10;
+pub const MAX_TOKEN_SUPPLY: u64 = 21_000_000;        // tokens
+pub const QUARKS_PER_TOKEN: u64 = 10_000_000_000;    // 1 MNY = 1e10 quarks
+
+// Mint authority is revoked on the SPL mint at deployment
+// (set to None onchain - verifiable, not a program constant).">Copy</button></div>
+<pre class="term-body"><span class="ln"><span class="cm">// api/src/consts.rs - fixed at deployment, forever</span></span><span class="ln"><span class="fl">pub</span> <span class="fl">const</span> <span class="ar">TOKEN_DECIMALS</span>: u8    = 10;</span><span class="ln"><span class="fl">pub</span> <span class="fl">const</span> <span class="ar">MAX_TOKEN_SUPPLY</span>: u64 = 21_000_000;        <span class="cm">// tokens</span></span><span class="ln"><span class="fl">pub</span> <span class="fl">const</span> <span class="ar">QUARKS_PER_TOKEN</span>: u64 = 10_000_000_000;    <span class="cm">// 1 MNY = 1e10 quarks</span></span><span class="ln"> </span><span class="ln"><span class="cm">// Mint authority is revoked on the SPL mint at deployment</span></span><span class="ln"><span class="cm">// (set to None onchain - verifiable, not a program constant).</span></span></pre>
+      </div>
+      <div class="principles">
+        <div class="principle"><div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="9" cy="7" rx="6" ry="3"/><path d="M3 7v5c0 1.7 2.7 3 6 3M3 12v5c0 1.7 2.7 3 6 3"/><circle cx="16" cy="15" r="5"/></svg></div><div><h3>Absolute Scarcity</h3><p>There will never be more than 21 million Moony in circulation. Scarcity is not a policy. It is a permanent property of sound money.</p></div></div>
+        <div class="principle"><div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l6 6 4-4 8 8M21 17v-4M21 17h-4"/></svg></div><div><h3>No Inflation</h3><p>Unlike fiat currencies that lose purchasing power as supply expands, Moony's supply is fixed. It cannot be diluted or debased.</p></div></div>
+        <div class="principle"><div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m9 8-5 4 5 4M15 8l5 4-5 4"/></svg></div><div><h3>Code-Enforced</h3><p>No entity, mechanism, or protocol upgrade can alter Moony's monetary rules. The mint authority has been permanently revoked and the supply constraint is publicly verifiable by anyone onchain.</p></div></div>
+      </div>
+      <div class="callout note">
+        <svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+        <div><div class="cbody">For details on how MNY is distributed and priced, see the <a href="/docs/protocol/reserve">Reserve</a> and <a href="/docs/protocol/pricing-curve">Pricing Curve</a>.</div></div>
+      </div>
+    </section>
+
+    <section class="doc-section" id="core-properties">
+      <h2><span class="sn">#</span>Core Properties</h2>
+      <p>MNY is designed to function as permissionless digital cash, with transaction properties that support direct ownership, voluntary self-custody, and censorship-resistant exchange. These characteristics enable open participation in economic activity, extending access to anyone, anywhere, on equal terms.</p>
+      <div class="principles">
+        <div class="principle"><div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 7-2.6"/></svg></div><div><h3>Permissionless</h3><p>Transactions do not require approval from centralized authorities. Anyone can send or receive MNY without identity verification, minimum balances, or institutional gatekeeping.</p></div></div>
+        <div class="principle"><div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.5 7.5 8 9 4.5-1.5 8-4 8-9V6l-8-3Z"/></svg></div><div><h3>Censorship Resistant</h3><p>Transfers cannot be selectively blocked or filtered by third parties. Valid transactions are processed by the network regardless of the parties involved or the nature of the exchange.</p></div></div>
+        <div class="principle"><div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m9 12 2 2 4-4"/></svg></div><div><h3>Irreversible</h3><p>Once confirmed onchain, transactions are final and cannot be reversed, modified, or disputed. This provides settlement certainty without reliance on intermediaries or escrow.</p></div></div>
+        <div class="principle"><div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M16 12h.01M3 10h18"/></svg></div><div><h3>Self-Custody</h3><p>Participants hold and control their own assets without surrendering custody to banks or intermediaries. Value can move as freely as information across the network.</p></div></div>
+      </div>
+    </section>
+
+    <section class="doc-section" id="divisibility">
+      <h2><span class="sn">#</span>Divisibility</h2>
+      <p>MNY is divisible to 10 decimal places, enabling transactions as small as 0.0000000001 MNY. Combined with Solana's sub-cent transaction fees, this precision opens economic activity at scales where traditional payment rails are not viable.</p>
+      <div class="callout note">
+        <svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+        <div><div class="cbody">Learn how divisibility enables new economic models in the <a href="/docs/economy/micropayments">Micropayments</a> section.</div></div>
+      </div>
+    </section>
+
+    <nav class="dx-pager">
+      <a href="/docs/protocol/overview"><span class="pg-k">← Previous</span><span class="pg-t">Overview</span></a>
+      <a class="next" href="/docs/protocol/reserve"><span class="pg-k">Next →</span><span class="pg-t">The Reserve</span></a>
+    </nav>
+
+    <div class="dx-foot">
+      <span>© 2026 Moony Labs, LLC · MIT</span>
+    </div>
+  </main>
+
+  <nav class="dx-onthispage" id="dxOtp"></nav>
+</div>
+
+<script src="/assets/app.js"></script>
+<script src="/assets/search-index.js"></script>
+<script src="/assets/docs-nav.js"></script>
+</body>
+</html>

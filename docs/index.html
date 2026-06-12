@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Welcome, Moony Docs</title>
+<meta name="description" content="Welcome to the Moony documentation. Moony is open money: a fixed-supply digital currency, distributed and priced by an immutable program on Solana." />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css" />
+<link rel="stylesheet" href="/assets/docs.css" />
+<link rel="stylesheet" href="/assets/docs-shell.css" />
+<link rel="canonical" href="https://www.moonylabs.com/docs" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.moonylabs.com/docs" />
+<meta property="og:title" content="Welcome, Moony Docs" />
+<meta property="og:description" content="Welcome to the Moony documentation. Moony is open money: a fixed-supply digital currency, distributed and priced by an immutable program on Solana." />
+<meta property="og:image" content="https://www.moonylabs.com/assets/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Welcome, Moony Docs" />
+<meta name="twitter:description" content="Welcome to the Moony documentation. Moony is open money: a fixed-supply digital currency, distributed and priced by an immutable program on Solana." />
+<meta name="twitter:image" content="https://www.moonylabs.com/assets/og.png" />
+</head>
+<body data-doc-page="introduction">
+
+<div class="dx-layout">
+  <aside class="dx-sidebar" id="dxSidebar"></aside>
+
+  <main class="dx-main">
+    <div class="dx-appicon dx-appicon-hero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="6" stroke-width="2.2"/><rect x="4.5" y="19.2" width="15" height="2.2" rx="1.1" fill="currentColor" stroke="none"/></svg></div>
+    <p class="dx-eyebrow">Moony Documentation</p>
+    <h1 class="dx-hero-title">Open money,<br />governed by <span class="gt">code</span>.</h1>
+    <p class="dx-lead">A fixed-supply digital currency, distributed and priced by an immutable program on Solana. This is the complete protocol reference — start anywhere.</p>
+
+    <section class="doc-section" id="what" style="padding-top:clamp(40px,5vw,60px)">
+      <div class="dx-feature-panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="12" rx="2.4"/><circle cx="12" cy="12" r="2.6"/><path d="M6 12h.01M18 12h.01"/></svg></div>
+      <h2><span class="sn">#</span>What is Moony</h2>
+      <p class="dx-opening">Moony (MNY) is sound digital money. Its supply is fixed forever at <b>21,000,000</b> coins, governed by a single immutable program, so no issuer can inflate it, no operator can freeze or pause it, and no one holds privileged access. It is <b>permissionless, trustless, and censorship-resistant</b> by design: anyone, anywhere can hold it, send it, and spend it like cash, without asking permission.</p>
+      <div class="term">
+        <div class="term-bar"><span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span><span class="ttitle">consts.rs · supply</span><button class="copy-btn tcopy" data-copy="// api/src/consts.rs - fixed at deployment, forever
+pub const TOKEN_DECIMALS: u8    = 10;
+pub const MAX_TOKEN_SUPPLY: u64 = 21_000_000;        // tokens
+pub const QUARKS_PER_TOKEN: u64 = 10_000_000_000;    // 1 MNY = 1e10 quarks
+
+// Mint authority is revoked on the SPL mint at deployment
+// (set to None onchain - verifiable, not a program constant).">Copy</button></div>
+<pre class="term-body"><span class="ln"><span class="cm">// api/src/consts.rs - fixed at deployment, forever</span></span><span class="ln"><span class="fl">pub</span> <span class="fl">const</span> <span class="ar">TOKEN_DECIMALS</span>: u8    = 10;</span><span class="ln"><span class="fl">pub</span> <span class="fl">const</span> <span class="ar">MAX_TOKEN_SUPPLY</span>: u64 = 21_000_000;        <span class="cm">// tokens</span></span><span class="ln"><span class="fl">pub</span> <span class="fl">const</span> <span class="ar">QUARKS_PER_TOKEN</span>: u64 = 10_000_000_000;    <span class="cm">// 1 MNY = 1e10 quarks</span></span><span class="ln"> </span><span class="ln"><span class="cm">// Mint authority is revoked on the SPL mint at deployment</span></span><span class="ln"><span class="cm">// (set to None onchain - verifiable, not a program constant).</span></span></pre>
+      </div>
+    </section>
+
+    <section class="doc-section" id="open">
+      <div class="dx-feature-panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 7-2.6"/></svg></div>
+      <h2><span class="sn">#</span>Open by design</h2>
+      <p>Moony is built to be a digital public good: <b>open, permissionless, and neutral</b>. Anyone can hold it, transact with it, audit it, or build on top of it without asking permission.</p>
+      <p>It was created by <b>Moony Labs, LLC</b> on open-source infrastructure, the Flipcash Reserve Contract, MIT-licensed by Code Inc. and audited by Sec3. Moony Labs deployed a single currency on that standard, named it Moony, and then relinquished control entirely: no keys, no admin authority, no ability to intervene. That hands-off position is deliberate, an act of decentralization, not an absence. Moony runs as neutral public infrastructure, shaped by open participation rather than any company.</p>
+    </section>
+
+    <section class="doc-section" id="explore">
+      <h2><span class="sn">#</span>Explore the docs</h2>
+      <p>Each section stands on its own, start wherever you need.</p>
+      <div class="dx-cards">
+        <a class="dx-card" href="/docs/developers/cli">
+          <span class="dx-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m7 8-4 4 4 4M13 8l4 4-4 4"/></svg></span>
+          <h3>Build on Moony</h3>
+          <p>Acquire, query, and redeem Moony from the open-source CLI, or build your own interface against the program directly.</p>
+        </a>
+        <a class="dx-card" href="/docs/protocol/overview">
+          <span class="dx-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg></span>
+          <h3>The protocol</h3>
+          <p>The asset, the Reserve, and the deterministic pricing curve that governs it.</p>
+        </a>
+        <a class="dx-card" href="/docs/network/overview">
+          <span class="dx-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v4M10 13l-3.5 4M14 13l3.5 4"/></svg></span>
+          <h3>The network</h3>
+          <p>The independent participants who grow Moony, and the incentives that align them.</p>
+        </a>
+        <a class="dx-card" href="/docs/economy/overview">
+          <span class="dx-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 4 4h16l1 5M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9M4 9h16"/></svg></span>
+          <h3>The economy</h3>
+          <p>Permissionless payments, micropayments, and composable capital markets.</p>
+        </a>
+      </div>
+    </section>
+
+    <nav class="dx-pager">
+      <span></span>
+      <a class="next" href="/docs/protocol/overview">
+        <span class="pg-k">Next →</span>
+        <span class="pg-t">Overview</span>
+      </a>
+    </nav>
+
+    <div class="dx-foot">
+      <span>© 2026 Moony Labs, LLC · MIT</span>
+      <a href="https://github.com/code-payments/flipcash-program" target="_blank" rel="noopener">Edit on GitHub →</a>
+    </div>
+  </main>
+
+  <nav class="dx-onthispage" id="dxOtp"></nav>
+</div>
+
+<script src="/assets/app.js"></script>
+<script src="/assets/search-index.js"></script>
+<script src="/assets/docs-nav.js"></script>
+</body>
+</html>

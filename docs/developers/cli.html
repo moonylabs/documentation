@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Moony CLI Reference, Moony Labs</title>
+<meta name="description" content="Acquire, query, and redeem Moony from the command line using the open-source Flipcash Program CLI. One of several valid interfaces to the same Reserve." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/assets/docs.css" />
+<link rel="stylesheet" href="/assets/docs-shell.css" />
+<link rel="canonical" href="https://www.moonylabs.com/docs/developers/cli" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.moonylabs.com/docs/developers/cli" />
+<meta property="og:title" content="Moony CLI Reference, Moony Labs" />
+<meta property="og:description" content="Acquire, query, and redeem Moony from the command line using the open-source Flipcash Program CLI. One of several valid interfaces to the same Reserve." />
+<meta property="og:image" content="https://www.moonylabs.com/assets/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Moony CLI Reference, Moony Labs" />
+<meta name="twitter:description" content="Acquire, query, and redeem Moony from the command line using the open-source Flipcash Program CLI. One of several valid interfaces to the same Reserve." />
+<meta name="twitter:image" content="https://www.moonylabs.com/assets/og.png" />
+</head>
+<body data-doc-page="cli">
+
+<div class="dx-layout">
+  <aside class="dx-sidebar" id="dxSidebar"></aside>
+
+  <main class="dx-main">
+
+    <div class="crumb">
+      <a href="/docs">Docs</a><span class="sep">/</span>
+      <span>Developers</span><span class="sep">/</span>
+      <span>CLI reference</span>
+    </div>
+
+    <header class="doc-head">
+      <span class="doc-eyebrow">Developer reference</span>
+      <h1>Interacting with Moony via CLI</h1>
+      <p class="lead">A command-line path to acquire, query, and redeem Moony directly against the Reserve, using the open-source Flipcash Program. Every command calls the same onchain program on the same terms: the same pricing curve, the same fees, no special access.</p>
+      <div class="doc-meta">
+        <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 8-5 4 5 4M15 8l5 4-5 4"/></svg>Open source · MIT</span>
+        <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Mainnet · Solana</span>
+        <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.5 7.5 8 9 4.5-1.5 8-4 8-9V6l-8-3Z"/></svg>Funds at risk</span>
+      </div>
+    </header>
+
+    <!-- 1. INTRODUCTION -->
+    <section class="doc-section" id="intro">
+      <h2><span class="sn">01</span>Introduction</h2>
+      <p>This page documents how to interact with Moony from the command line, using the CLI shipped with the open-source <b>Flipcash Program</b>. It covers querying the Reserve's onchain state, acquiring MNY with USDF, and redeeming MNY back to USDF, all by calling the Reserve contract directly.</p>
+      <p>The CLI is part of the open-source release of the Flipcash Program; it was <b>not built by Moony Labs</b> and confers no privileged access. Because the Reserve is open, anyone can interact with it programmatically or build a compatible interface. The CLI is simply the reference tool for doing so from a terminal. It calls the same onchain Reserve under the same immutable rules, the same pricing curve, and the same hardcoded fees.</p>
+      <div class="callout note">
+        <svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+        <div><div class="ctitle">The Reserve is open</div><div class="cbody">Nothing about the CLI is exclusive. The same instructions are exposed by the Flipcash Program's SDK, so anyone can build a wallet, exchange, or service that interacts with Moony on identical terms.</div></div>
+      </div>
+      <h3>The path end to end</h3>
+      <p>If you're starting from scratch, this is the full sequence. Each step links to its section below.</p>
+      <ol class="dx-steps">
+        <li>Install the <a href="#prerequisites">prerequisites</a>, Rust and the Solana CLI.</li>
+        <li>Create and fund a <a href="#prerequisites">keypair</a> with a little SOL (for fees) and USDF (to spend).</li>
+        <li><a href="#installation">Build</a> the <code>flipcash</code> binary from source.</li>
+        <li>Point every command at <a href="#cluster">mainnet</a> with <code>--cluster m</code>.</li>
+        <li>Run <a href="#query"><code>get-currency</code></a> first to confirm your setup works. It moves no funds.</li>
+        <li><a href="#buy">Buy</a> a tiny test amount, <a href="#verification">verify</a> it onchain, then transact for real.</li>
+      </ol>
+    </section>
+
+    <!-- 2. PREREQUISITES -->
+    <section class="doc-section" id="prerequisites">
+      <h2><span class="sn">02</span>Prerequisites</h2>
+      <p>Before you begin, make sure you have the following in place:</p>
+      <ul>
+        <li><b>Rust toolchain</b>, <code>rustc</code> and <code>cargo</code>. Install via the official instructions at <a href="https://www.rust-lang.org/tools/install" target="_blank" rel="noopener">rust-lang.org</a>.</li>
+        <li><b>Solana CLI tools</b>, install from the <a href="https://docs.solana.com/cli/install-solana-cli-tools" target="_blank" rel="noopener">Solana documentation</a>.</li>
+        <li><b>A Solana keypair file</b>, default location <code>~/.config/solana/id.json</code>.</li>
+        <li><b>A small amount of SOL</b> in that keypair to pay transaction fees.</li>
+        <li><b>USDF</b> in the wallet if you intend to buy Moony, see <a href="#caveats">Caveats &amp; risks</a> on acquiring USDF.</li>
+        <li><b>Familiarity with command-line tools</b> and basic Solana concepts.</li>
+      </ul>
+      <p>Confirm the toolchain is installed before going further:</p>
+      <div class="term">
+        <div class="term-bar"><span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span><span class="ttitle">verify install</span><button class="copy-btn tcopy" data-copy="rustc --version
+cargo --version
+solana --version">Copy</button></div>
+<pre class="term-body"><span class="ln"><span class="pr">$</span> <span class="fl">rustc</span> --version</span><span class="ln"><span class="pr">$</span> <span class="fl">cargo</span> --version</span><span class="ln"><span class="pr">$</span> <span class="fl">solana</span> --version</span></pre>
+      </div>
+
+      <h3>Create and fund a keypair</h3>
+      <p>If you don't already have a Solana keypair, create one. The CLI uses <code>~/.config/solana/id.json</code> by default; pass <code>--keypair &lt;path&gt;</code> to use a different file.</p>
+      <div class="term">
+        <div class="term-bar"><span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span><span class="ttitle">wallet setup</span><button class="copy-btn tcopy" data-copy="solana-keygen new
+solana address
+solana balance --url m">Copy</button></div>
+<pre class="term-body"><span class="ln"><span class="cm"># Create a keypair (skip if you already have one)</span></span><span class="ln"><span class="pr">$</span> <span class="fl">solana-keygen</span> new</span><span class="ln"> </span><span class="ln"><span class="cm"># Show your wallet address and mainnet balance</span></span><span class="ln"><span class="pr">$</span> <span class="fl">solana</span> address</span><span class="ln"><span class="pr">$</span> <span class="fl">solana</span> balance --url m</span></pre>
+      </div>
+      <p>Send a small amount of <b>SOL</b> to that address to cover transaction fees (a fraction of a SOL covers many transactions), plus the <b>USDF</b> you intend to spend. Both must be in the same keypair you sign with.</p>
+    </section>
+
+    <!-- 3. INSTALLATION -->
+    <section class="doc-section" id="installation">
+      <h2><span class="sn">03</span>Installation</h2>
+      <p>Clone the open-source repository and build the CLI binary from source:</p>
+      <div class="term">
+        <div class="term-bar"><span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span><span class="ttitle">bash</span><button class="copy-btn tcopy" data-copy="git clone https://github.com/code-payments/flipcash-program
+cd flipcash-program && cargo build --release">Copy</button></div>
+<pre class="term-body"><span class="ln"><span class="cm"># Clone the Flipcash Program (MIT)</span></span><span class="ln"><span class="pr">$</span> <span class="fl">git</span> clone https://github.com/code-payments/flipcash-program</span><span class="ln"><span class="pr">$</span> <span class="fl">cd</span> flipcash-program && <span class="fl">cargo</span> build --release</span></pre>
+      </div>
+      <p>The compiled binary is written to <code>./target/release/flipcash</code>. Add it to your <code>PATH</code>, or invoke it with an absolute path. The crate is named <code>flipcash-cli</code>, but the built binary is <code>flipcash</code>. That is the command you run; the program’s own <code>--help</code> still prints “flipcash-cli”. For additional installation notes, see the <a href="https://github.com/code-payments/flipcash-program" target="_blank" rel="noopener">repository README</a>.</p>
+    </section>
+
+    <!-- 4. CLUSTER CONFIG -->
+    <section class="doc-section" id="cluster">
+      <h2><span class="sn">04</span>Cluster configuration</h2>
+      <p>Moony lives on Solana <b>mainnet</b>. Every command must point there explicitly with <code>--cluster m</code>. The CLI defaults to localnet, which has no knowledge of Moony and will not work for real transactions.</p>
+      <div class="term">
+        <div class="term-bar"><span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span><span class="ttitle">pattern</span><button class="copy-btn tcopy" data-copy="flipcash --cluster m <command>">Copy</button></div>
+<pre class="term-body"><span class="ln"><span class="pr">$</span> <span class="fl">flipcash</span> --cluster m <span class="ar">&lt;command&gt;</span></span></pre>
+      </div>
+      <p>You can also pass a custom RPC endpoint instead of the <code>m</code> shorthand if you run your own node or use a dedicated provider.</p>
+      <div class="callout warn">
+        <svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+        <div><div class="ctitle">Always specify mainnet</div><div class="cbody">If you omit <code>--cluster m</code>, commands run against localnet and will not touch real Moony. Running on devnet or testnet interacts with different (or non-existent) state.</div></div>
+      </div>
+    </section>
+
+    <!-- 5. QUERY -->
+    <section class="doc-section" id="query">
+      <h2><span class="sn">05</span>Querying Moony's state <code>get-currency</code></h2>
+      <p>Returns Moony's current onchain state: the currency authority, mint, vaults, accumulated fees, and the sell-fee rate. Nothing is signed and no funds move. This is the safest command to run first to confirm your setup works.</p>
+      <div class="cmd-meta">
+        <span class="m safe"><span class="d"></span>No signing</span>
+        <span class="m safe"><span class="d"></span>No funds moved</span>
+        <span class="m safe"><span class="d"></span>Read-only</span>
+      </div>
+      <div class="term">
+        <div class="term-bar"><span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span><span class="ttitle">get-currency</span><button class="copy-btn tcopy" data-copy="flipcash --cluster m get-currency \
+  --mint 4muAfB6m1P7C3Znad1VUsoqYFwvGQRkWGpJ3A4vupxz6">Copy</button></div>
+<pre class="term-body"><span class="ln"><span class="pr">$</span> <span class="fl">flipcash</span> --cluster m get-currency \</span><span class="ln">    --mint <span class="ar">4muAfB6m1P7C3Znad1VUsoqYFwvGQRkWGpJ3A4vupxz6</span></span><span class="ln"> </span><span class="ln"><span class="out">Currency Metadata:</span></span><span class="ln"><span class="out">  Authority: &lt;authority&gt;</span></span><span class="ln"><span class="out">  Mint: 4muAfB6m1P7C3Znad1VUsoqYFwvGQRkWGpJ3A4vupxz6</span></span><span class="ln"><span class="out">  Name: Moony</span></span><span class="ln"><span class="out">  Symbol: MNY</span></span><span class="ln"> </span><span class="ln"><span class="out">Pool Metadata:</span></span><span class="ln"><span class="out">  Authority: &lt;authority&gt;</span></span><span class="ln"><span class="out">  Currency: &lt;currency PDA&gt;</span></span><span class="ln"><span class="out">  Mint A (Target): 4muAfB6m…vupxz6</span></span><span class="ln"><span class="out">  Mint B (Base): 5AMAA9JV…4RYAUQ</span></span><span class="ln"><span class="out">  Vault A: &lt;MNY vault&gt;</span></span><span class="ln"><span class="out">  Vault B: &lt;USDF vault&gt;</span></span><span class="ln"><span class="out">  Fees Accumulated: &lt;accrued&gt;</span></span><span class="ln"><span class="out">  Sell Fee: 100 bps (1%)</span></span></pre>
+      </div>
+      <p>Use this to verify Moony's parameters or to read the current Reserve state before and after a transaction.</p>
+    </section>
+
+    <!-- 6. BUY -->
+    <section class="doc-section" id="buy">
+      <h2><span class="sn">06</span>Buying Moony <code>buy</code></h2>
+      <p>Spends USDF to acquire MNY at the current curve position. The <code>--amount</code> flag specifies the <b>USDF to spend</b>, not the MNY to receive. The amount of MNY you get is determined by the curve at the moment the transaction executes. This command signs and submits a transaction with your keypair.</p>
+      <div class="cmd-meta">
+        <span class="m funds"><span class="d"></span>Signs a transaction</span>
+        <span class="m final"><span class="d"></span>Real funds · irreversible</span>
+      </div>
+      <div class="term">
+        <div class="term-bar"><span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span><span class="ttitle">buy</span><button class="copy-btn tcopy" data-copy="# Buy Moony with 10 USDF
+flipcash --cluster m buy \
+  --mint 4muAfB6m1P7C3Znad1VUsoqYFwvGQRkWGpJ3A4vupxz6 \
+  --amount 10.0">Copy</button></div>
+<pre class="term-body"><span class="ln"><span class="cm"># Buy Moony with 10 USDF</span></span><span class="ln"><span class="pr">$</span> <span class="fl">flipcash</span> --cluster m buy \</span><span class="ln">    --mint <span class="ar">4muAfB6m1P7C3Znad1VUsoqYFwvGQRkWGpJ3A4vupxz6</span> \</span><span class="ln">    --amount <span class="ar">10.0</span></span><span class="ln"> </span><span class="ln"><span class="out">Buy transaction successful. Signature: 5h2k…aB9c</span></span></pre>
+      </div>
+      <p>Once the transaction confirms, MNY appears in your wallet. View it on the <a href="https://explorer.solana.com" target="_blank" rel="noopener">Solana Explorer</a> using the returned signature (<code>explorer.solana.com/tx/&lt;signature&gt;</code>).</p>
+      <div class="callout note">
+        <svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17 9 11l4 4 8-8M21 7v5M21 7h-5"/></svg>
+        <div><div class="ctitle">Slippage &amp; pricing</div><div class="cbody">The curve moves with each purchase, so larger transactions experience more slippage. Spot price is a function of current circulating supply, see the <a href="/docs/protocol/pricing-curve">Pricing Curve</a> page for the formula.</div></div>
+      </div>
+    </section>
+
+    <!-- 7. SELL -->
+    <section class="doc-section" id="sell">
+      <h2><span class="sn">07</span>Selling Moony <code>sell</code></h2>
+      <p>Returns MNY to the Reserve and receives USDF, less the 1% redemption fee. The <code>--amount</code> flag specifies the <b>MNY to sell</b>, not the USDF to receive. This command signs and submits a transaction with your keypair.</p>
+      <div class="cmd-meta">
+        <span class="m funds"><span class="d"></span>Signs a transaction</span>
+        <span class="m final"><span class="d"></span>Real funds · irreversible</span>
+      </div>
+      <div class="term">
+        <div class="term-bar"><span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span><span class="ttitle">sell</span><button class="copy-btn tcopy" data-copy="# Sell 5 MNY back to the Reserve
+flipcash --cluster m sell \
+  --mint 4muAfB6m1P7C3Znad1VUsoqYFwvGQRkWGpJ3A4vupxz6 \
+  --amount 5.0">Copy</button></div>
+<pre class="term-body"><span class="ln"><span class="cm"># Sell 5 MNY back to the Reserve</span></span><span class="ln"><span class="pr">$</span> <span class="fl">flipcash</span> --cluster m sell \</span><span class="ln">    --mint <span class="ar">4muAfB6m1P7C3Znad1VUsoqYFwvGQRkWGpJ3A4vupxz6</span> \</span><span class="ln">    --amount <span class="ar">5.0</span></span><span class="ln"> </span><span class="ln"><span class="out">Sell transaction successful. Signature: 8tQp…dF1m</span></span></pre>
+      </div>
+      <ul>
+        <li>The <b>1% fee</b> is deducted from the USDF you receive. It stays in the Reserve and is burned by a permissionless instruction; because USDF is a Coinbase Custom Stablecoin backed 1:1 by USDC, the burn redeems the equivalent USDC to Flipcash.</li>
+        <li>Selling moves the curve <b>down</b>, the next buyer enters at a lower price.</li>
+        <li>USDF is returned to your keypair's USDF token account.</li>
+      </ul>
+    </section>
+
+    <!-- 8. VERIFICATION -->
+    <section class="doc-section" id="verification">
+      <h2><span class="sn">08</span>Verification</h2>
+      <p>After any transaction, confirm the result independently rather than trusting the CLI's output alone:</p>
+      <ul>
+        <li>Check the transaction confirmed on the <a href="https://explorer.solana.com" target="_blank" rel="noopener">Solana Explorer</a> using the returned signature.</li>
+        <li>Check your wallet's MNY balance, view the <a href="https://explorer.solana.com/address/4muAfB6m1P7C3Znad1VUsoqYFwvGQRkWGpJ3A4vupxz6" target="_blank" rel="noopener">MNY token on Explorer</a>.</li>
+        <li>Confirm the Reserve state changed: run <code>get-currency</code> again and compare.</li>
+        <li>Cross-reference with <a href="https://solscan.io/token/4muAfB6m1P7C3Znad1VUsoqYFwvGQRkWGpJ3A4vupxz6" target="_blank" rel="noopener">Solscan</a> for human-readable token information.</li>
+      </ul>
+    </section>
+
+    <!-- 10. CAVEATS -->
+    <section class="doc-section" id="caveats">
+      <h2><span class="sn">09</span>Caveats &amp; risks</h2>
+      <div class="callout danger">
+        <svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+        <div><div class="ctitle">Onchain transactions are final</div><div class="cbody">Transactions are irreversible. Verify every amount before you sign, and test with a very small amount first (for example, <code>0.01</code> USDF).</div></div>
+      </div>
+      <ul>
+        <li><b>Always specify mainnet</b> with <code>--cluster m</code>. Running on devnet or testnet will not interact with real Moony.</li>
+        <li><b>The mint address must be exact:</b> <code>4muAfB6m1P7C3Znad1VUsoqYFwvGQRkWGpJ3A4vupxz6</code>. Any typo will either fail or interact with a different, or non-existent, currency.</li>
+        <li><b>Keypair security:</b> protect your keypair file. Anyone with access to it can spend your funds.</li>
+        <li><b>USDF, specifically:</b> you need USDF, not USDC, USDT, or another stablecoin. The CLI performs no automatic conversion.</li>
+        <li><b>Acquiring USDF:</b> USDF is listed on <a href="https://www.coinbase.com" target="_blank" rel="noopener">Coinbase</a>, and developers holding USDC can swap it for USDF onchain via the Coinbase USDC&#8596;USDF <a href="https://github.com/code-payments/ocp-server/tree/main/solana/coinbasestableswapper" target="_blank" rel="noopener">swap program</a>.</li>
+      </ul>
+    </section>
+
+    <!-- 11. REFERENCE ADDRESSES -->
+    <section class="doc-section" id="addresses">
+      <h2><span class="sn">10</span>Reference addresses</h2>
+      <p>The canonical onchain addresses, provided for verification. Each links to the Solana Explorer.</p>
+      <div class="doc-table">
+        <div class="dt-row"><span class="dh">Asset</span><span class="dh">Address</span><span class="dh"></span></div>
+        <div class="dt-row">
+          <span class="dl">MNY Token Mint</span>
+          <code>4muAfB6m1P7C3Znad1VUsoqYFwvGQRkWGpJ3A4vupxz6</code>
+          <span class="dx">
+            <button class="copy-btn" data-copy="4muAfB6m1P7C3Znad1VUsoqYFwvGQRkWGpJ3A4vupxz6">Copy</button>
+            <a href="https://explorer.solana.com/address/4muAfB6m1P7C3Znad1VUsoqYFwvGQRkWGpJ3A4vupxz6" target="_blank" rel="noopener" aria-label="View on Explorer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          </span>
+        </div>
+        <div class="dt-row">
+          <span class="dl">USDF Token Mint</span>
+          <code>5AMAA9JV9H97YYVxx8F6FsCMmTwXSuTTQneiup4RYAUQ</code>
+          <span class="dx">
+            <button class="copy-btn" data-copy="5AMAA9JV9H97YYVxx8F6FsCMmTwXSuTTQneiup4RYAUQ">Copy</button>
+            <a href="https://explorer.solana.com/address/5AMAA9JV9H97YYVxx8F6FsCMmTwXSuTTQneiup4RYAUQ" target="_blank" rel="noopener" aria-label="View on Explorer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          </span>
+        </div>
+        <div class="dt-row">
+          <span class="dl">The Reserve (Pool)</span>
+          <code>5Ztd1ECKq4cXYt7BiRXK999hK2eQqtjJF9J3F1zw2jYC</code>
+          <span class="dx">
+            <button class="copy-btn" data-copy="5Ztd1ECKq4cXYt7BiRXK999hK2eQqtjJF9J3F1zw2jYC">Copy</button>
+            <a href="https://explorer.solana.com/address/5Ztd1ECKq4cXYt7BiRXK999hK2eQqtjJF9J3F1zw2jYC" target="_blank" rel="noopener" aria-label="View on Explorer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          </span>
+        </div>
+        <div class="dt-row">
+          <span class="dl">Flipcash Program</span>
+          <code>ccJYP5gjZqcEHaphcxAZvkxCrnTVfYMjyhSYkpQtf8Z</code>
+          <span class="dx">
+            <button class="copy-btn" data-copy="ccJYP5gjZqcEHaphcxAZvkxCrnTVfYMjyhSYkpQtf8Z">Copy</button>
+            <a href="https://explorer.solana.com/address/ccJYP5gjZqcEHaphcxAZvkxCrnTVfYMjyhSYkpQtf8Z" target="_blank" rel="noopener" aria-label="View on Explorer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. SDK -->
+    <section class="doc-section" id="sdk">
+      <h2><span class="sn">11</span>Programmatic integration</h2>
+      <p>For deeper integration, building an application rather than running CLI commands, the Flipcash Program exposes Rust instruction builders (<code>api/src/sdk.rs</code>) and a client crate. It is the same open path anyone can use to build wallets, exchanges, or other Moony-compatible interfaces.</p>
+      <div class="term">
+        <div class="term-bar"><span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span><span class="ttitle">source</span><button class="copy-btn tcopy" data-copy="https://github.com/code-payments/flipcash-program/blob/main/api/src/sdk.rs">Copy</button></div>
+<pre class="term-body"><span class="ln"><span class="cm"># SDK entry point in the open-source program</span></span><span class="ln"><span class="ar">api/src/sdk.rs</span>  <span class="out">· github.com/code-payments/flipcash-program</span></span></pre>
+      </div>
+      <p>Start from the source rather than this page; it is the authoritative reference for the program's instructions and accounts.</p>
+    </section>
+
+    <!-- 13. ALTERNATIVE INTERFACES -->
+    <section class="doc-section" id="interfaces">
+      <h2><span class="sn">12</span>Building your own interface</h2>
+      <p>The CLI is a thin wrapper over the Flipcash Program's instruction set. For deeper integration, a wallet, an exchange, a service, or any custom client, build against the program's <b>instruction builders</b> directly (<code>api/src/sdk.rs</code> and the <code>client</code> crate). They produce the identical Reserve instructions the CLI uses, so anything the CLI can do, your own code can too.</p>
+      <p>The Reserve is open and there is no exclusivity: the CLI and any third-party client reach the same program on the same terms, the same curve, the same fees, the same immutable logic.</p>
+    </section>
+
+    <!-- 14. FURTHER READING -->
+    <section class="doc-section" id="further">
+      <h2><span class="sn">13</span>Further reading</h2>
+      <div class="seealso">
+        <a href="/docs/protocol/reserve">
+          <span><span class="sl-t">The Reserve</span><span class="sl-d">Technical reference</span></span>
+          <span class="sl-x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a href="/docs/protocol/pricing-curve">
+          <span><span class="sl-t">Pricing Curve</span><span class="sl-d">The mathematics</span></span>
+          <span class="sl-x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a href="https://github.com/code-payments/flipcash-program" target="_blank" rel="noopener">
+          <span><span class="sl-t">Flipcash Program</span><span class="sl-d">code-payments/flipcash-program</span></span>
+          <span class="sl-x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        </a>
+        <a href="https://github.com/code-payments/flipcash-program/blob/main/docs/audit_final.pdf" target="_blank" rel="noopener">
+          <span><span class="sl-t">Sec3 Audit</span><span class="sl-d">Security review · Jan 2026</span></span>
+          <span class="sl-x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        </a>
+      </div>
+    </section>
+
+      <nav class="dx-pager">
+      <a href="/docs">
+        <span class="pg-k">← Previous</span>
+        <span class="pg-t">Introduction</span>
+      </a>
+      <span></span>
+    </nav>
+
+    <div class="dx-foot">
+      <span>© 2026 Moony Labs, LLC · MIT</span>
+      <a href="https://github.com/code-payments/flipcash-program" target="_blank" rel="noopener">Edit on GitHub →</a>
+    </div>
+  </main>
+
+  <nav class="dx-onthispage" id="dxOtp"></nav>
+</div>
+
+<script src="/assets/app.js"></script>
+<script src="/assets/search-index.js"></script>
+<script src="/assets/docs-nav.js"></script>
+</body>
+</html>

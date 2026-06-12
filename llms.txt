@@ -1,0 +1,21 @@
+# Moony
+
+> Moony (MNY) is a fixed-supply digital currency, priced and distributed by an immutable onchain program. Run by no one.
+
+## Docs
+- [/docs](https://www.moonylabs.com/docs)
+- [/docs/developers/architecture](https://www.moonylabs.com/docs/developers/architecture)
+- [/docs/developers/cli](https://www.moonylabs.com/docs/developers/cli)
+- [/docs/economy/capital](https://www.moonylabs.com/docs/economy/capital)
+- [/docs/economy/micropayments](https://www.moonylabs.com/docs/economy/micropayments)
+- [/docs/economy/overview](https://www.moonylabs.com/docs/economy/overview)
+- [/docs/economy/p2p](https://www.moonylabs.com/docs/economy/p2p)
+- [/docs/network/incentives](https://www.moonylabs.com/docs/network/incentives)
+- [/docs/network/overview](https://www.moonylabs.com/docs/network/overview)
+- [/docs/network/stakeholders](https://www.moonylabs.com/docs/network/stakeholders)
+- [/docs/protocol/mny](https://www.moonylabs.com/docs/protocol/mny)
+- [/docs/protocol/overview](https://www.moonylabs.com/docs/protocol/overview)
+- [/docs/protocol/pricing-curve](https://www.moonylabs.com/docs/protocol/pricing-curve)
+- [/docs/protocol/reserve](https://www.moonylabs.com/docs/protocol/reserve)
+- [/docs/resources/branding](https://www.moonylabs.com/docs/resources/branding)
+- [/docs/resources/disclaimer](https://www.moonylabs.com/docs/resources/disclaimer)

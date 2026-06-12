@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pricing Curve, Moony Docs</title>
+<meta name="description" content="The deterministic pricing curve that governs MNY." />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css" />
+<link rel="stylesheet" href="/assets/docs.css" />
+<link rel="stylesheet" href="/assets/docs-shell.css" />
+<link rel="canonical" href="https://www.moonylabs.com/docs/protocol/pricing-curve" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.moonylabs.com/docs/protocol/pricing-curve" />
+<meta property="og:title" content="Pricing Curve, Moony Docs" />
+<meta property="og:description" content="The deterministic pricing curve that governs MNY." />
+<meta property="og:image" content="https://www.moonylabs.com/assets/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Pricing Curve, Moony Docs" />
+<meta name="twitter:description" content="The deterministic pricing curve that governs MNY." />
+<meta name="twitter:image" content="https://www.moonylabs.com/assets/og.png" />
+</head>
+<body data-doc-page="curve">
+
+<div class="dx-layout">
+  <aside class="dx-sidebar" id="dxSidebar"></aside>
+
+  <main class="dx-main">
+    <div class="crumb">
+      <a href="/docs">Docs</a><span class="sep">/</span>
+      <span>Moony Protocol</span><span class="sep">/</span>
+      <span>Pricing Curve</span>
+    </div>
+
+    <p class="dx-eyebrow">Moony Protocol</p>
+    <h1>Pricing Curve</h1>
+    <p class="dx-lead">The deterministic pricing curve that governs MNY.</p>
+
+    <section class="doc-section" id="curve" style="padding-top:clamp(34px,4vw,46px)">
+      <div class="dx-feature-panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M7 15c3-9 7-10 13-11"/></svg></div>
+      <p>Moony's primary price discovery mechanism is an onchain pricing curve, a deterministic exponential function encoded within the Reserve program. Unlike traditional market-based price discovery that relies on order books or liquidity pools, the pricing curve calculates the price of MNY based solely on the current circulating supply. As tokens enter circulation through acquisition from the Reserve, the price rises along a mathematically defined trajectory. As tokens are redeemed and removed from circulation, the price falls along the same curve in reverse.</p>
+    </section>
+
+    <section class="doc-section" id="explore-curve">
+      <h2><span class="sn">#</span>Explore the curve</h2>
+      <p>Drag to set circulating supply and watch the spot price move along the curve. These are the live onchain constants, computed in real time.</p>
+      <div id="curveWidget" class="curve-widget"></div>
+      <div class="dx-stats dx-stats-3" style="margin-top:16px">
+        <div class="dx-stat"><div class="v">$0.01</div><div class="k">First coin, at genesis</div></div>
+        <div class="dx-stat"><div class="v">$1M</div><div class="k">Final coin, at full supply</div></div>
+        <div class="dx-stat"><div class="v">~$1.14T</div><div class="k">Capital to fully distribute</div></div>
+      </div>
+      <div class="dx-pull" style="margin-top:clamp(22px,3vw,30px)"><p>No presale, no insider allocation. All <span class="g">21M MNY</span> begin in the Reserve and enter circulation only as capital flows in. The first coin sold for $0.01; the price rises about $0.01 for roughly every $11,400 added, up to $1,000,000 for the final coin. <span class="g">The same curve, for everyone.</span></p></div>
+      <p>That $1.14 trillion total is the definite integral of the pricing curve across the entire 0&ndash;21M range, encoded onchain as a protocol constant.</p>
+    </section>
+
+    <section class="doc-section" id="spot-price">
+      <h2><span class="sn">#</span>Spot Price</h2>
+      <p>The spot price represents the instantaneous price per MNY token at any given circulating supply level. It is a continuous mathematical function with no bid-ask spread and no dependence on external liquidity. It is defined by an exponential equation with three immutable constants:</p>
+      <div class="formula">
+        <div class="formula-eq">P(S) = a · b · e<sup>c · S</sup></div>
+        <ul class="formula-vars">
+          <li><code>P(S)</code>, spot price in USDF at supply level S</li>
+          <li><code>S</code>, current circulating supply of MNY tokens</li>
+          <li><code>e</code>, Euler's number (~2.71828), the base of the natural exponential function</li>
+        </ul>
+        <div class="formula-src">Source: <a href="https://github.com/code-payments/flipcash-program/blob/main/api/src/curve.rs#L21-L28" target="_blank" rel="noopener">Flipcash Program</a></div>
+      </div>
+      <p>The exponential form ensures that the rate of price change is proportional to the current price itself, creating smooth, continuous price adjustment without discontinuities at any supply level.</p>
+      <div class="term">
+        <div class="term-bar"><span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span><span class="ttitle">curve.rs · spot_price_at_supply</span><button class="copy-btn tcopy" data-copy="// consts.rs - curve constants, scaled u128 (18-dp fixed point)
+pub const CURVE_A: u128 = 11400_230149967394933471;  // a ≈ 11400.2301
+pub const CURVE_B: u128 = 0_000000877175273521;      // b ≈ 8.7718e-7
+pub const CURVE_C: u128 = CURVE_B;                    // c == b
+
+// curve.rs - R'(S) = a * b * e^(c * s)
+pub fn spot_price_at_supply(&amp;self, current_supply: &amp;UnsignedNumeric) -&gt; Option&lt;UnsignedNumeric&gt; {
+    let c_times_s = self.c.checked_mul(current_supply)?;
+    let exp = c_times_s.signed().exp()?;
+    self.a.checked_mul(&amp;self.b)?.checked_mul(&amp;exp)
+}">Copy</button></div>
+<pre class="term-body"><span class="ln"><span class="cm">// consts.rs - curve constants, scaled u128 (18-dp fixed point)</span></span><span class="ln"><span class="fl">pub</span> <span class="fl">const</span> <span class="ar">CURVE_A</span>: u128 = 11400_230149967394933471;  <span class="cm">// a ≈ 11400.2301</span></span><span class="ln"><span class="fl">pub</span> <span class="fl">const</span> <span class="ar">CURVE_B</span>: u128 = 0_000000877175273521;      <span class="cm">// b ≈ 8.7718e-7</span></span><span class="ln"><span class="fl">pub</span> <span class="fl">const</span> <span class="ar">CURVE_C</span>: u128 = CURVE_B;                    <span class="cm">// c == b</span></span><span class="ln"> </span><span class="ln"><span class="cm">// curve.rs - R'(S) = a * b * e^(c * s)</span></span><span class="ln"><span class="fl">pub</span> <span class="fl">fn</span> <span class="pr">spot_price_at_supply</span>(&amp;self, current_supply: &amp;UnsignedNumeric) -&gt; Option&lt;UnsignedNumeric&gt; {</span><span class="ln">    <span class="fl">let</span> c_times_s = self.c.<span class="pr">checked_mul</span>(current_supply)?;</span><span class="ln">    <span class="fl">let</span> exp = c_times_s.<span class="pr">signed</span>().<span class="pr">exp</span>()?;</span><span class="ln">    self.a.<span class="pr">checked_mul</span>(&amp;self.b)?.<span class="pr">checked_mul</span>(&amp;exp)</span><span class="ln">}</span></pre>
+      </div>
+
+      <h3 id="constants">Constants</h3>
+      <p>Three immutable constants parameterize the curve to produce an initial price of ~0.01 USDF and a terminal price of 1,000,000 USDF at maximum supply (21M MNY):</p>
+      <div class="principles">
+        <div class="principle"><div><h3><code class="ic">a</code> = 11400.230149967394933471</h3><p>Amplitude constant. Scales the curve to reach $1,000,000 USDF at maximum supply.</p></div></div>
+        <div class="principle"><div><h3><code class="ic">b</code> = 0.000000877175273521</h3><p>Initial price coefficient. Sets the starting price at a × b ≈ $0.01 USDF when supply is near zero.</p></div></div>
+        <div class="principle"><div><h3><code class="ic">c</code> = 0.000000877175273521</h3><p>Growth rate. Controls how rapidly price increases with supply. Note: c = b by design, which simplifies integral calculations.</p><span class="meta">→ <a href="https://github.com/code-payments/flipcash-program/blob/main/api/src/consts.rs#L22-L24" target="_blank" rel="noopener">Flipcash Program</a></span></div></div>
+      </div>
+    </section>
+
+    <section class="doc-section" id="transaction-formulas">
+      <h2><span class="sn">#</span>Transaction Formulas</h2>
+      <div class="dx-feature-panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h6a3 3 0 0 1 3 3v14M9 12h7M19 8l-6 9"/></svg></div>
+      <p>The spot price tells you the current price per token, but you cannot simply multiply it by the quantity you want, because each token you buy slightly increases the price of the next one. Instead, the total cost is computed by integrating the spot price function across the full range of the transaction. The formulas below handle this automatically: two for buying (cost and tokens received) and one for selling (value received).</p>
+
+      <h3 id="cost-to-buy">Cost to Buy Tokens</h3>
+      <p>Given a token quantity to acquire, this formula computes the total USDF cost by evaluating the definite integral from current supply to new supply:</p>
+      <div class="formula">
+        <div class="formula-eq">Cost = (a · b / c) · (e<sup>c · S₁</sup> − e<sup>c · S₀</sup>)</div>
+        <ul class="formula-vars">
+          <li><code>S₀</code>, circulating supply before the purchase (currentSupply)</li>
+          <li><code>S₁</code>, circulating supply after the purchase (S₀ + tokensToBuy)</li>
+          <li>Since b = c by design, the coefficient (a · b / c) simplifies to <code>a</code></li>
+        </ul>
+        <div class="formula-src">Source: <a href="https://github.com/code-payments/flipcash-program/blob/main/api/src/curve.rs#L30-L54" target="_blank" rel="noopener">Flipcash Program</a></div>
+      </div>
+      <div class="term">
+        <div class="term-bar"><span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span><span class="ttitle">curve.rs · tokens_to_value</span><button class="copy-btn tcopy" data-copy="// USDF cost to mint `tokens` starting at `current_supply`
+pub fn tokens_to_value(
+    &amp;self,
+    current_supply: &amp;UnsignedNumeric,
+    tokens: &amp;UnsignedNumeric,
+) -&gt; Option&lt;UnsignedNumeric&gt; {
+    // Integral of price function:
+    // R(S) = ∫(a * b * e^(c * s)) ds = (a * b / c) * e^(c * s)
+    // R(S) = (a * b / c) * (e^(c * S) - e^(c * S0))
+
+    let new_supply = current_supply.checked_add(tokens)?;
+    let cs = self.c.checked_mul(current_supply)?;
+    let ns = self.c.checked_mul(&amp;new_supply)?;
+
+    let exp_cs = cs.signed().exp()?;
+    let exp_ns = ns.signed().exp()?;
+
+    let numerator = self.a.checked_mul(&amp;self.b)?;
+    let ab_over_c = numerator.checked_div(&amp;self.c)?;
+
+    exp_ns
+        .checked_sub(&amp;exp_cs)
+        .and_then(|diff| ab_over_c.checked_mul(&amp;diff))
+}">Copy</button></div>
+<pre class="term-body"><span class="ln"><span class="cm">// USDF cost to mint `tokens` starting at `current_supply`</span></span><span class="ln"><span class="fl">pub</span> <span class="fl">fn</span> <span class="pr">tokens_to_value</span>(</span><span class="ln">    &amp;self,</span><span class="ln">    current_supply: &amp;UnsignedNumeric,</span><span class="ln">    tokens: &amp;UnsignedNumeric,</span><span class="ln">) -&gt; Option&lt;UnsignedNumeric&gt; {</span><span class="ln">    <span class="cm">// Integral of price function:</span></span><span class="ln">    <span class="cm">// R(S) = ∫(a * b * e^(c * s)) ds = (a * b / c) * e^(c * s)</span></span><span class="ln">    <span class="cm">// R(S) = (a * b / c) * (e^(c * S) - e^(c * S0))</span></span><span class="ln"> </span><span class="ln">    <span class="fl">let</span> new_supply = current_supply.<span class="pr">checked_add</span>(tokens)?;</span><span class="ln">    <span class="fl">let</span> cs = self.c.<span class="pr">checked_mul</span>(current_supply)?;</span><span class="ln">    <span class="fl">let</span> ns = self.c.<span class="pr">checked_mul</span>(&amp;new_supply)?;</span><span class="ln"> </span><span class="ln">    <span class="fl">let</span> exp_cs = cs.<span class="pr">signed</span>().<span class="pr">exp</span>()?;</span><span class="ln">    <span class="fl">let</span> exp_ns = ns.<span class="pr">signed</span>().<span class="pr">exp</span>()?;</span><span class="ln"> </span><span class="ln">    <span class="fl">let</span> numerator = self.a.<span class="pr">checked_mul</span>(&amp;self.b)?;</span><span class="ln">    <span class="fl">let</span> ab_over_c = numerator.<span class="pr">checked_div</span>(&amp;self.c)?;</span><span class="ln"> </span><span class="ln">    exp_ns</span><span class="ln">        .<span class="pr">checked_sub</span>(&amp;exp_cs)</span><span class="ln">        .<span class="pr">and_then</span>(|diff| ab_over_c.<span class="pr">checked_mul</span>(&amp;diff))</span><span class="ln">}</span></pre>
+      </div>
+      <p>The computed cost always exceeds (spot price × quantity) because each successive token in the transaction is priced marginally higher than the previous. This price impact is an inherent property of pricing curves and scales with transaction size relative to total supply.</p>
+
+      <h3 id="tokens-for-value">Tokens Bought for Value</h3>
+      <p>When participants specify a USDF amount to spend (the typical case), this inverse function determines the exact quantity of MNY received:</p>
+      <div class="formula">
+        <div class="formula-eq">T = ln(V / a + e<sup>c · S₀</sup>) / c − S₀</div>
+        <ul class="formula-vars">
+          <li><code>T</code>, tokens received (tokensBought)</li>
+          <li><code>V</code>, USDF amount the participant wishes to spend</li>
+          <li><code>S₀</code>, circulating supply before the purchase</li>
+          <li><code>ln</code>, natural logarithm, the inverse of exponentiation (e^x)</li>
+        </ul>
+        <div class="formula-src">Source: <a href="https://github.com/code-payments/flipcash-program/blob/main/api/src/curve.rs#L56-L74" target="_blank" rel="noopener">Flipcash Program</a></div>
+      </div>
+      <div class="term">
+        <div class="term-bar"><span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span><span class="ttitle">curve.rs · value_to_tokens</span><button class="copy-btn tcopy" data-copy="// MNY received when spending `value` USDF at `current_supply`
+pub fn value_to_tokens(
+    &amp;self,
+    current_supply: &amp;UnsignedNumeric,
+    value: &amp;UnsignedNumeric,
+) -&gt; Option&lt;UnsignedNumeric&gt; {
+    // num_tokens = (1/c) * ln(value / (a*b/c) + e^(c * current_supply)) - current_supply
+
+    let ab_over_c = self.a.checked_mul(&amp;self.b)?.checked_div(&amp;self.c)?;
+    let exp_cs = self.c.checked_mul(current_supply)?.signed().exp()?;
+
+    let term = value.checked_div(&amp;ab_over_c)?.checked_add(&amp;exp_cs)?;
+
+    let ln_term = term.log()?.value;
+    let result = ln_term.checked_div(&amp;self.c)?.checked_sub(current_supply)?;
+
+    Some(result)
+}">Copy</button></div>
+<pre class="term-body"><span class="ln"><span class="cm">// MNY received when spending `value` USDF at `current_supply`</span></span><span class="ln"><span class="fl">pub</span> <span class="fl">fn</span> <span class="pr">value_to_tokens</span>(</span><span class="ln">    &amp;self,</span><span class="ln">    current_supply: &amp;UnsignedNumeric,</span><span class="ln">    value: &amp;UnsignedNumeric,</span><span class="ln">) -&gt; Option&lt;UnsignedNumeric&gt; {</span><span class="ln">    <span class="cm">// num_tokens = (1/c) * ln(value / (a*b/c) + e^(c * current_supply)) - current_supply</span></span><span class="ln"> </span><span class="ln">    <span class="fl">let</span> ab_over_c = self.a.<span class="pr">checked_mul</span>(&amp;self.b)?.<span class="pr">checked_div</span>(&amp;self.c)?;</span><span class="ln">    <span class="fl">let</span> exp_cs = self.c.<span class="pr">checked_mul</span>(current_supply)?.<span class="pr">signed</span>().<span class="pr">exp</span>()?;</span><span class="ln"> </span><span class="ln">    <span class="fl">let</span> term = value.<span class="pr">checked_div</span>(&amp;ab_over_c)?.<span class="pr">checked_add</span>(&amp;exp_cs)?;</span><span class="ln"> </span><span class="ln">    <span class="fl">let</span> ln_term = term.<span class="pr">log</span>()?.value;</span><span class="ln">    <span class="fl">let</span> result = ln_term.<span class="pr">checked_div</span>(&amp;self.c)?.<span class="pr">checked_sub</span>(current_supply)?;</span><span class="ln"> </span><span class="ln">    <span class="fl">Some</span>(result)</span><span class="ln">}</span></pre>
+      </div>
+      <p>The logarithmic term arises from inverting the exponential cost function. Because the natural log is the inverse of e^x, this formula algebraically solves for the supply endpoint that yields exactly the specified cost when integrated from S₀.</p>
+
+      <h3 id="value-from-selling">Value from Selling Tokens</h3>
+      <p>The same logic applies in reverse when redeeming tokens. Tokens return to the Reserve, supply decreases, and USDF is released:</p>
+      <div class="formula">
+        <div class="formula-eq">Value = (a · b / c) · (e<sup>c · S₀</sup> − e<sup>c · S₁</sup>)</div>
+        <ul class="formula-vars">
+          <li><code>S₀</code>, circulating supply before the redemption</li>
+          <li><code>S₁</code>, circulating supply after the redemption (S₀ − tokensToSell)</li>
+          <li>Returns the gross redemption value before protocol fees are applied</li>
+        </ul>
+        <div class="formula-src">Source: <a href="https://github.com/code-payments/flipcash-program/blob/main/api/src/curve.rs#L30-L54" target="_blank" rel="noopener">Flipcash Program</a></div>
+      </div>
+      <div class="callout note">
+        <svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+        <div><div class="cbody">Redemptions are subject to a fee (in basis points) deducted from the gross value. See the <a href="/docs/protocol/reserve#fee-model">Fee Model</a> section for details.</div></div>
+      </div>
+    </section>
+
+    <section class="doc-section" id="onchain">
+      <h2><span class="sn">#</span>Onchain Implementation</h2>
+      <div class="dx-feature-panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 8-5 4 5 4M15 8l5 4-5 4"/></svg></div>
+      <p>All curve values are precomputed at fixed supply intervals and embedded in the program as lookup tables. Transaction pricing reduces to table lookups with flat step pricing, producing identical results every time.</p>
+
+      <h3 id="tables">Precomputed Tables</h3>
+      <p>The implementation maintains two parallel data structures, each precomputed from the continuous formulas at fixed supply intervals:</p>
+      <div class="principles">
+        <div class="principle"><div><h3>Discrete Pricing Table</h3><p>Spot price P(S) evaluated at each discrete supply level. Used for displaying current market price.</p></div></div>
+        <div class="principle"><div><h3>Discrete Cumulative Value Table</h3><p>The integral of P(S) from 0 to each supply level. Enables efficient transaction cost computation by subtracting values at transaction boundaries.</p><span class="meta">→ <a href="https://github.com/code-payments/flipcash-program/blob/main/api/src/table.rs" target="_blank" rel="noopener">Flipcash Program</a></span></div></div>
+      </div>
+
+      <h3 id="precision">Arithmetic and Precision</h3>
+      <p>The lookup tables are configured to balance storage efficiency against pricing accuracy:</p>
+      <div class="doc-table">
+        <div class="dt-row" style="grid-template-columns:1.1fr 0.9fr 1.6fr"><span class="dh">Parameter</span><span class="dh">Value</span><span class="dh">Note</span></div>
+        <div class="dt-row" style="grid-template-columns:1.1fr 0.9fr 1.6fr"><span class="dl">Step size</span><code>100 tokens</code><span class="dl">Each entry is the curve value at S = i × 100; price is held constant within a step.</span></div>
+        <div class="dt-row" style="grid-template-columns:1.1fr 0.9fr 1.6fr"><span class="dl">Arithmetic</span><code>128-bit · 18 dp</code><span class="dl">Fixed-point integers with 18-decimal scaling. The MNY token itself uses 10 decimals.</span></div>
+        <div class="dt-row" style="grid-template-columns:1.1fr 0.9fr 1.6fr"><span class="dl">Entries per table</span><code>210,001</code><span class="dl">Covers 0 → 21,000,000 MNY in 100-token increments.</span></div>
+      </div>
+      <div class="formula-src" style="margin-top:14px">Source: <a href="https://github.com/code-payments/flipcash-program/blob/main/api/src/table.rs#L6" target="_blank" rel="noopener">api/src/table.rs</a></div>
+      <p>These tables are fully deterministic and independently verifiable. Any implementation can regenerate the complete table contents from the constants and formulas documented above and verify equivalence with the onchain contract data.</p>
+    </section>
+
+    <section class="doc-section" id="price-integrity">
+      <h2><span class="sn">#</span>Price Integrity and Secondary Markets</h2>
+      <div class="dx-feature-panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.5 7.5 8 9 4.5-1.5 8-4 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+      <p>When price discovery is separated from actual ownership, price can move without any change in who holds the asset. Derivative markets allow leveraged participants to influence price without ever holding the underlying asset. Cascading liquidations and synthetic positions can drive price collapses that have no relationship to real demand or supply.</p>
+      <p>The Reserve eliminates this class of vulnerability by design. Because the Reserve is the sole mechanism through which MNY enters and exits circulation, the Reserve price changes only when capital is committed or withdrawn. There are no external order books, no leveraged positions, and no derivative markets capable of influencing the Reserve's deterministic pricing.</p>
+      <p>Secondary markets for MNY may exist, but they cannot alter the Reserve's deterministic pricing. Any divergence between secondary market prices and the Reserve creates an arbitrage opportunity that naturally drives convergence:</p>
+      <div class="principles">
+        <div class="principle"><div><h3>Secondary Price &gt; Reserve Price</h3><p>Arbitrageurs acquire MNY from the Reserve at the lower curve price, then sell on the secondary market at the elevated price. This increases circulating supply (raising the curve price) while adding sell pressure to the secondary market (lowering its price), converging the two.</p></div></div>
+        <div class="principle"><div><h3>Secondary Price &lt; Reserve Price</h3><p>Arbitrageurs purchase MNY on the secondary market at the discounted price, then redeem at the Reserve for the higher curve value. This adds buy pressure to the secondary market (raising its price) while decreasing circulating supply (lowering the curve price), converging the two.</p></div></div>
+      </div>
+      <p>This arbitrage mechanism establishes the Reserve as both a price floor and ceiling for external markets. Any price gap exceeding transaction costs creates an incentive for arbitrageurs to restore equilibrium, anchoring all external pricing to the Reserve.</p>
+    </section>
+
+    <nav class="dx-pager">
+      <a href="/docs/protocol/reserve"><span class="pg-k">← Previous</span><span class="pg-t">The Reserve</span></a>
+      <a class="next" href="/docs/economy/overview"><span class="pg-k">Next →</span><span class="pg-t">Moony Economy</span></a>
+    </nav>
+
+    <div class="dx-foot">
+      <span>© 2026 Moony Labs, LLC · MIT</span>
+    </div>
+  </main>
+
+  <nav class="dx-onthispage" id="dxOtp"></nav>
+</div>
+
+<script src="/assets/app.js"></script>
+<script src="/assets/curve-widget.js"></script>
+<script src="/assets/search-index.js"></script>
+<script src="/assets/docs-nav.js"></script>
+</body>
+</html>
